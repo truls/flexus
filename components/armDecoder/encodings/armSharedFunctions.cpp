@@ -579,7 +579,7 @@ bool decodeBitMasks(uint64_t &tmask, uint64_t &wmask, bool immN, char imms, char
 }
 
 arminst generateException(armcode const &aFetchedOpcode, uint32_t aCPU, int64_t aSequenceNo,
-                          eExceptionType aType) {
+                          [[maybe_unused]] eExceptionType aType) {
   DECODER_TRACE;
   SemanticInstruction *inst(new SemanticInstruction(aFetchedOpcode.thePC, aFetchedOpcode.theOpcode,
                                                     aFetchedOpcode.theBPState, aCPU, aSequenceNo));

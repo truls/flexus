@@ -109,9 +109,9 @@ public:
   virtual bool freeSlotsPending() const {
     return true;
   }
-  virtual void reserve(int32_t n = 1) {
+  virtual void reserve([[maybe_unused]] int32_t n = 1) {
   }
-  virtual void unreserve(int32_t n = 1) {
+  virtual void unreserve([[maybe_unused]] int32_t n = 1) {
   }
   virtual int32_t size() const {
     return 0;

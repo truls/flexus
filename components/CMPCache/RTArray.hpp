@@ -81,7 +81,8 @@ struct RTSerializer {
   int8_t owner;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
     ar &owner;
@@ -93,7 +94,8 @@ struct BlockSerializer {
   uint8_t state;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
   }
@@ -574,7 +576,8 @@ private:
     return ((addr >> blockShift) & blockOffsetMask);
   }
 
-  inline uint64_t get_block_set(uint64_t addr, uint64_t way) {
+  inline uint64_t get_block_set(uint64_t addr,
+                                [[maybe_unused]] uint64_t way) {
     return ((addr >> blockShift) & blockSetLowMask) |
            ((addr >> blockSetMidShift) & blockSetMidMask) |
            ((addr >> blockSetHighShift) & blockSetHighMask);
@@ -1068,7 +1071,7 @@ public:
     return (set->template project<by_way>(block));
   }
 
-  inline bool isConsistent(uint64_t tagset) {
+  inline bool isConsistent([[maybe_unused]] uint64_t tagset) {
     return true;
 #if 0
     block_set_t * block_set = &(theBlocks[get_block_set(tagset, 0)]);
@@ -1674,11 +1677,12 @@ public:
     return ret;
   }
 
-  bool saveState(std::ostream &s) {
+  bool saveState([[maybe_unused]] std::ostream &s) {
     return true;
   }
 
-  bool loadState(std::istream &s, int32_t theIndex) {
+  bool loadState(std::istream &s,
+                 [[maybe_unused]] int32_t theIndex) {
 
     boost::archive::binary_iarchive ia(s);
 

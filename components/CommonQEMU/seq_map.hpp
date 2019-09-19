@@ -184,7 +184,8 @@ public:
   typedef typename MapTable::seq_iter seq_iter;
   typedef typename MapTable::size_type size_type;
 
-  void init(uint32_t size, uint32_t assoc, uint32_t usefulBottomBits) {
+  void init(uint32_t size, uint32_t assoc,
+            [[maybe_unused]] uint32_t usefulBottomBits) {
     theSets = size / assoc;
     theAssoc = assoc;
     theTable.resize(theSets);

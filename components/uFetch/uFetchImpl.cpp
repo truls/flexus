@@ -961,10 +961,12 @@ private:
     //     push-push should always mean TranslationsFromTLB is filled
   }
 
-  bool available(interface::ResyncIn const &, index_t anIndex) {
+  bool available(interface::ResyncIn const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
-  void push(interface::ResyncIn const &, index_t anIndex, bool &aResync) {
+  void push(interface::ResyncIn const &,
+            [[maybe_unused]] index_t anIndex,
+            [[maybe_unused]] bool &aResync) {
     TranslationsFromTLB.clear();
     theBundle->clear();
   }

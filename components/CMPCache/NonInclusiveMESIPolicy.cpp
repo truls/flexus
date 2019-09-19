@@ -1847,7 +1847,8 @@ void NonInclusiveMESIPolicy::wakeMAFs(MemoryAddress anAddress) {
   }
 }
 
-int32_t NonInclusiveMESIPolicy::pickSharer(const SimpleDirectoryState &state, int32_t requester,
+int32_t NonInclusiveMESIPolicy::pickSharer(const SimpleDirectoryState &state,
+                                          [[maybe_unused]] int32_t requester,
                                            int32_t dir) {
   if (state.isSharer(dir)) {
     return dir;

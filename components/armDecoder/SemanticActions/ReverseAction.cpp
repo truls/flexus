@@ -211,7 +211,7 @@ struct CRCAction : public PredicatedSemanticAction {
   bool the64;
 
   CRCAction(SemanticInstruction *anInstruction, uint32_t aPoly, eOperandCode anInputCode,
-            eOperandCode anInputCode2, eOperandCode anOutputCode, bool is64)
+            [[maybe_unused]] eOperandCode anInputCode2, eOperandCode anOutputCode, bool is64)
       : PredicatedSemanticAction(anInstruction, 1, true), theInputCode(anInputCode),
         theOutputCode(anOutputCode), thePoly(aPoly), the64(is64) {
   }

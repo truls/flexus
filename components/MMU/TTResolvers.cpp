@@ -70,7 +70,7 @@ address_t TTResolver::resolve(address_t inputAddress) {
  * given the rawTTE which has been read from QEMUs physical memory
  *  - Depending on Granule Size, and Translation Level....
  */
-address_t TTResolver::getBlockOutputBits(address_t rawTTEFromPhysMemory) {
+address_t TTResolver::getBlockOutputBits([[maybe_unused]] address_t rawTTEFromPhysMemory) {
   return 0; // always a subclass
 }
 
@@ -111,7 +111,7 @@ L0Resolver::L0Resolver(bool abro, _TTResolver_Shptr_T aGranule, address_t aTTBR,
 /* Return: Shifted and Masked bits of output address (physical or intermediate)
  * given the rawTTE which has been read from QEMUs physical memory
  */
-address_t L0Resolver::getBlockOutputBits(address_t rawTTEFromPhysMemory) {
+address_t L0Resolver::getBlockOutputBits([[maybe_unused]] address_t rawTTEFromPhysMemory) {
   return 0; /* Level 0 not allowed to be a block descriptor in 4k Granules*/
   // FIXME: when you do this for other granule sizes, L0 is possible afaik
 }

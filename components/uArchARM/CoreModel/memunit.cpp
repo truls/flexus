@@ -149,7 +149,7 @@ void CoreImpl::breakMSHRLink(memq_t::index<by_insn>::type::iterator iter) {
 
 void CoreImpl::insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation anOperation,
                          eSize aSize, bool aBypassSB, InstructionDependance const &aDependance,
-                         eAccType type) {
+                         [[maybe_unused]] eAccType type) {
   FLEXUS_PROFILE();
   theMemQueue.push_back(MemQueueEntry(anInsn, ++theMemorySequenceNum, anOperation, aSize,
                                       aBypassSB && theNAWBypassSB, aDependance));
@@ -160,7 +160,7 @@ void CoreImpl::insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation an
 }
 
 void CoreImpl::insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation anOperation,
-                         eSize aSize, bool aBypassSB, eAccType type) {
+                         eSize aSize, bool aBypassSB, [[maybe_unused]] eAccType type) {
   FLEXUS_PROFILE();
   theMemQueue.push_back(MemQueueEntry(anInsn, ++theMemorySequenceNum, anOperation, aSize,
                                       aBypassSB && theNAWBypassSB));

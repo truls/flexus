@@ -128,36 +128,41 @@ public:
   virtual bool evictionResourcesEmpty() const {
     return true;
   }
-  virtual void reserveEvictionResource(int32_t n) {
+  virtual void reserveEvictionResource([[maybe_unused]] int32_t n) {
   }
-  virtual void unreserveEvictionResource(int32_t n) {
+  virtual void unreserveEvictionResource([[maybe_unused]] int32_t n) {
   }
   virtual std::pair<_State, MemoryAddress> getPreemptiveEviction() = 0;
 
-  virtual bool sameSet(MemoryAddress a, MemoryAddress b) {
+  virtual bool sameSet([[maybe_unused]] MemoryAddress a,
+                       [[maybe_unused]] MemoryAddress b) {
     return false;
   }
-  virtual std::list<MemoryAddress> getSetTags(MemoryAddress addr) {
+  virtual std::list<MemoryAddress> getSetTags([[maybe_unused]] MemoryAddress addr) {
     DBG_Assert(false, (<< "Derived class does not implement getSetTags() function."));
     return std::list<MemoryAddress>();
   }
 
-  virtual bool setAlmostFull(LookupResult_p lookup, MemoryAddress const &anAddress) const {
+  virtual bool setAlmostFull([[maybe_unused]] LookupResult_p lookup,
+                             [[maybe_unused]] MemoryAddress const &anAddress) const {
     return true; // Default always returns true. Proper behaviour can be
                  // definied in derived classes when required
   }
 
-  virtual bool lockedVictimAvailable(LookupResult_p lookup, MemoryAddress const &anAddress) const {
+  virtual bool lockedVictimAvailable([[maybe_unused]] LookupResult_p lookup,
+                                     [[maybe_unused]] MemoryAddress const &anAddress) const {
     return false; // Default always returns false. Proper behaviour can be
                   // definied in derived classes when required
   }
 
-  virtual bool victimAvailable(LookupResult_p lookup, MemoryAddress const &anAddress) const {
+  virtual bool victimAvailable([[maybe_unused]] LookupResult_p lookup,
+                               [[maybe_unused]] MemoryAddress const &anAddress) const {
     return false; // Default always returns false. Proper behaviour can be
                   // definied in derived classes when required
   }
 
-  virtual LookupResult_p replaceLockedBlock(LookupResult_p lookup, MemoryAddress const &anAddress) {
+  virtual LookupResult_p replaceLockedBlock([[maybe_unused]] LookupResult_p lookup,
+                                            [[maybe_unused]] MemoryAddress const &anAddress) {
     DBG_Assert(false, (<< "Derived class does not implement replaceLockedBlock() function."));
     return nullptr;
   }

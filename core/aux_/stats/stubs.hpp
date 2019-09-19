@@ -24,26 +24,30 @@ namespace Stat {
 namespace aux_ {
 
 template <class Archive>
-void save(Archive &ar, ::boost::intrusive_ptr<StatValueBase> const &ptr, uint32_t version) {
+void save(Archive &ar, ::boost::intrusive_ptr<StatValueBase> const &ptr,
+          [[maybe_unused]] uint32_t version) {
   StatValueBase *svb = ptr.get();
   ar &svb;
 }
 
 template <class Archive>
-void load(Archive &ar, ::boost::intrusive_ptr<StatValueBase> &ptr, uint32_t version) {
+void load(Archive &ar, ::boost::intrusive_ptr<StatValueBase> &ptr,
+          [[maybe_unused]] uint32_t version) {
   StatValueBase *svb;
   ar &svb;
   ptr = boost::intrusive_ptr<Flexus::Stat::aux_::StatValueBase>(svb);
 }
 
 template <class Archive>
-void save(Archive &ar, ::boost::intrusive_ptr<StatValueArrayBase> const &ptr, uint32_t version) {
+void save(Archive &ar, ::boost::intrusive_ptr<StatValueArrayBase> const &ptr,
+          [[maybe_unused]] uint32_t version) {
   StatValueArrayBase *svab = ptr.get();
   ar &svab;
 }
 
 template <class Archive>
-void load(Archive &ar, ::boost::intrusive_ptr<StatValueArrayBase> &ptr, uint32_t version) {
+void load(Archive &ar, ::boost::intrusive_ptr<StatValueArrayBase> &ptr,
+          [[maybe_unused]] uint32_t version) {
   StatValueArrayBase *svab;
   ar &svab;
   ptr = boost::intrusive_ptr<Flexus::Stat::aux_::StatValueArrayBase>(svab);

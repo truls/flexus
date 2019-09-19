@@ -145,7 +145,7 @@ public:
   // BranchFeedbackIn
   //----------------
   FLEXUS_PORT_ARRAY_ALWAYS_AVAILABLE(BranchFeedbackIn);
-  void push(interface::BranchFeedbackIn const &, index_t anIndex,
+  void push(interface::BranchFeedbackIn const &, [[maybe_unused]] index_t anIndex,
             boost::intrusive_ptr<BranchFeedback> &aFeedback) {
     theBranchPredictor->feedback(*aFeedback);
   }

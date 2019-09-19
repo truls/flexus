@@ -33,7 +33,8 @@ struct CalcException {
 struct StatValueBase : public boost::counted_base {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize([[maybe_unused]] Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
   }
 
 public:
@@ -41,18 +42,18 @@ public:
     aValue.print(anOstream);
     return anOstream;
   }
-  virtual void print(std::ostream &anOstream,
-                     std::string const &options = std::string("")) const {};
+  virtual void print([[maybe_unused]] std::ostream &anOstream,
+                     [[maybe_unused]] std::string const &options = std::string("")) const {};
   virtual int64_t asLongLong() const {
     return 0;
   };
-  virtual int64_t asLongLong(std::string const &options) const {
+  virtual int64_t asLongLong([[maybe_unused]] std::string const &options) const {
     throw CalcException(std::string("{Expression options not supported for this stat type}"));
   }
   virtual double asDouble() const {
     return asLongLong();
   };
-  virtual double asDouble(std::string const &options) const {
+  virtual double asDouble([[maybe_unused]] std::string const &options) const {
     throw CalcException(std::string("{Expression options not supported for this stat type}"));
   }
   virtual ~StatValueBase() {
@@ -63,24 +64,25 @@ public:
   virtual boost::intrusive_ptr<StatValueBase> sumAccumulator() {
     throw 1; /* by default, stat's don't support sum accumulation */
   }
-  virtual void reduceSum(StatValueBase const &anRHS){};
+  virtual void reduceSum([[maybe_unused]] StatValueBase const &anRHS){};
   virtual boost::intrusive_ptr<StatValueBase> avgAccumulator() {
     throw 1; /* by default, stat's don't support average accumulation */
   }
-  virtual void reduceAvg(StatValueBase const &anRHS){};
+  virtual void reduceAvg([[maybe_unused]] StatValueBase const &anRHS){};
   virtual boost::intrusive_ptr<StatValueBase> stdevAccumulator() {
     throw 1; /* by default, stat's don't support standard deviation accumulation
               */
   }
-  virtual void reduceStdDev(StatValueBase const &anRHS){};
+  virtual void reduceStdDev([[maybe_unused]] StatValueBase const &anRHS){};
   virtual boost::intrusive_ptr<StatValueBase> countAccumulator();
-  virtual void reduceCount(StatValueBase const &anRHS){};
+  virtual void reduceCount([[maybe_unused]] StatValueBase const &anRHS){};
 };
 
 struct StatValueArrayBase : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize([[maybe_unused]] Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
   }
 
@@ -138,10 +140,10 @@ protected:
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, uint32_t version) const {
+  template <class Archive> void save(Archive &ar,[[maybe_unused]] uint32_t version) const {
     ar &*theStatName;
   }
-  template <class Archive> void load(Archive &ar, uint32_t version) {
+  template <class Archive> void load(Archive &ar,[[maybe_unused]] uint32_t version) {
     std::string temp;
     ar &temp;
     theStatName = new std::string(temp); // Leaks, but doesn't matter
@@ -167,12 +169,12 @@ class StatValueHandle : public StatValueHandle_Base {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, uint32_t version) const {
+  template <class Archive> void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     boost::intrusive_ptr<const StatValueBase> temp(theValue->serialForm());
     ar &temp;
   }
-  template <class Archive> void load(Archive &ar, uint32_t version) {
+  template <class Archive> void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     ar &theValue;
   }
@@ -209,12 +211,12 @@ class StatValueArrayHandle : public StatValueHandle_Base {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, uint32_t version) const {
+  template <class Archive> void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     boost::intrusive_ptr<const StatValueBase> temp(theValue->serialForm());
     ar &temp;
   }
-  template <class Archive> void load(Archive &ar, uint32_t version) {
+  template <class Archive> void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     ar &theValue;
   }

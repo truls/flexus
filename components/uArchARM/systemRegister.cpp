@@ -82,14 +82,14 @@ struct DAIF : public SysRegInfo {
   eRegInfo type = kARM_NO_RAW;
   uint64_t resetvalue = -1;
 
-  virtual eAccessResult accessfn(uArchARM *aCore) {
+  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*aa64_daif_access*/
   virtual void writefn(uArchARM *aCore, uint64_t aVal) override {
     aCore->setDAIF(aVal);
   } // FIXME
-  virtual void reset(uArchARM *aCore) override {
+  virtual void reset([[maybe_unused]] uArchARM *aCore) override {
     DBG_Assert(false);
   } // FIXME /*arm_cp_reset_ignore*/
   virtual uint64_t readfn(uArchARM *aCore) override {
@@ -109,14 +109,14 @@ struct TPIDR_EL0 : public SysRegInfo {
   eRegInfo type = kARM_NO_RAW;
   uint64_t resetvalue = -1;
 
-  virtual eAccessResult accessfn(uArchARM *aCore) {
+  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*aa64_daif_access*/
   virtual void writefn(uArchARM *aCore, uint64_t aVal) override {
     aCore->setDAIF(aVal);
   } // FIXME
-  virtual void reset(uArchARM *aCore) override {
+  virtual void reset([[maybe_unused]] uArchARM *aCore) override {
     DBG_Assert(false);
   } // FIXME /*arm_cp_reset_ignore*/
   virtual uint64_t readfn(uArchARM *aCore) override {
@@ -136,11 +136,12 @@ struct FPCR : public SysRegInfo {
   eRegInfo type;
   uint64_t resetvalue = -1;
 
-  virtual uint64_t readfn(uArchARM *aCore) override {
+  virtual uint64_t readfn([[maybe_unused]] uArchARM *aCore) override {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*aa64_fpcr_read*/
-  virtual void writefn(uArchARM *aCore, uint64_t aVal) override {
+  virtual void writefn([[maybe_unused]] uArchARM *aCore,
+                       [[maybe_unused]] uint64_t aVal) override {
     DBG_Assert(false);
   } // FIXME /*aa64_fpcr_write*/
 } FPCR_;
@@ -157,11 +158,12 @@ struct FPSR : public SysRegInfo {
   eRegInfo type;
   uint64_t resetvalue = -1;
 
-  virtual uint64_t readfn(uArchARM *aCore) override {
+  virtual uint64_t readfn([[maybe_unused]] uArchARM *aCore) override {
     DBG_Assert(false);
     return 0;
   } /*aa64_fpsr_read*/
-  virtual void writefn(uArchARM *aCore, uint64_t aVal) override {
+  virtual void writefn([[maybe_unused]] uArchARM *aCore,
+                       [[maybe_unused]] uint64_t aVal) override {
     DBG_Assert(false);
   } /*aa64_fpsr_write*/
 } FPSR_;
@@ -262,7 +264,7 @@ struct SP_EL0 : public SysRegInfo {
   virtual uint64_t readfn(uArchARM *aCore) override {
     return aCore->getSP_el(0);
   }
-  virtual eAccessResult accessfn(uArchARM *aCore) {
+  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*sp_el0_access*/

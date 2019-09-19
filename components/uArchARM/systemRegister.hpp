@@ -112,7 +112,7 @@ struct SysRegInfo {
    * checks required. The access check is performed at runtime, not at
    * translate time.
    */
-  virtual eAccessResult accessfn(uArchARM *aCore) {
+  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
     return kACCESS_TRAP;
   }
@@ -121,7 +121,7 @@ struct SysRegInfo {
    * will be done by loading from the offset into CPUARMState specified
    * by fieldoffset.
    */
-  virtual uint64_t readfn(uArchARM *aCore) {
+  virtual uint64_t readfn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
     return 0;
   }
@@ -130,7 +130,8 @@ struct SysRegInfo {
    * will be done by writing to the offset into CPUARMState specified
    * by fieldoffset.
    */
-  virtual void writefn(uArchARM *aCore, uint64_t aVal) {
+  virtual void writefn([[maybe_unused]] uArchARM *aCore,
+                       [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
   /* Function for doing a "raw" read; used when we need to copy
@@ -139,7 +140,7 @@ struct SysRegInfo {
    * readfn and it has side effects (for instance clear-on-read bits).
    */
 
-  virtual uint64_t raw_readfn(uArchARM *aCore) {
+  virtual uint64_t raw_readfn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
     return 0;
   }
@@ -150,7 +151,7 @@ struct SysRegInfo {
    * or similar behaviour.
    */
 
-  virtual void raw_writefn(uArchARM *aCore) {
+  virtual void raw_writefn([[maybe_unused]] uArchARM *aCore) {
     DBG_Assert(false);
   }
   /* Function for resetting the register. If NULL, then reset will be done
@@ -158,7 +159,7 @@ struct SysRegInfo {
    * fieldoffset is 0 then no reset will be done.
    */
 
-  virtual void reset(uArchARM *aCore) {
+  virtual void reset([[maybe_unused]] uArchARM *aCore) {
   }
 };
 

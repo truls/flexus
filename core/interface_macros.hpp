@@ -223,14 +223,14 @@
     BOOST_PP_CAT(ComponentName, JumpTable)() {                                                     \
       BOOST_PP_SEQ_FOR_EACH(FLEXUS_IFACE_JUMPTABLE_INIT, x, ParameterList)                         \
     }                                                                                              \
-    void check(std::string const &anInstance) {                                                    \
+    void check([[maybe_unused]] std::string const &anInstance) {                                   \
       BOOST_PP_SEQ_FOR_EACH(FLEXUS_IFACE_JUMPTABLE_CHECK, x, ParameterList)                        \
     }                                                                                              \
   } /**/
 
 #define FLEXUS_COMPONENT_EMPTY_INTERFACE(ComponentName)                                            \
   struct BOOST_PP_CAT(ComponentName, JumpTable) {                                                  \
-    void check(std::string const &anInstance) {                                                    \
+    void check([[maybe_unused]] std::string const &anInstance) {                                   \
     }                                                                                              \
   };                                                                                               \
   struct BOOST_PP_CAT(ComponentName, Interface) : public Flexus::Core::ComponentInterface {        \

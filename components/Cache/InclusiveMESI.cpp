@@ -126,7 +126,7 @@ InclusiveMESI::InclusiveMESI(CacheController *aController, CacheInitInfo *anInit
 // Perform lookup, select action and update cache state if necessary
 std::tuple<bool, bool, Action> InclusiveMESI::doRequest(MemoryTransport transport,
                                                         bool has_maf_entry,
-                                                        TransactionTracker_p waking_tracker) {
+                                                        [[maybe_unused]] TransactionTracker_p waking_tracker) {
   bool is_write = false;
   bool is_prefetchwrite = false;
   bool is_upgrade = false;
@@ -2109,7 +2109,8 @@ Action InclusiveMESI::handleSnoopMessage(MemoryTransport transport) {
 // at this cache level.
 // Action InclusiveMESI::handleIprobe(bool aHit, MemoryMessage_p fetchReq,
 // TransactionTracker_p tracker) {
-Action InclusiveMESI::handleIprobe(bool aHit, MemoryTransport transport) {
+Action InclusiveMESI::handleIprobe([[maybe_unused]] bool aHit,
+                                  MemoryTransport transport) {
 
   MemoryMessage_p fetchReq = transport[MemoryMessageTag];
   TransactionTracker_p tracker = transport[TransactionTrackerTag];

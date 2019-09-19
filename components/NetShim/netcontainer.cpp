@@ -196,7 +196,7 @@ bool NetContainer::readIntToken(istream &infile, int32_t &i) {
 }
 
 bool NetContainer::readTopologyDoubleToken(istream &infile, int32_t &tok1, int32_t &tok2,
-                                           NetContainer *nc) {
+                                           [[maybe_unused]] NetContainer *nc) {
   char c;
 
   const char *errMsg = "";

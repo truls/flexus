@@ -59,7 +59,7 @@ struct register_value_extractor : boost::static_visitor<register_value> {
     return v;
   }
 
-  template <class T> register_value operator()(T aT) const {
+  template <class T> register_value operator()([[maybe_unused]] T aT) const {
     DBG_Assert(false, (<< "Attempting to store a non-register value operand "
                           "into a register"));
     return uint64_t(0ULL);

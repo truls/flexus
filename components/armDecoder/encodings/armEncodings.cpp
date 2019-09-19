@@ -43,7 +43,7 @@ namespace narmDecoder {
 
 /* C3.1 A64 instruction index by encoding */
 arminst disas_a64_insn(armcode const &aFetchedOpcode, uint32_t aCPU, int64_t aSequenceNo,
-                       int32_t aUop) {
+                       [[maybe_unused]] int32_t aUop) {
   if (aFetchedOpcode.theOpcode == 1) { // instruction fetch page fault
     return blackBox(aFetchedOpcode, aCPU, aSequenceNo);
   }

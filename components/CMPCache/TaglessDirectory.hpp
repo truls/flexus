@@ -89,7 +89,7 @@ public:
     virtual bool isProtected() {
       return false;
     }
-    virtual void setProtected(bool val) {
+    virtual void setProtected([[maybe_unused]] bool val) {
     }
     virtual const _State &state() const {
       return theAggregateState;
@@ -102,7 +102,7 @@ public:
         theSet[*bucket].addSharer(sharer);
       }
     }
-    virtual void removeSharer(int32_t sharer) {
+    virtual void removeSharer([[maybe_unused]] int32_t sharer) {
       DBG_Assert(false, (<< "Interface not supported by TaglessDirectory. Use "
                             "remove(sharer,msg) instead."));
     }
@@ -117,7 +117,7 @@ public:
         theSet[*bucket].removeSharer(sharer);
       }
     }
-    virtual void setSharer(int32_t sharer) {
+    virtual void setSharer([[maybe_unused]] int32_t sharer) {
       DBG_Assert(false, (<< "Interface not supported by TaglessDirectory. Use "
                             "set(sharer,msg) instead."));
     }
@@ -133,7 +133,7 @@ public:
         }
       }
     }
-    virtual void setState(const _State &state) {
+    virtual void setState([[maybe_unused]] const _State &state) {
       DBG_Assert(false, (<< "Interface not supported by TaglessDirectory. No "
                             "way to set state with a tagles directory."));
     }
@@ -291,8 +291,9 @@ public:
     theGroupShift = groupInterleavingBits;
   }
 
-  virtual bool allocate(boost::intrusive_ptr<AbstractLookupResult<_State>> lookup,
-                        MemoryAddress address, const _State &state) {
+  virtual bool allocate([[maybe_unused]] boost::intrusive_ptr<AbstractLookupResult<_State>> lookup,
+                        [[maybe_unused]] MemoryAddress address,
+                        [[maybe_unused]] const _State &state) {
     DBG_Assert(false, (<< "Tagless Directory does not support 'allocate()' function."));
     return false;
   }

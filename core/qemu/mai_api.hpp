@@ -110,7 +110,7 @@ public:
     return s;
   }
 
-  std::string describeException(int anException) const {
+  std::string describeException([[maybe_unused]] int anException) const {
     return "unknown_exception";
   }
 

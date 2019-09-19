@@ -63,7 +63,7 @@ std::ostream &operator<<(std::ostream &anOstream, AbstractInstruction const &anI
   return anOstream;
 }
 
-void AbstractInstruction::describe(std::ostream &anOstream) const {
+void AbstractInstruction::describe([[maybe_unused]] std::ostream &anOstream) const {
 }
 bool AbstractInstruction::haltDispatch() const {
   return false;

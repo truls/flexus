@@ -182,7 +182,8 @@ public:
     return peek(aReg);
   }
 
-  void write(mapped_reg aReg, register_value aValue, uArchARM &aCore, bool isW) {
+  void write(mapped_reg aReg, register_value aValue,
+             [[maybe_unused]] uArchARM &aCore, bool isW) {
     FLEXUS_PROFILE();
     poke(aReg, aValue, isW);
     theStatus[aReg.theType][aReg.theIndex] = kReady;

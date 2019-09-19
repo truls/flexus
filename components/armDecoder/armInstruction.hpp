@@ -112,7 +112,7 @@ public:
   virtual bool usesFpDiv() const;
   virtual bool usesFpSqrt() const;
 
-  virtual void setCanRetireCounter(const uint32_t numCycles) {
+  virtual void setCanRetireCounter([[maybe_unused]] const uint32_t numCycles) {
   }
   virtual void decrementCanRetireCounter() {
   }
@@ -161,7 +161,7 @@ public:
   virtual void resolveSpeculation() {
     theMayCommit = true;
   }
-  virtual void setMayCommit(bool aMayCommit) {
+  virtual void setMayCommit([[maybe_unused]] bool aMayCommit) {
     theMayCommit = false;
   }
   virtual bool mayCommit() const {
@@ -399,7 +399,7 @@ public:
   bool isBranch() const {
     return theInstructionClass == clsBranch;
   }
-  virtual void setAccessAddress(PhysicalMemoryAddress anAddress) {
+  virtual void setAccessAddress([[maybe_unused]] PhysicalMemoryAddress anAddress) {
   }
   virtual PhysicalMemoryAddress getAccessAddress() const {
     return PhysicalMemoryAddress(0);

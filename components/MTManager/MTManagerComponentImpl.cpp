@@ -268,25 +268,25 @@ MTManager *MTManager::get() {
 
 FLEXUS_COMPONENT_INSTANTIATOR(MTManagerComponent, nMTManager);
 
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, EXStalled) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, EXStalled) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, FAGStalled) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, FAGStalled) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, FStalled) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, FStalled) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, DStalled) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, DStalled) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, FAQ_ICount) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, FAQ_ICount) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, FIQ_ICount) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, FIQ_ICount) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(MTManagerComponent, ROB_ICount) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(MTManagerComponent, ROB_ICount) {
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
 

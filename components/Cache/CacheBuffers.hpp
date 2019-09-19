@@ -253,7 +253,7 @@ public:
   typedef typename evict_buf_t::template nth_index<1>::type::iterator iterator;
   typedef typename evict_buf_t::template nth_index<1>::type::const_iterator const_iterator;
 
-  virtual void saveState(std::ostream &anOstream) {
+  virtual void saveState([[maybe_unused]] std::ostream &anOstream) {
   }
 
   virtual void loadState(std::istream &anIstream) {
@@ -386,7 +386,7 @@ public:
     DBG_(Iface, (<< "Evict buffer removing entry for " << iter->theBlockAddress));
     theEvictions.erase(iter);
     theCurSize--;
-  }
+   }
 
   // exact address checking should be fine here, since the original writeback
   // request should have been aligned on a block boundary

@@ -92,7 +92,8 @@ template <class MemoryMapComponent> struct MemoryMapImpl : public MemoryMap {
     theMemoryMap.loadState(aDirName);
   }
 
-  virtual void recordAccess(PhysicalMemoryAddress const &anAddress, AccessType aType) {
+  virtual void recordAccess([[maybe_unused]] PhysicalMemoryAddress const &anAddress,
+                            [[maybe_unused]] AccessType aType) {
 #ifdef TRACK_ACCESSES
     theRequestingComponent_isValid
         ? theMemoryMap.recordAccess(anAddress, aType, theRequestingComponent)
@@ -201,7 +202,7 @@ public:
   PageMap_QemuObject(PageMap_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass(Class &aClass) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
 
     // ALEX - This is adding functions to Simics' Command Line Interface.
     // Disabled it, as the interface with QEMU is probably completely different
@@ -241,11 +242,11 @@ public:
     return true; // MemoryMap is always quiesced
   }
 
-  void saveState(std::string const &aDirName) {
+  void saveState([[maybe_unused]] std::string const &aDirName) {
     writePageMap(aDirName + "/page_map.out");
   }
 
-  void loadState(std::string const &aDirName) {
+  void loadState([[maybe_unused]] std::string const &aDirName) {
     readPageMap(aDirName + "/page_map.out"); // reads from ckpt directory
   }
 
@@ -346,15 +347,15 @@ public:
     return boost::intrusive_ptr<MemoryMap>(new MemoryMapImpl<self>(*this, aRequestingNode));
   }
 
-  bool isCacheable(PhysicalMemoryAddress const &anAddress) {
+  bool isCacheable([[maybe_unused]] PhysicalMemoryAddress const &anAddress) {
     return true;
   }
 
-  bool isMemory(PhysicalMemoryAddress const &anAddress) {
+  bool isMemory([[maybe_unused]] PhysicalMemoryAddress const &anAddress) {
     return true;
   }
 
-  bool isIO(PhysicalMemoryAddress const &anAddress) {
+  bool isIO([[maybe_unused]] PhysicalMemoryAddress const &anAddress) {
     return true;
   }
 
@@ -407,8 +408,9 @@ public:
     recordAccess(anAddress, aType, theNumCPUs);
   }
 
-  void recordAccess(PhysicalMemoryAddress const &anAddress, MemoryMap::AccessType aType,
-                    node_id_t anAccessingComponent) {
+  void recordAccess([[maybe_unused]] PhysicalMemoryAddress const &anAddress,
+                    [[maybe_unused]] MemoryMap::AccessType aType,
+                    [[maybe_unused]] node_id_t anAccessingComponent) {
 #ifdef TRACK_ACCESSES
     DBG_(Iface,
          (<< "Access by " << anAccessingComponent << " of " << MemoryMap::AccessType_toString(aType)

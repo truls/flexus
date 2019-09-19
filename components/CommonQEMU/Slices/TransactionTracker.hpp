@@ -297,7 +297,8 @@ public:
     theWasCounted = true;
   }
 
-  void setDelayCause(std::string const &aComponent, std::string const &aCause) {
+  void setDelayCause([[maybe_unused]] std::string const &aComponent,
+                     [[maybe_unused]] std::string const &aCause) {
     /*
     if ( ! theCurrentDelayCause
         || *theCurrentDelayCause != aCause

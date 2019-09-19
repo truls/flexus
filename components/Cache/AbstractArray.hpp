@@ -135,10 +135,11 @@ public:
   }
   virtual std::pair<_State, MemoryAddress> getPreemptiveEviction() = 0;
 
-  virtual bool sameSet(MemoryAddress a, MemoryAddress b) {
+  virtual bool sameSet([[maybe_unused]] MemoryAddress a,
+                       [[maybe_unused]] MemoryAddress b) {
     return false;
   }
-  virtual std::list<MemoryAddress> getSetTags(MemoryAddress addr) {
+  virtual std::list<MemoryAddress> getSetTags([[maybe_unused]] MemoryAddress addr) {
     DBG_Assert(false, (<< "Derived class does not implement getSetTags() function."));
     return std::list<MemoryAddress>();
   }

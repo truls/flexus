@@ -169,7 +169,8 @@ public:
     lookup(anIndex).clear();
   }
 
-  void write(mapped_reg anIndex, register_value aValue, uArchARM &aCore) {
+  void write(mapped_reg anIndex, register_value aValue,
+             [[maybe_unused]] uArchARM &aCore) {
     FLEXUS_PROFILE();
     bypass_handle_list &list = lookup(anIndex);
     bypass_handle_list::iterator iter = list.begin();

@@ -358,7 +358,7 @@ Effect *squash(SemanticInstruction *inst, InternalDependance const &aDependance)
 
 struct AnnulInstruction : public Interaction {
   void operator()(boost::intrusive_ptr<nuArchARM::Instruction> anInstruction,
-                  nuArchARM::uArchARM &aCore) {
+                  [[maybe_unused]] nuArchARM::uArchARM &aCore) {
     DBG_(VVerb, (<< *anInstruction << " Annulled"));
     anInstruction->annul();
   }
@@ -376,7 +376,7 @@ nuArchARM::Interaction *annulInstructionInteraction() {
 
 struct ReinstateInstruction : public Interaction {
   void operator()(boost::intrusive_ptr<nuArchARM::Instruction> anInstruction,
-                  nuArchARM::uArchARM &aCore) {
+                  [[maybe_unused]] nuArchARM::uArchARM &aCore) {
     DBG_(VVerb, (<< *anInstruction << " Reinstated"));
     anInstruction->reinstate();
   }
@@ -1195,7 +1195,8 @@ struct ExclusiveMonitorPass : public Effect {
   eOperandCode theAddressCode;
   eSize theSize;
 
-  ExclusiveMonitorPass(eOperandCode anAddressCode, eSize aSize) {
+  ExclusiveMonitorPass([[maybe_unused]] eOperandCode anAddressCode,
+                       [[maybe_unused]] eSize aSize) {
   }
 
   void invoke(SemanticInstruction &anInstruction) {

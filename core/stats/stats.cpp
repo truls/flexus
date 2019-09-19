@@ -40,7 +40,8 @@ StatValueHandle_Base &StatValueHandle_Base::operator=(const StatValueHandle_Base
   theUpdater = aHandle.theUpdater;
   return *this;
 }
-StatValueHandle_Base &StatValueHandle_Base::operator+=(const StatValueHandle_Base &aHandle) {
+StatValueHandle_Base &StatValueHandle_Base::operator+=
+  ([[maybe_unused]] const StatValueHandle_Base &aHandle) {
   return *this;
 }
 
@@ -439,9 +440,10 @@ template <class BiDirIter> struct EndDirective : public Directive<BiDirIter> {
   bool ready() {
     return true;
   }
-  void addLine(BiDirIter aStart, BiDirIter anEnd) {
+  void addLine([[maybe_unused]] BiDirIter aStart,
+               [[maybe_unused]] BiDirIter anEnd) {
   }
-  void addDirective(boost::intrusive_ptr<Directive<BiDirIter>> aDirective) {
+  void addDirective([[maybe_unused]] boost::intrusive_ptr<Directive<BiDirIter>> aDirective) {
   }
   bool process() {
     return true;
@@ -998,7 +1000,8 @@ public:
   }
 
   void reduce(eReduction aReduction, std::string const &aMeasurementSpec,
-              std::string const &aDestMeasurement, std::ostream &anOstream) {
+              std::string const &aDestMeasurement,
+              [[maybe_unused]] std::ostream &anOstream) {
     boost::regex spec(aMeasurementSpec);
     std::map<std::string, Measurement *> matches;
     for (auto &pair : theMeasurements)

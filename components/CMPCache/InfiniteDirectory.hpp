@@ -138,7 +138,7 @@ private:
     virtual bool isProtected() {
       return false;
     }
-    virtual void setProtected(bool val) {
+    virtual void setProtected([[maybe_unused]] bool val) {
     }
     virtual const _State &state() const {
       return theState;
@@ -250,7 +250,8 @@ public:
     theDirectory.erase(address);
   }
 
-  virtual bool sameSet(MemoryAddress a, MemoryAddress b) {
+  virtual bool sameSet([[maybe_unused]] MemoryAddress a,
+                       [[maybe_unused]] MemoryAddress b) {
     return theSameSetReturnValue;
   }
 

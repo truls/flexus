@@ -267,7 +267,7 @@ public:
   typedef typename evict_buf_t::template nth_index<1>::type::iterator iterator;
   typedef typename evict_buf_t::template nth_index<1>::type::const_iterator const_iterator;
 
-  virtual void saveState(std::ostream &anOstream) {
+  virtual void saveState([[maybe_unused]] std::ostream &anOstream) {
   }
 
   virtual void loadState(std::istream &anIstream) {

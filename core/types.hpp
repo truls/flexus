@@ -92,7 +92,7 @@ private:
   // Serialization Support
 public:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
     ar &address;
   }
 
