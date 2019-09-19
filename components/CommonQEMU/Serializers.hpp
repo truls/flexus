@@ -93,7 +93,8 @@ struct StdDirEntryExtendedSerializer {
   uint64_t tag;
   std::bitset<MAX_NUM_SHARERS> state;
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]]  const uint32_t version) {
     ar &tag;
     ar &state;
   }
@@ -124,7 +125,8 @@ struct StdDirEntrySerializer {
   uint64_t tag;
   uint64_t state;
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
   }
@@ -146,7 +148,8 @@ struct RegionDirEntrySerializer {
   uint8_t num_blocks;
   int8_t owner;
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &num_blocks;
     ar &owner;
@@ -199,7 +202,8 @@ public:
   }
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &theAddress;
     ar &theWays;
     ar &owner;
@@ -215,7 +219,8 @@ struct BlockSerializer {
   uint8_t state;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
   }

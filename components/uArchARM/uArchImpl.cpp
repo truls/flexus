@@ -305,7 +305,7 @@ private:
   void squash(eSquashCause aSquashReason) {
     FLEXUS_CHANNEL(SquashOut) << aSquashReason;
   }
-  void resyncMMU(int32_t aNode) {
+  void resyncMMU([[maybe_unused]] int32_t aNode) {
     bool value = true;
     FLEXUS_CHANNEL(ResyncOut) << value;
   }
@@ -326,7 +326,7 @@ private:
     FLEXUS_CHANNEL(BranchFeedbackOut) << aFeedback;
   }
 
-  void signalStoreForwardingHit(bool garbage) {
+  void signalStoreForwardingHit([[maybe_unused]] bool garbage) {
     bool value = true;
     FLEXUS_CHANNEL(StoreForwardingHitSeen) << value;
   }

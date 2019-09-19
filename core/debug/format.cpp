@@ -58,7 +58,8 @@ StaticFormat::StaticFormat(std::string const &aValue) : theValue(aValue) {
   translateEscapes(theValue);
 }
 
-void StaticFormat::format(std::ostream &anOstream, Entry const &anEntry) const {
+void StaticFormat::format(std::ostream &anOstream,
+                          [[maybe_unused]] Entry const &anEntry) const {
   anOstream << theValue;
 }
 

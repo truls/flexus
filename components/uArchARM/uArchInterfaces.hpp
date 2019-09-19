@@ -87,7 +87,7 @@ struct SemanticAction {
   // execution)
   virtual void evaluate() {
   }
-  virtual void describe(std::ostream &anOstream) const {
+  virtual void describe([[maybe_unused]] std::ostream &anOstream) const {
   }
   virtual void satisfyDependants() {
   }
@@ -654,11 +654,11 @@ struct InstructionDependance {
 };
 
 struct Interaction : public boost::counted_base {
-  virtual void operator()(boost::intrusive_ptr<Instruction> anInstruction,
-                          nuArchARM::uArchARM &aCore) {
+  virtual void operator()([[maybe_unused]] boost::intrusive_ptr<Instruction> anInstruction,
+                          [[maybe_unused]] nuArchARM::uArchARM &aCore) {
     DBG_Assert(false);
   }
-  virtual void describe(std::ostream &anOstream) const {
+  virtual void describe([[maybe_unused]] std::ostream &anOstream) const {
     DBG_Assert(false);
   }
 
@@ -720,131 +720,147 @@ struct uArchARM {
 
   virtual ~uArchARM() {
   }
-  virtual mapped_reg map(reg aReg) {
+  virtual mapped_reg map([[maybe_unused]] reg aReg) {
     DBG_Assert(false);
     return mapped_reg();
   }
-  virtual std::pair<mapped_reg, mapped_reg> create(reg aReg) {
+  virtual std::pair<mapped_reg, mapped_reg> create([[maybe_unused]] reg aReg) {
     DBG_Assert(false);
     return std::make_pair(mapped_reg(), mapped_reg());
   }
-  virtual void free(mapped_reg aReg) {
+  virtual void free([[maybe_unused]] mapped_reg aReg) {
     DBG_Assert(false);
   }
-  virtual void restore(reg aName, mapped_reg aReg) {
+  virtual void restore([[maybe_unused]] reg aName,[[maybe_unused]] mapped_reg aReg) {
     DBG_Assert(false);
   }
-  virtual void create(boost::intrusive_ptr<SemanticAction> anAction) {
+  virtual void create([[maybe_unused]] boost::intrusive_ptr<SemanticAction> anAction) {
     DBG_Assert(false);
   }
-  virtual void reschedule(boost::intrusive_ptr<SemanticAction> anAction) {
+  virtual void reschedule([[maybe_unused]] boost::intrusive_ptr<SemanticAction> anAction) {
     DBG_Assert(false);
   }
-  virtual eResourceStatus requestRegister(mapped_reg aRegister,
-                                          InstructionDependance const &aDependance) {
-    DBG_Assert(false);
-    return kNotReady;
-  }
-  virtual eResourceStatus requestRegister(mapped_reg aRegister) {
+  virtual eResourceStatus requestRegister([[maybe_unused]] mapped_reg aRegister,
+                                          [[maybe_unused]] InstructionDependance const &aDependance) {
     DBG_Assert(false);
     return kNotReady;
   }
-  virtual register_value readRegister(mapped_reg aRegister) {
+  virtual eResourceStatus requestRegister([[maybe_unused]] mapped_reg aRegister) {
+    DBG_Assert(false);
+    return kNotReady;
+  }
+  virtual register_value readRegister([[maybe_unused]] mapped_reg aRegister) {
     DBG_Assert(false);
     return (uint64_t)0ULL;
   }
-  virtual void squashRegister(mapped_reg aRegister) {
+  virtual void squashRegister([[maybe_unused]]mapped_reg aRegister) {
     DBG_Assert(false);
   }
-  virtual void writeRegister(mapped_reg aRegister, register_value aValue, bool isW = false) {
+  virtual void writeRegister([[maybe_unused]] mapped_reg aRegister,
+                             [[maybe_unused]] register_value aValue,
+                             [[maybe_unused]] bool isW = false) {
     DBG_Assert(false);
   }
-  virtual void copyRegValue(mapped_reg aSource, mapped_reg aDest) {
+  virtual void copyRegValue([[maybe_unused]] mapped_reg aSource,
+                            [[maybe_unused]] mapped_reg aDest) {
     DBG_Assert(false);
   }
-  virtual void satisfy(InstructionDependance const &aDep) {
+  virtual void satisfy([[maybe_unused]] InstructionDependance const &aDep) {
     DBG_Assert(false);
   }
-  virtual void squash(InstructionDependance const &aDep) {
+  virtual void squash([[maybe_unused]] InstructionDependance const &aDep) {
     DBG_Assert(false);
   }
-  virtual void satisfy(std::list<InstructionDependance> &dependances) {
+  virtual void satisfy([[maybe_unused]] std::list<InstructionDependance> &dependances) {
     DBG_Assert(false);
   }
-  virtual void squash(std::list<InstructionDependance> &dependances) {
+  virtual void squash([[maybe_unused]] std::list<InstructionDependance> &dependances) {
     DBG_Assert(false);
   }
-  virtual void applyToNext(boost::intrusive_ptr<Instruction> anInsn,
-                           boost::intrusive_ptr<Interaction> anInteraction) {
+  virtual void applyToNext([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                           [[maybe_unused]] boost::intrusive_ptr<Interaction> anInteraction) {
     DBG_Assert(false);
   }
-  virtual void deferInteraction(boost::intrusive_ptr<Instruction> anInsn,
-                                boost::intrusive_ptr<Interaction> anInteraction) {
+  virtual void deferInteraction([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                                [[maybe_unused]] boost::intrusive_ptr<Interaction> anInteraction) {
     DBG_Assert(false);
   }
-  virtual bool squashFrom(boost::intrusive_ptr<Instruction> anInsn) {
+  virtual bool squashFrom([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
     return false;
   }
-  virtual void redirectFetch(VirtualMemoryAddress anAddress) {
+  virtual void redirectFetch([[maybe_unused]] VirtualMemoryAddress anAddress) {
     DBG_Assert(false);
   }
-  virtual void insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation anOperation,
-                         eSize aSize, bool aBypassSB, eAccType type) {
+  virtual void insertLSQ([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                         [[maybe_unused]] eOperation anOperation,
+                         [[maybe_unused]] eSize aSize,
+                         [[maybe_unused]] bool aBypassSB,
+                         [[maybe_unused]] eAccType type) {
     DBG_Assert(false);
   }
-  virtual void insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation anOperation,
-                         eSize aSize, bool aBypassSB, InstructionDependance const &aDependance,
-                         eAccType type) {
+  virtual void insertLSQ([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                         [[maybe_unused]] eOperation anOperation,
+                         [[maybe_unused]] eSize aSize,
+                         [[maybe_unused]] bool aBypassSB,
+                         [[maybe_unused]] InstructionDependance const &aDependance,
+                         [[maybe_unused]] eAccType type) {
     DBG_Assert(false);
   }
-  virtual void eraseLSQ(boost::intrusive_ptr<Instruction> anInsn) {
+  virtual void eraseLSQ([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual void resolveVAddr(boost::intrusive_ptr<Instruction> anInsn,
-                            VirtualMemoryAddress theAddr) {
+  virtual void resolveVAddr([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                            [[maybe_unused]] VirtualMemoryAddress theAddr) {
     DBG_Assert(false);
   }
-  virtual void translate(boost::intrusive_ptr<Instruction> anInsn) {
+  virtual void translate([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual void resolvePAddr(boost::intrusive_ptr<Instruction> anInsn,
-                            PhysicalMemoryAddress theAddr) {
+  virtual void resolvePAddr([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                            [[maybe_unused]] PhysicalMemoryAddress theAddr) {
     DBG_Assert(false);
   }
-  virtual void updateStoreValue(boost::intrusive_ptr<Instruction> anInsn, bits aValue,
-                                boost::optional<bits> anExtendedValue = boost::none) {
+  virtual void updateStoreValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                                [[maybe_unused]] bits aValue,
+                                [[maybe_unused]] boost::optional<bits> anExtendedValue = boost::none) {
     DBG_Assert(false);
   }
-  virtual void annulStoreValue(boost::intrusive_ptr<Instruction> anInsn) {
+  virtual void annulStoreValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual void updateCASValue(boost::intrusive_ptr<Instruction> anInsn, bits aValue,
-                              bits aCMPValue) {
+  virtual void updateCASValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                              [[maybe_unused]] bits aValue,
+                              [[maybe_unused]] bits aCMPValue) {
     DBG_Assert(false);
   }
-  virtual void retireMem(boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  virtual void retireMem([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
   }
-  virtual void checkPageFault(boost::intrusive_ptr<Instruction> anInsn) {
+  virtual void checkPageFault([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual void commitStore(boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  virtual void commitStore([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
   }
   virtual uint32_t currentEL() {
     DBG_Assert(false);
     return 0;
   }
-  virtual void invalidateCache(eCacheType aType, eShareableDomain aDomain, eCachePoint aPoint) {
+  virtual void invalidateCache([[maybe_unused]] eCacheType aType,
+                               [[maybe_unused]] eShareableDomain aDomain,
+                               [[maybe_unused]] eCachePoint aPoint) {
     DBG_Assert(false);
   }
-  virtual void invalidateCache(eCacheType aType, VirtualMemoryAddress anAddress,
-                               eCachePoint aPoint) {
+  virtual void invalidateCache([[maybe_unused]] eCacheType aType,
+                               [[maybe_unused]] VirtualMemoryAddress anAddress,
+                               [[maybe_unused]] eCachePoint aPoint) {
     DBG_Assert(false);
   }
-  virtual void invalidateCache(eCacheType aType, VirtualMemoryAddress anAddress, uint32_t aSize,
-                               eCachePoint aPoint) {
+  virtual void invalidateCache([[maybe_unused]] eCacheType aType,
+                               [[maybe_unused]] VirtualMemoryAddress anAddress,
+                               [[maybe_unused]] uint32_t aSize,
+                               [[maybe_unused]] eCachePoint aPoint) {
     DBG_Assert(false);
   }
   virtual eAccessResult accessZVA() {
@@ -855,8 +871,14 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual void SystemRegisterTrap(uint8_t target_el, uint8_t op0, uint8_t op2, uint8_t op1,
-                                  uint8_t crn, uint8_t rt, uint8_t crm, uint8_t dir) {
+  virtual void SystemRegisterTrap([[maybe_unused]] uint8_t target_el,
+                                  [[maybe_unused]] uint8_t op0,
+                                  [[maybe_unused]] uint8_t op2,
+                                  [[maybe_unused]] uint8_t op1,
+                                  [[maybe_unused]] uint8_t crn,
+                                  [[maybe_unused]] uint8_t rt,
+                                  [[maybe_unused]] uint8_t crm,
+                                  [[maybe_unused]] uint8_t dir) {
     DBG_Assert(false);
   }
   virtual bool _SECURE() {
@@ -867,12 +889,15 @@ struct uArchARM {
     DBG_Assert(false);
     return PSTATE(0);
   }
-  virtual SCTLR_EL _SCTLR(uint32_t anELn) {
+  virtual SCTLR_EL _SCTLR([[maybe_unused]] uint32_t anELn) {
     DBG_Assert(false);
     return SCTLR_EL(0);
   }
-  virtual SysRegInfo &getSysRegInfo(uint8_t opc0, uint8_t opc1, uint8_t opc2, uint8_t CRn,
-                                    uint8_t CRm) {
+  virtual SysRegInfo &getSysRegInfo([[maybe_unused]] uint8_t opc0,
+                                    [[maybe_unused]] uint8_t opc1,
+                                    [[maybe_unused]] uint8_t opc2,
+                                    [[maybe_unused]] uint8_t CRn,
+                                    [[maybe_unused]] uint8_t CRm) {
     DBG_Assert(false);
     return getPriv(kLastPrivReg);
   }
@@ -882,24 +907,26 @@ struct uArchARM {
   virtual void decreaseEL() {
     DBG_Assert(false);
   }
-  virtual void accessMem(PhysicalMemoryAddress anAddress,
-                         boost::intrusive_ptr<Instruction> anInsn) {
+  virtual void accessMem([[maybe_unused]] PhysicalMemoryAddress anAddress,
+                         [[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual bits retrieveLoadValue(boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  virtual bits retrieveLoadValue([[maybe_unused]]
+                                 boost::intrusive_ptr<Instruction>
+                                 aCorrespondingInstruction) {
     DBG_Assert(false);
     return bits(0);
   }
-  virtual void setLoadValue(boost::intrusive_ptr<Instruction> aCorrespondingInstruction,
-                            bits aCorrespondingValue) {
+  virtual void setLoadValue([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction,
+                            [[maybe_unused]] bits aCorrespondingValue) {
     DBG_Assert(false);
   }
   virtual bits
-  retrieveExtendedLoadValue(boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  retrieveExtendedLoadValue([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
     return bits(0);
   }
-  virtual bool checkStoreRetirement(boost::intrusive_ptr<Instruction> aStore) {
+  virtual bool checkStoreRetirement([[maybe_unused]] boost::intrusive_ptr<Instruction> aStore) {
     DBG_Assert(false);
     return false;
   }
@@ -908,14 +935,14 @@ struct uArchARM {
     return 0;
   }
 
-  virtual void setSP_el(uint8_t anEL, uint64_t aVal) {
+  virtual void setSP_el([[maybe_unused]] uint8_t anEL, [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
-  virtual uint64_t getSP_el(uint8_t anEL) {
+  virtual uint64_t getSP_el([[maybe_unused]] uint8_t anEL) {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setSPSel(uint32_t aVal) {
+  virtual void setSPSel([[maybe_unused]] uint32_t aVal) {
     DBG_Assert(false);
   }
   virtual uint32_t getSPSel() {
@@ -926,10 +953,10 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setPSTATE(uint32_t aPSTATE) {
+  virtual void setPSTATE([[maybe_unused]] uint32_t aPSTATE) {
     DBG_Assert(false);
   }
-  virtual uint64_t getTPIDR(uint8_t anEL) {
+  virtual uint64_t getTPIDR([[maybe_unused]] uint8_t anEL) {
     DBG_Assert(false);
     return 0;
   }
@@ -937,31 +964,31 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setFPSR(uint32_t aValue) {
+  virtual void setFPSR([[maybe_unused]] uint32_t aValue) {
     DBG_Assert(false);
   }
   virtual uint32_t getFPCR() {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setFPCR(uint32_t aValue) {
+  virtual void setFPCR([[maybe_unused]] uint32_t aValue) {
     DBG_Assert(false);
   }
   virtual uint32_t readFPCR() {
     DBG_Assert(false);
     return 0;
   }
-  virtual void writeFPCR(uint32_t aValue) {
+  virtual void writeFPCR([[maybe_unused]] uint32_t aValue) {
     DBG_Assert(false);
   }
-  virtual void setSCTLR_EL(uint8_t anId, uint64_t aSCTLR) {
+  virtual void setSCTLR_EL([[maybe_unused]] uint8_t anId, [[maybe_unused]] uint64_t aSCTLR) {
     DBG_Assert(false);
   }
-  virtual uint64_t getSCTLR_EL(uint8_t anId) {
+  virtual uint64_t getSCTLR_EL([[maybe_unused]] uint8_t anId) {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setHCREL2(uint64_t aSCTLR) {
+  virtual void setHCREL2([[maybe_unused]] uint64_t aSCTLR) {
     DBG_Assert(false);
   }
   virtual uint64_t getHCREL2() {
@@ -972,20 +999,20 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setDCZID_EL0(uint32_t aDCZID_EL0) {
+  virtual void setDCZID_EL0([[maybe_unused]] uint32_t aDCZID_EL0) {
     DBG_Assert(false);
   }
   virtual bool isAARCH64() {
     DBG_Assert(false);
     return false;
   }
-  virtual void setAARCH64(bool aMode) {
+  virtual void setAARCH64([[maybe_unused]] bool aMode) {
     DBG_Assert(false);
   }
-  virtual void setException(Flexus::Qemu::API::exception_t anEXP) {
+  virtual void setException([[maybe_unused]] Flexus::Qemu::API::exception_t anEXP) {
     DBG_Assert(false);
   }
-  virtual void setDAIF(uint32_t aDAIF) {
+  virtual void setDAIF([[maybe_unused]] uint32_t aDAIF) {
     DBG_Assert(false);
   }
 
@@ -997,25 +1024,29 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual uint64_t getXRegister(uint32_t aReg) {
+  virtual uint64_t getXRegister([[maybe_unused]] uint32_t aReg) {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setXRegister(uint32_t aReg, uint64_t aVal) {
+  virtual void setXRegister([[maybe_unused]] uint32_t aReg,
+                            [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
-  virtual void writePR(uint32_t aPR, uint64_t aVal) {
+  virtual void writePR([[maybe_unused]] uint32_t aPR,
+                       [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
-  virtual uint64_t readPR(ePrivRegs aPR) {
+  virtual uint64_t readPR([[maybe_unused]] ePrivRegs aPR) {
     DBG_Assert(false);
     return 0;
   }
-  virtual void bypass(mapped_reg aReg, register_value aValue) {
+  virtual void bypass([[maybe_unused]] mapped_reg aReg,
+                      [[maybe_unused]] register_value aValue) {
     DBG_Assert(false);
   }
-  virtual void connectBypass(mapped_reg aReg, boost::intrusive_ptr<Instruction> inst,
-                             std::function<bool(register_value)>) {
+  virtual void connectBypass([[maybe_unused]] mapped_reg aReg,
+                             [[maybe_unused]] boost::intrusive_ptr<Instruction> inst,
+                             [[maybe_unused]] std::function<bool(register_value)>) {
     DBG_Assert(false);
   }
   virtual eConsistencyModel consistencyModel() const {
@@ -1046,10 +1077,11 @@ struct uArchARM {
     DBG_Assert(false);
     return false;
   }
-  virtual void branchFeedback(boost::intrusive_ptr<BranchFeedback> feedback) {
+  virtual void branchFeedback([[maybe_unused]] boost::intrusive_ptr<BranchFeedback> feedback) {
     DBG_Assert(false);
   }
-  virtual void takeTrap(boost::intrusive_ptr<Instruction> anInstruction, eExceptionType aTrapType) {
+  virtual void takeTrap([[maybe_unused]] boost::intrusive_ptr<Instruction> anInstruction,
+                        [[maybe_unused]] eExceptionType aTrapType) {
     DBG_Assert(false);
   }
 
@@ -1060,25 +1092,31 @@ struct uArchARM {
     DBG_Assert(false);
   }
 
-  virtual void markExclusiveLocal(PhysicalMemoryAddress anAddress, eSize aSize) {
+  virtual void markExclusiveLocal([[maybe_unused]] PhysicalMemoryAddress anAddress,
+                                  [[maybe_unused]] eSize aSize) {
     DBG_Assert(false);
   }
-  virtual void markExclusiveGlobal(PhysicalMemoryAddress anAddress, eSize aSize) {
+  virtual void markExclusiveGlobal([[maybe_unused]] PhysicalMemoryAddress anAddress,
+                                   [[maybe_unused]] eSize aSize) {
     DBG_Assert(false);
   }
-  virtual void markExclusiveVA(VirtualMemoryAddress anAddress, eSize aSize) {
+  virtual void markExclusiveVA([[maybe_unused]] VirtualMemoryAddress anAddress,
+                               [[maybe_unused]] eSize aSize) {
     DBG_Assert(false);
   }
 
-  virtual bool isExclusiveLocal(PhysicalMemoryAddress anAddress, eSize aSize) {
+  virtual bool isExclusiveLocal([[maybe_unused]] PhysicalMemoryAddress anAddress,
+                                [[maybe_unused]] eSize aSize) {
     DBG_Assert(false);
     return false;
   }
-  virtual bool isExclusiveGlobal(PhysicalMemoryAddress anAddress, eSize aSize) {
+  virtual bool isExclusiveGlobal([[maybe_unused]] PhysicalMemoryAddress anAddress,
+                                 [[maybe_unused]] eSize aSize) {
     DBG_Assert(false);
     return false;
   }
-  virtual bool isExclusiveVA(VirtualMemoryAddress anAddress, eSize aSize) {
+  virtual bool isExclusiveVA([[maybe_unused]] VirtualMemoryAddress anAddress,
+                             [[maybe_unused]] eSize aSize) {
     DBG_Assert(false);
     return false;
   }

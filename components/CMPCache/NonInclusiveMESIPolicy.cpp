@@ -155,6 +155,7 @@ void NonInclusiveMESIPolicy::doRequest(ProcessEntry_p process, bool has_maf) {
       if (msg->isEvictType()) {
         return doEvict(process, has_maf);
       }
+      [[fallthrough]];
     case eWaitRequest:
       // There's already a stalled request, to reduce starvation, we'll stall as
       // well
@@ -1847,7 +1848,8 @@ void NonInclusiveMESIPolicy::wakeMAFs(MemoryAddress anAddress) {
   }
 }
 
-int32_t NonInclusiveMESIPolicy::pickSharer(const SimpleDirectoryState &state, int32_t requester,
+int32_t NonInclusiveMESIPolicy::pickSharer(const SimpleDirectoryState &state,
+                                          [[maybe_unused]] int32_t requester,
                                            int32_t dir) {
   if (state.isSharer(dir)) {
     return dir;

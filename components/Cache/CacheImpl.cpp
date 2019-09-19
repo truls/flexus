@@ -134,7 +134,7 @@ public:
 
   // FrontSideIn_Snoop
   //-----------------
-  bool available(interface::FrontSideIn_Snoop const &, index_t anIndex) {
+  bool available(interface::FrontSideIn_Snoop const &, [[maybe_unused]] index_t anIndex) {
     return !theController->FrontSideIn_Snoop[0].full();
   }
   void push(interface::FrontSideIn_Snoop const &, index_t anIndex, MemoryTransport &aMessage) {
@@ -152,7 +152,7 @@ public:
 
   // FrontSideIn_Prefetch
   //-------------------
-  bool available(interface::FrontSideIn_Prefetch const &, index_t anIndex) {
+  bool available(interface::FrontSideIn_Prefetch const &, [[maybe_unused]] index_t anIndex) {
     return !theController->FrontSideIn_Prefetch[0].full();
   }
   void push(interface::FrontSideIn_Prefetch const &, index_t anIndex, MemoryTransport &aMessage) {
@@ -170,7 +170,7 @@ public:
 
   // FrontSideIn_Request
   //-------------------
-  bool available(interface::FrontSideIn_Request const &, index_t anIndex) {
+  bool available(interface::FrontSideIn_Request const &, [[maybe_unused]] index_t anIndex) {
     return !theController->FrontSideIn_Request[0].full();
   }
   void push(interface::FrontSideIn_Request const &, index_t anIndex, MemoryTransport &aMessage) {

@@ -764,10 +764,10 @@ public:
   }
 
 private:
-  void saveState(std::string const &aDirName) {
+  void saveState([[maybe_unused]] std::string const &aDirName) {
   }
 
-  void loadState(std::string const &aDirName) {
+  void loadState([[maybe_unused]] std::string const &aDirName) {
   }
 
   inline int32_t dirIndex2NodeIndex(int32_t index) {
@@ -917,10 +917,10 @@ private:
     }
   }
 
-  void fixupMemoryLocation(MemoryTransport &aMessage, index_t anIndex) {
+  void fixupMemoryLocation(MemoryTransport &aMessage, [[maybe_unused]] index_t anIndex) {
     aMessage[DestinationTag]->memory = getMemoryLocation(aMessage[MemoryMessageTag]->address());
   }
-  void fixupDirectoryLocation(MemoryTransport &aMessage, index_t anIndex) {
+  void fixupDirectoryLocation(MemoryTransport &aMessage, [[maybe_unused]] index_t anIndex) {
     if (aMessage[DestinationTag]->directory == -1) {
       aMessage[DestinationTag]->directory =
           getDirectoryLocation(aMessage[MemoryMessageTag]->address());

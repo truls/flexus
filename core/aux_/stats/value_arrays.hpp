@@ -26,7 +26,7 @@ namespace aux_ {
 class StatValueArray_Counter : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theInitialValue;
     ar &theValues;
@@ -54,13 +54,14 @@ public:
     theValues.push_back(simple_type(aCurrentValue));
   }
 
-  void reduceSum(const StatValueBase &aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase &aBase) {
     std::cerr << "reductions not supported (StatValueArray_Counter)" << std::endl;
   }
   void update(update_type anUpdate) {
     theValues.back().update(anUpdate);
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     for (int32_t i = 0; i < static_cast<int>(theValues.size()) - 1; ++i) {
       anOstream << theValues[i] << ", ";
     }
@@ -152,7 +153,7 @@ public:
 class StatValueArray_Annotation : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theInitialValue;
     ar &theValues;
@@ -180,13 +181,14 @@ public:
     theValues.push_back(simple_type(aCurrentValue));
   }
 
-  void reduceSum(const StatValueBase &aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase &aBase) {
     std::cerr << "reductions not supported (StatValueArray_Annotation)" << std::endl;
   }
   void update(update_type anUpdate) {
     theValues.back().update(anUpdate);
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     for (int32_t i = 0; i < static_cast<int>(theValues.size()) - 1; ++i) {
       anOstream << theValues[i] << ", ";
     }
@@ -214,7 +216,7 @@ public:
 class StatValueArray_Max : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theValues;
   }
@@ -233,13 +235,14 @@ public:
   StatValueArray_Max(value_type /*ignored*/) {
     theValues.push_back(simple_type(0));
   }
-  void reduceSum(const StatValueBase &aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase &aBase) {
     std::cerr << "reductions not supported (StatValueArray_Max)" << std::endl;
   }
   void update(update_type anUpdate) {
     theValues.back().update(anUpdate);
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     for (int32_t i = 0; i < static_cast<int>(theValues.size()) - 1; ++i) {
       anOstream << theValues[i] << ", ";
     }
@@ -267,7 +270,7 @@ public:
 class StatValueArray_Average : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theValues;
   }
@@ -286,13 +289,14 @@ public:
   StatValueArray_Average(value_type /*ignored*/) {
     theValues.push_back(simple_type(0));
   }
-  void reduceSum(const StatValueBase &aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase &aBase) {
     std::cerr << "reductions not supported (StatValueArray_Average)" << std::endl;
   }
   void update(update_type anUpdate) {
     theValues.back().update(anUpdate);
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     for (int32_t i = 0; i < static_cast<int>(theValues.size()) - 1; ++i) {
       anOstream << theValues[i] << ", ";
     }
@@ -320,7 +324,7 @@ public:
 class StatValueArray_StdDev : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theValues;
   }
@@ -339,13 +343,14 @@ public:
   StatValueArray_StdDev(value_type /*ignored*/) {
     theValues.push_back(simple_type(0));
   }
-  void reduceSum(const StatValueBase &aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase &aBase) {
     std::cerr << "reductions not supported (StatValueArray_StdDev)" << std::endl;
   }
   void update(update_type anUpdate) {
     theValues.back().update(anUpdate);
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     for (int32_t i = 0; i < static_cast<int>(theValues.size()) - 1; ++i) {
       anOstream << theValues[i] << ", ";
     }

@@ -31,12 +31,12 @@ class Measurement : public boost::counted_base {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, uint32_t version) const {
+  template <class Archive> void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &theName;
     std::string temp(theStatExpressionStr);
     ar &temp;
   }
-  template <class Archive> void load(Archive &ar, uint32_t version) {
+  template <class Archive> void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &theName;
     std::string temp;
     ar &temp;
@@ -54,7 +54,7 @@ public:
   }
   virtual ~Measurement() {
   }
-  bool includeStat(Stat *aStat);
+  bool includeStat([[maybe_unused]] Stat *aStat);
   std::string const &name() {
     return theName;
   }
@@ -68,14 +68,17 @@ public:
   virtual bool isSimple() {
     return false;
   }
-  virtual void print(std::ostream &anOstream, std::string const &options = std::string("")) {
+  virtual void print([[maybe_unused]] std::ostream &anOstream,
+                     [[maybe_unused]] std::string const &options = std::string("")) {
   }
-  virtual void addToMeasurement(Stat *aStat) {
+  virtual void addToMeasurement([[maybe_unused]] Stat *aStat) {
   }
-  virtual void format(std::ostream &anOstream, std::string const &aStat,
-                      std::string const &options = std::string("")) {
+  virtual void format([[maybe_unused]] std::ostream &anOstream,
+                      [[maybe_unused]] std::string const &aStat,
+                      [[maybe_unused]] std::string const &options = std::string("")) {
   }
-  virtual void doOp(std::ostream &anOstream, std::string const &anOp, std::string const &options) {
+  virtual void doOp(std::ostream &anOstream, std::string const &anOp,
+                    [[maybe_unused]] std::string const &options) {
     if (anOp == "MSMT") {
       doMSMT(anOstream);
     } else {
@@ -85,7 +88,8 @@ public:
   void doMSMT(std::ostream &anOstream) {
     anOstream << name();
   }
-  virtual void reduce(eReduction aReduction, Measurement *aMeasurement) {
+  virtual void reduce([[maybe_unused]] eReduction aReduction,
+                      [[maybe_unused]] Measurement *aMeasurement) {
   }
   virtual void reduceNodes() {
   }
@@ -100,7 +104,8 @@ class SimpleMeasurement : public Measurement {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<Measurement>(*this);
     ar &theStats;
   }
@@ -114,7 +119,7 @@ public:
   virtual ~SimpleMeasurement() {
   }
 
-  void addToMeasurement(Stat *aStat);
+  void addToMeasurement([[maybe_unused]] Stat *aStat);
   void close();
   bool isSimple() {
     return true;
@@ -148,7 +153,8 @@ class PeriodicMeasurement : public Measurement {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<Measurement>(*this);
     ar &thePeriod;
     ar &theCurrentPeriod;
@@ -184,7 +190,8 @@ class LoggedPeriodicMeasurement : public Measurement {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<Measurement>(*this);
     ar &thePeriod;
     ar &theCurrentPeriod;

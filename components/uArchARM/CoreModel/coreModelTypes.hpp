@@ -354,7 +354,7 @@ struct MemOpCounter {
 
 struct Checkpoint {
   Checkpoint() : theLostPermissionCount(0) {
-    theState = {0};
+    theState = boost::initialized_value;
   }
   armState theState;
   int32_t theLostPermissionCount;

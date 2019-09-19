@@ -195,7 +195,8 @@ public:
     return LookupResult_p(new LookupResult(this, nullptr, anAddress, false));
   }
 
-  virtual bool canAllocate(LookupResult_p lookup, MemoryAddress anAddress) {
+  virtual bool canAllocate(LookupResult_p lookup,
+                           [[maybe_unused]] MemoryAddress anAddress) {
     // First look for an invalid tag match
     if (lookup->theBlock != nullptr) {
       return true;
@@ -326,7 +327,7 @@ public:
     moveToTail(theBlockNum);
   }
 
-  virtual bool saveState(std::ostream &s) {
+  virtual bool saveState([[maybe_unused]] std::ostream &s) {
     return true;
   }
 
@@ -478,16 +479,21 @@ public:
     theMRUBits[theBlockNum] = 1;
   }
 
-  virtual bool saveState(std::ostream &s) {
+  virtual bool saveState([[maybe_unused]] std::ostream &s) {
     return true;
   }
 
-  virtual bool loadState(boost::archive::binary_iarchive &ia, int32_t theIndex, int32_t theSet) {
+  virtual bool loadState([[maybe_unused]] boost::archive::binary_iarchive &ia,
+                         [[maybe_unused]] int32_t theIndex,
+                         [[maybe_unused]] int32_t theSet) {
     return true;
   }
 
-  virtual bool loadTextState(std::istream &is, int32_t theIndex, int32_t theSet, int32_t theTgShift,
-                             int32_t theSetShift) {
+  virtual bool loadTextState([[maybe_unused]] std::istream &is,
+                             [[maybe_unused]] int32_t theIndex,
+                             [[maybe_unused]] int32_t theSet,
+                             [[maybe_unused]] int32_t theTgShift,
+                             [[maybe_unused]] int32_t theSetShift) {
     return true;
   }
 
@@ -655,7 +661,7 @@ public:
   }
 
   // Checkpoint reading/writing functions
-  virtual bool saveState(std::ostream &s) {
+  virtual bool saveState([[maybe_unused]] std::ostream &s) {
 
     // NOT IMPLEMENTED!
     return true;

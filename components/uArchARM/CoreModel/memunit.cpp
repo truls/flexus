@@ -149,7 +149,7 @@ void CoreImpl::breakMSHRLink(memq_t::index<by_insn>::type::iterator iter) {
 
 void CoreImpl::insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation anOperation,
                          eSize aSize, bool aBypassSB, InstructionDependance const &aDependance,
-                         eAccType type) {
+                         [[maybe_unused]] eAccType type) {
   FLEXUS_PROFILE();
   theMemQueue.push_back(MemQueueEntry(anInsn, ++theMemorySequenceNum, anOperation, aSize,
                                       aBypassSB && theNAWBypassSB, aDependance));
@@ -160,7 +160,7 @@ void CoreImpl::insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation an
 }
 
 void CoreImpl::insertLSQ(boost::intrusive_ptr<Instruction> anInsn, eOperation anOperation,
-                         eSize aSize, bool aBypassSB, eAccType type) {
+                         eSize aSize, bool aBypassSB, [[maybe_unused]] eAccType type) {
   FLEXUS_PROFILE();
   theMemQueue.push_back(MemQueueEntry(anInsn, ++theMemorySequenceNum, anOperation, aSize,
                                       aBypassSB && theNAWBypassSB));
@@ -797,8 +797,9 @@ CoreImpl::doLoad(memq_t::index<by_insn>::type::iterator lsq_entry,
   switch (lsq_entry->status()) {
   case kAwaitingValue:
     DBG_Assert(lsq_entry->isAtomic());
-    // Pass through to kComplete case below, as kAwaitingValue indicates
+    // Fall through to kComplete case below, as kAwaitingValue indicates
     // the load is complete
+    [[fallthrough]];
   case kComplete:
     // Record previous value.  If we can't get the same value again
     // via snooping, we will squash the load's dependance

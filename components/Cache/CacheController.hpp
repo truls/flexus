@@ -796,25 +796,25 @@ public:
   // Now that there are an array of FrontSideOut ports
   // we need to look at each one to determine whether
   // the empty()/full() conditions are met globally.
-  const bool isFrontSideOutEmpty_D(void) const;
-  const bool isFrontSideOutEmpty_I(void) const;
+  bool isFrontSideOutEmpty_D(void) const;
+  bool isFrontSideOutEmpty_I(void) const;
 
-  const bool isFrontSideOutFull(void) const;
+  bool isFrontSideOutFull(void) const;
 
-  const bool isQueueSetEmpty(const std::vector<MessageQueue<MemoryTransport>> &queues) const;
+  bool isQueueSetEmpty(const std::vector<MessageQueue<MemoryTransport>> &queues) const;
 
-  const bool isPipelineSetEmpty(const std::vector<Pipeline> &pipelines) const;
+  bool isPipelineSetEmpty(const std::vector<Pipeline> &pipelines) const;
 
-  const bool isQueueSetFull(const MessageQueue<MemoryTransport> *const &queues) const;
+  bool isQueueSetFull(const MessageQueue<MemoryTransport> *const &queues) const;
 
-  const bool isWakeMAFListEmpty() const;
+  bool isWakeMAFListEmpty() const;
 
-  const bool isIProbeListEmpty() const;
+  bool isIProbeListEmpty() const;
 
-  const uint32_t getBank(const ProcessEntry_p entry) const;
-  const uint32_t getBank(const MemoryTransport trans) const;
-  const uint32_t getBank(const boost::intrusive_ptr<MemoryMessage> msg) const;
-  const uint32_t getBank(const MemoryAddress address) const;
+  uint32_t getBank(const ProcessEntry_p entry) const;
+  uint32_t getBank(const MemoryTransport trans) const;
+  uint32_t getBank(const boost::intrusive_ptr<MemoryMessage> msg) const;
+  uint32_t getBank(const MemoryAddress address) const;
 
   uint32_t totalPipelineSize(std::vector<Pipeline> &pipe) const;
 

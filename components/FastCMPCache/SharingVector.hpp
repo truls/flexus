@@ -131,11 +131,11 @@ public:
     return sharers;
   }
 
-  virtual const bool operator==(const SharingVector &a) const {
+  virtual bool operator==(const SharingVector &a) const {
     return (sharers == a.sharers);
   }
 
-  virtual const bool operator!=(const SharingVector &a) const {
+  virtual bool operator!=(const SharingVector &a) const {
     return (sharers != a.sharers);
   }
 
@@ -158,6 +158,8 @@ public:
     return *this;
   }
 
+  SharingVector(const SharingVector&) = default;
+
   virtual void clear() {
     sharers.reset();
   }
@@ -166,7 +168,7 @@ public:
     sharers.flip();
   }
 
-  virtual const bool any() const {
+  virtual bool any() const {
     return sharers.any();
   }
 

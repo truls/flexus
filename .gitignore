@@ -11,3 +11,6 @@ CMakeFiles/
 CMakeCache.txt
 Makefile
 cmake_install.cmake
+.ccls-cache/
+compile_commands.json
+build/

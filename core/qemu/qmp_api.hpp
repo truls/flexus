@@ -52,7 +52,7 @@ protected:
 
 class qmp_print_cycle_count : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->printCycleCount();
   }
 
@@ -158,7 +158,7 @@ class qmp_set_timestap_interval : public qmp_flexus_i {
 
 class qmp_print_profile : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->printProfile();
   }
 
@@ -166,7 +166,7 @@ class qmp_print_profile : public qmp_flexus_i {
 
 class qmp_reset_profile : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->resetProfile();
   }
 
@@ -187,7 +187,7 @@ class qmp_write_profile : public qmp_flexus_i {
 
 class qmp_print_configuration : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->printDebugConfiguration();
   }
 
@@ -247,7 +247,7 @@ class qmp_print_measurement : public qmp_flexus_i {
 
 class qmp_list_measurement : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->listMeasurements();
   }
 
@@ -268,7 +268,7 @@ class qmp_write_measurement : public qmp_flexus_i {
 
 class qmp_enter_fastmode : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->enterFastMode();
   }
 
@@ -276,7 +276,7 @@ class qmp_enter_fastmode : public qmp_flexus_i {
 
 class qmp_leave_fastmode : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->leaveFastMode();
   }
 
@@ -284,7 +284,7 @@ class qmp_leave_fastmode : public qmp_flexus_i {
 
 class qmp_quiesce : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->quiesce();
   }
 
@@ -344,7 +344,7 @@ class qmp_save_stats : public qmp_flexus_i {
 
 class qmp_reload_debug_cfg : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->reloadDebugCfg();
   }
 
@@ -404,7 +404,7 @@ class qmp_disable_category : public qmp_flexus_i {
 
 class qmp_list_categories : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->listCategories();
   }
 
@@ -438,7 +438,7 @@ class qmp_disable_component : public qmp_flexus_i {
 
 class qmp_list_components : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->listComponents();
   }
 
@@ -446,7 +446,7 @@ class qmp_list_components : public qmp_flexus_i {
 
 class qmp_print_debug_configuration : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->printDebugConfiguration();
   }
 
@@ -467,7 +467,7 @@ class qmp_write_debug_configuration : public qmp_flexus_i {
 
 class qmp_terminate_simulation : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     theFlexus->terminateSimulation();
   }
 
@@ -501,7 +501,7 @@ class qmp_print_mmu : public qmp_flexus_i {
 
 class qmp_default : public qmp_flexus_i {
 
-  virtual void execute(std::string anArgs) override {
+  virtual void execute([[maybe_unused]] std::string anArgs) override {
     DBG_(Crit, (<< "Wrong qmp command!"));
   }
 

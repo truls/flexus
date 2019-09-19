@@ -29,7 +29,7 @@ class StatValue_StdDevAccumulator;
 class StatValue_Counter : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
   }
@@ -72,7 +72,8 @@ public:
   void reset(value_type aValue) {
     theValue = aValue;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     anOstream << theValue;
   }
   int64_t asLongLong() const {
@@ -131,7 +132,8 @@ public:
 class StatValue_PredictionCounter : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
     ar &thePending;
@@ -199,7 +201,7 @@ public:
 class StatValue_Annotation : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
   }
@@ -214,7 +216,7 @@ private:
   value_type theValue;
 
 public:
-  StatValue_Annotation(value_type aValue) : theValue(aValue) {
+  StatValue_Annotation([[maybe_unused]] value_type aValue) : theValue(aValue) {
   }
 
   void reduceSum(StatValueBase const &aBase) {
@@ -244,7 +246,8 @@ public:
   void reset(value_type aValue) {
     theValue = aValue;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     anOstream << theValue;
   }
   int64_t asLongLong() const {
@@ -255,7 +258,7 @@ public:
 class StatValue_Max : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
     ar &theIsValid;
@@ -311,7 +314,8 @@ public:
   void reset(value_type /*ignored*/) {
     theIsValid = false;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     if (theIsValid) {
       anOstream << theValue;
     } else {
@@ -330,7 +334,7 @@ public:
 class StatValue_Average : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theTotal;
     ar &theCount;
@@ -377,7 +381,8 @@ public:
     theTotal = 0;
     theCount = 0;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     if (theCount > 0) {
       anOstream << static_cast<double>(theTotal) / theCount;
     } else {
@@ -407,7 +412,7 @@ public:
 class StatValue_StdDev : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &k;
     ar &Sum;
@@ -465,7 +470,8 @@ public:
     SumSq = 0;
     SigmaSqSum = 0;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     if (k == 0) {
       anOstream << "{nan}";
     } else {

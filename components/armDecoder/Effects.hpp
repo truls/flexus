@@ -139,6 +139,7 @@ struct InternalDependance {
   void squash() {
     theTarget->squash(theArg);
   }
+  InternalDependance &operator=(const InternalDependance&) = default;
 };
 
 Effect *mapSource(SemanticInstruction *inst, eOperandCode anInputCode, eOperandCode anOutputCode);

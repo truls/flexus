@@ -69,11 +69,11 @@ public:
     return names()[val & STATE_MASK];
   }
 
-  inline const bool operator==(const CacheState &a) const {
+  inline bool operator==(const CacheState &a) const {
     return (((a.val ^ val) & STATE_MASK) == 0);
   }
 
-  inline const bool operator!=(const CacheState &a) const {
+  inline bool operator!=(const CacheState &a) const {
     return (((a.val ^ val) & STATE_MASK) != 0);
   }
 
@@ -82,19 +82,19 @@ public:
     return *this;
   }
 
-  inline const bool prefetched() const {
+  inline bool prefetched() const {
     return ((val & PREFETCH_MASK) != 0);
   }
 
-  inline const bool isProtected() const {
+  inline bool isProtected() const {
     return ((val & PROTECT_MASK) != 0);
   }
 
-  inline const bool isLocked() const {
+  inline bool isLocked() const {
     return ((val & LOCKED_MASK) != 0);
   }
 
-  inline const bool isValid() const {
+  inline bool isValid() const {
     return ((*this != Invalid) && (*this != InvalidPresent));
   }
 

@@ -57,6 +57,11 @@ struct ComponentManager {
       BOOST_PP_CAT(Comp, Interface)::configuration &cfg,                                           \
       BOOST_PP_CAT(Comp, Interface)::PortArray const &) /**/
 
+#define FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(Comp, PortArray)                                            \
+  Flexus::Core::index_t BOOST_PP_CAT(Comp, Interface)::width(                                      \
+      [[maybe_unused]] BOOST_PP_CAT(Comp, Interface)::configuration &cfg,                          \
+      BOOST_PP_CAT(Comp, Interface)::PortArray const &) /**/
+
 #define FLEXUS_COMPONENT_CONSTRUCTOR(comp)                                                         \
   BOOST_PP_CAT(comp, Component)                                                                    \
   (cfg_t & aCfg, BOOST_PP_CAT(comp, Interface)::jump_table & aJumpTable,                           \
@@ -162,11 +167,11 @@ public:
     return true;
   }
 
-  virtual void loadState(std::string const &aDirName) {
+  virtual void loadState([[maybe_unused]] std::string const &aDirName) {
     // Nothing to save
   }
 
-  virtual void saveState(std::string const &aDirName) {
+  virtual void saveState([[maybe_unused]] std::string const &aDirName) {
     // Nothing to save
   }
 

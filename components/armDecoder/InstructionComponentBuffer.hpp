@@ -80,8 +80,8 @@ struct InstructionComponentBuffer {
     }
     void *tmp = theNextAlloc;
     theNextAlloc += aSize;
+    DBG_Assert(theFreeSpace >= aSize);
     theFreeSpace -= aSize;
-    DBG_Assert(theFreeSpace >= 0);
     return tmp;
   }
 };

@@ -132,7 +132,7 @@ protected:
   }
 
   virtual void addExclusiveSharer(int32_t index, AbstractEntry_p dir_entry,
-                                  PhysicalMemoryAddress address) {
+                                  [[maybe_unused]] PhysicalMemoryAddress address) {
     // StandardDirectoryEntry *my_entry =
     // dynamic_cast<StandardDirectoryEntry*>(dir_entry);
     StandardDirectoryEntry *my_entry(&(dynamic_cast<BlockEntryWrapper *>(dir_entry.get())->block));
@@ -148,7 +148,7 @@ protected:
   }
 
   virtual void removeSharer(int32_t index, AbstractEntry_p dir_entry,
-                            PhysicalMemoryAddress address) {
+                            [[maybe_unused]] PhysicalMemoryAddress address) {
     // StandardDirectoryEntry *my_entry =
     // dynamic_cast<StandardDirectoryEntry*>(dir_entry);
     StandardDirectoryEntry *my_entry(&(dynamic_cast<BlockEntryWrapper *>(dir_entry.get())->block));
@@ -159,7 +159,7 @@ protected:
   }
 
   virtual void makeSharerExclusive(int32_t index, AbstractEntry_p dir_entry,
-                                   PhysicalMemoryAddress address) {
+                                   [[maybe_unused]] PhysicalMemoryAddress address) {
     // StandardDirectoryEntry *my_entry =
     // dynamic_cast<StandardDirectoryEntry*>(dir_entry);
     StandardDirectoryEntry *my_entry(&(dynamic_cast<BlockEntryWrapper *>(dir_entry.get())->block));
@@ -204,13 +204,16 @@ protected:
   }
 
 public:
-  virtual void updateLRU(int32_t index, AbstractEntry_p dir_entry, PhysicalMemoryAddress address) {
+  virtual void updateLRU([[maybe_unused]] int32_t index,
+                         [[maybe_unused]] AbstractEntry_p dir_entry,
+                         [[maybe_unused]] PhysicalMemoryAddress address) {
     // TODO: Update LRU Information
     // Also need to change replacement policy
   }
 
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p>
-  lookup(int32_t index, PhysicalMemoryAddress address, MMType req_type,
+  lookup([[maybe_unused]] int32_t index,
+         PhysicalMemoryAddress address, MMType req_type,
          std::list<std::function<void(void)>> &xtra_actions) {
 
     StandardDirectoryEntry *entry =
@@ -229,7 +232,9 @@ public:
   }
 
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p, bool>
-  snoopLookup(int32_t index, PhysicalMemoryAddress address, MMType req_type) {
+  snoopLookup([[maybe_unused]] int32_t index,
+              PhysicalMemoryAddress address,
+              [[maybe_unused]] MMType req_type) {
 
     StandardDirectoryEntry *entry = findOrCreateEntry(address, false);
     DBG_Assert(entry != nullptr);
@@ -247,7 +252,8 @@ public:
 
     return std::tie(entry->sharers(), entry->state(), wrapper, valid);
   }
-  void saveState(std::ostream &s, const std::string &aDirName) {
+  void saveState(std::ostream &s,
+                 [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_oarchive oa(s);
 
     uint64_t set_count = theNumSets;
@@ -266,7 +272,8 @@ public:
     }
   }
 
-  bool loadState(std::istream &s, const std::string &aDirName) {
+  bool loadState(std::istream &s,
+                 [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_iarchive ia(s);
 
     uint64_t set_count = 0;

@@ -98,7 +98,8 @@ private:
 
     friend class boost::serialization::access;
 
-    template <class Archive> void serialize(Archive &ar, const unsigned int version) {
+    template <class Archive> void serialize(Archive &ar,
+                                            [[maybe_unused]] const unsigned int version) {
       ar &theRate;
       ar &theVaddr;
       ar &thePaddr;
@@ -127,7 +128,8 @@ private:
 
     friend class boost::serialization::access;
 
-    template <class Archive> void serialize(Archive &ar, const unsigned int version) {
+    template <class Archive> void serialize(Archive &ar,
+                                            [[maybe_unused]] const unsigned int version) {
       ar &theTLB;
       ar &theSize;
     }
@@ -449,18 +451,21 @@ public:
     return mmu_obj;
   }
 
-  bool IsTranslationEnabledAtEL(uint8_t &anEL) {
+  bool IsTranslationEnabledAtEL([[maybe_unused]] uint8_t &anEL) {
     return true; // theCore->IsTranslationEnabledAtEL(anEL);
-  }
+}
 
-  bool available(interface::ResyncIn const &, index_t anIndex) {
+  bool available(interface::ResyncIn const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
-  void push(interface::ResyncIn const &, index_t anIndex, bool &aResync) {
+  void push(interface::ResyncIn const &, index_t anIndex,
+            [[maybe_unused]] bool &aResync) {
     resyncMMU(anIndex);
   }
 
-  bool available(interface::iRequestIn const &, index_t anIndex) {
+  bool available(interface::iRequestIn const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
   void push(interface::iRequestIn const &, index_t anIndex, TranslationPtr &aTranslate) {
@@ -471,7 +476,8 @@ public:
     theLookUpEntries.push(aTranslate);
   }
 
-  bool available(interface::dRequestIn const &, index_t anIndex) {
+  bool available(interface::dRequestIn const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
   void push(interface::dRequestIn const &, index_t anIndex, TranslationPtr &aTranslate) {
@@ -491,10 +497,13 @@ public:
     }
   }
 
-  bool available(interface::TLBReqIn const &, index_t anIndex) {
+  bool available(interface::TLBReqIn const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
-  void push(interface::TLBReqIn const &, index_t anIndex, TranslationPtr &aTranslate) {
+  void push(interface::TLBReqIn const &,
+            [[maybe_unused]] index_t anIndex,
+            TranslationPtr &aTranslate) {
     if (aTranslate->isInstr()) {
       theInstrTLB[aTranslate->theVaddr] = aTranslate->thePaddr;
     } else if (aTranslate->isData()) {

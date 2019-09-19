@@ -49,6 +49,8 @@
 #include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/sequenced_index.hpp>
 #include <boost/multi_index_container.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 #include <functional>
 
 using namespace boost::multi_index;
@@ -62,7 +64,8 @@ struct RTSerializer {
   int8_t owner;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
     ar &owner;
@@ -264,7 +267,7 @@ public:
   struct by_way {};
 
   struct ULLHash {
-    const std::size_t operator()(uint64_t x) const {
+    std::size_t operator()(uint64_t x) const {
       return (std::size_t)x;
     }
   };
@@ -1438,7 +1441,7 @@ public:
     DBG_Assert(set_count == theNumRTSets,
                (<< "Error loading flexpoints. Flexpoint containts " << set_count
                 << " RT sets, but simulator configured for " << theNumRTSets << " RT sets."));
-    DBG_Assert(set_count == theRTAssociativity,
+    DBG_Assert(assoc == theRTAssociativity,
                (<< "Error loading flexpoints. Flexpoint containts " << assoc
                 << "-way RT sets, but simulator configured for " << theRTAssociativity
                 << "-way RT sets."));
@@ -1497,7 +1500,7 @@ public:
     DBG_Assert(set_count == theNumDataSets,
                (<< "Error loading flexpoints. Flexpoint containts " << set_count
                 << " Data sets, but simulator configured for " << theNumDataSets << " Data sets."));
-    DBG_Assert(set_count == theAssociativity,
+    DBG_Assert(assoc == theAssociativity,
                (<< "Error loading flexpoints. Flexpoint containts " << assoc
                 << "-way Data sets, but simulator configured for " << theAssociativity
                 << "-way Data sets."));

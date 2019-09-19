@@ -120,7 +120,7 @@ void AbortAction::printConfiguration(std::ostream &anOstream, std::string const 
   anOstream << anIndent << "abort ;";
 }
 
-void AbortAction::process(Entry const &anEntry) {
+void AbortAction::process([[maybe_unused]] Entry const &anEntry) {
   std::abort();
 }
 
@@ -128,7 +128,7 @@ void BreakAction::printConfiguration(std::ostream &anOstream, std::string const 
   anOstream << anIndent << "break ;";
 }
 
-void BreakAction::process(Entry const &anEntry) {
+void BreakAction::process([[maybe_unused]] Entry const &anEntry) {
   Flexus::Core::Break();
 }
 
@@ -136,7 +136,7 @@ void PrintStatsAction::printConfiguration(std::ostream &anOstream, std::string c
   anOstream << anIndent << "print-stats ;";
 }
 
-void PrintStatsAction::process(Entry const &anEntry) {
+void PrintStatsAction::process([[maybe_unused]] Entry const &anEntry) {
   Flexus::Stat::getStatManager()->printMeasurement("all", std::cout);
 }
 
@@ -146,7 +146,7 @@ void SeverityAction::printConfiguration(std::ostream &anOstream, std::string con
   anOstream << anIndent << "set-global-severity " << toString(Severity(theSeverity)) << " ;";
 }
 
-void SeverityAction::process(Entry const &anEntry) {
+void SeverityAction::process([[maybe_unused]] Entry const &anEntry) {
   Flexus::Dbg::Debugger::theDebugger->setMinSev(Severity(theSeverity));
 }
 

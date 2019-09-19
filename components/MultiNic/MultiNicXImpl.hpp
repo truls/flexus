@@ -158,7 +158,7 @@ private:
   bool recvAvailable(index_t aVC) {
     // check if any of the receive queues are at capacity - if so,
     // return false; otherwise true.
-    DBG_Assert(aVC >= 0 && aVC < (index_t)cfg.VChannels,
+    DBG_Assert(aVC < (index_t)cfg.VChannels,
                Comp(*this)(<< "VC out of range: " << aVC));
     return (recvQueue[aVC].size() < cfg.RecvCapacity);
     // return true;  // infinite buffers

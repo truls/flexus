@@ -60,7 +60,7 @@ class StdCache : public AbstractCache {
 private:
   // Structur to mimic traditional tag array (BST like structure)
   struct BlockEntry {
-    int64_t tag;
+    uint64_t tag;
     CoherenceState_t state;
     uint16_t way;
 
@@ -103,7 +103,7 @@ private:
   struct by_way {};
 
   struct Int64Hash {
-    const std::size_t operator()(int64_t x) const {
+    std::size_t operator()(int64_t x) const {
       return (std::size_t)(x >> 6);
     }
   };
@@ -112,7 +112,7 @@ private:
       BlockEntry,
       indexed_by<
           sequenced<tag<by_order>>,
-          hashed_unique<tag<by_tag>, member<BlockEntry, int64_t, &BlockEntry::tag>, Int64Hash>,
+          hashed_unique<tag<by_tag>, member<BlockEntry, uint64_t, &BlockEntry::tag>, Int64Hash>,
           hashed_unique<tag<by_way>, member<BlockEntry, uint16_t, &BlockEntry::way>>>>
       block_set_t;
 
@@ -191,7 +191,7 @@ private:
     return (addr >> blockShift) & blockSetMask;
   }
 
-  int64_t get_tag(uint64_t addr) {
+  uint64_t get_tag(uint64_t addr) {
     return (addr & blockTagMask);
   }
 
@@ -241,7 +241,7 @@ public:
   }
 
   void allocate(PhysicalMemoryAddress addr, CoherenceState_t new_state, StdLookupResult &lookup) {
-    int64_t new_tag = get_tag(addr);
+    uint64_t new_tag = get_tag(addr);
 
     theAllocateInProgress = true;
     theAllocateAddr = new_tag;
@@ -320,44 +320,49 @@ public:
         new StdLookupResult(PhysicalMemoryAddress(tag), t_block->state, set, t_block, this));
   }
 
-  virtual uint32_t regionProbe(uint64_t tagset) {
+  virtual uint32_t regionProbe([[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "regionProbe() function not supported by this Cache structure."));
     return 0;
   }
 
-  virtual uint32_t blockScoutProbe(uint64_t tagset) {
+  virtual uint32_t blockScoutProbe([[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "blockScoutProbe() function not supported by this "
                           "Cache structure."));
     return 0;
   }
 
-  virtual uint32_t blockProbe(uint64_t tagset) {
+  virtual uint32_t blockProbe([[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "blockProbe() function not supported by this Cache structure."));
     return 0;
   }
 
-  virtual void setNonSharedRegion(uint64_t tagset) {
+  virtual void setNonSharedRegion([[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "setNonSharedRegion() function not supported by this "
                           "Cache structure."));
   }
 
-  virtual void setPartialSharedRegion(uint64_t tagset, uint32_t shared) {
+  virtual void setPartialSharedRegion([[maybe_unused]] uint64_t tagset,
+                                      [[maybe_unused]] uint32_t shared) {
     DBG_Assert(false, (<< "setPartialSharedRegion() function not supported by "
                           "this Cache structure."));
   }
 
-  virtual bool isNonSharedRegion(uint64_t tagset) {
+  virtual bool isNonSharedRegion([[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "isNonSharedRegion() function not supported by this "
                           "Cache structure."));
     return false;
   }
 
-  int32_t getOwner(LookupResult_p result, uint64_t tagset) {
+  int32_t getOwner([[maybe_unused]] LookupResult_p result,
+                   [[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "getOwner() function not supported by this Cache structure."));
     return -1;
   }
 
-  void updateOwner(LookupResult_p result, int32_t owner, uint64_t tagset, bool shared = true) {
+  void updateOwner([[maybe_unused]] LookupResult_p result,
+                   [[maybe_unused]] int32_t owner,
+                   [[maybe_unused]] uint64_t tagset,
+                   [[maybe_unused]] bool shared = true) {
     DBG_Assert(false, (<< "updateOwner() function not supported by this Cache structure."));
   }
 

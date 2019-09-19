@@ -139,7 +139,7 @@ TaglessInclusiveMOESIControllerImpl::TaglessInclusiveMOESIControllerImpl(
 // Perform lookup, select action and update cache state if necessary
 std::tuple<bool, bool, Action>
 TaglessInclusiveMOESIControllerImpl::doRequest(MemoryTransport transport, bool has_maf_entry,
-                                               TransactionTracker_p waking_tracker) {
+                                               [[maybe_unused]] TransactionTracker_p waking_tracker) {
   bool is_write = false;
   bool is_upgrade = false;
   bool is_miss = false;
@@ -1207,6 +1207,7 @@ Action TaglessInclusiveMOESIControllerImpl::handleBackMessage(MemoryTransport tr
       break;
     case MemoryMessage::FwdNAck:
       DBG_Assert(false, (<< "UpgradeReq received FwdNAck! We don't need no stinkin' data!"));
+      break;
     default:
       DBG_Assert(false, (<< "UpgradeReq received unexpected reply: " << (*msg)));
       break;
@@ -1398,7 +1399,7 @@ Action TaglessInclusiveMOESIControllerImpl::finalizeSnoop(MemoryTransport transp
   case MemoryMessage::WriteFwd:
     // If we got dirty data, then we don't need to access the data array
     requires_data = !requires_data;
-
+    [[fallthrough]];
   case MemoryMessage::Invalidate:
   case MemoryMessage::BackInvalidate:
 
@@ -1655,7 +1656,8 @@ Action TaglessInclusiveMOESIControllerImpl::handleSnoopMessage(MemoryTransport t
 // at this cache level.
 // Action TaglessInclusiveMOESIControllerImpl::handleIprobe(bool aHit,
 // MemoryMessage_p fetchReq, TransactionTracker_p tracker) {
-Action TaglessInclusiveMOESIControllerImpl::handleIprobe(bool aHit, MemoryTransport transport) {
+Action TaglessInclusiveMOESIControllerImpl::handleIprobe([[maybe_unused]] bool aHit,
+                                                        MemoryTransport transport) {
 
   MemoryMessage_p fetchReq = transport[MemoryMessageTag];
   TransactionTracker_p tracker = transport[TransactionTrackerTag];

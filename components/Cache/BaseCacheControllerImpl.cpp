@@ -476,17 +476,20 @@ MemoryTransport BaseCacheControllerImpl::getWakingSnoopTransport() {
   return transport;
 }
 
-bool BaseCacheControllerImpl::snoopResourcesAvailable(const const_MemoryMessage_p msg) {
+bool BaseCacheControllerImpl::snoopResourcesAvailable
+  ([[maybe_unused]] const const_MemoryMessage_p msg) {
   // return !fullEvictBuffer() && !theController->isFrontSideOutFull();
   return true;
 }
 
-void BaseCacheControllerImpl::reserveSnoopResources(MemoryMessage_p msg, ProcessEntry_p process) {
+void BaseCacheControllerImpl::reserveSnoopResources([[maybe_unused]] MemoryMessage_p msg,
+                                                    [[maybe_unused]] ProcessEntry_p process) {
   // theController->reserveFrontSideOut(process);
   // theController->reserveEvictBuffer(process);
 }
 
-void BaseCacheControllerImpl::unreserveSnoopResources(MemoryMessage_p msg, ProcessEntry_p process) {
+void BaseCacheControllerImpl::unreserveSnoopResources([[maybe_unused]] MemoryMessage_p msg,
+                                                      [[maybe_unused]] ProcessEntry_p process) {
   // theController->unreserveFrontSideOut(process);
   // theController->unreserveEvictBuffer(process);
 }

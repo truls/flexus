@@ -63,7 +63,7 @@ class FLEXUS_COMPONENT(BPWarm) {
   std::vector<std::vector<bool>> theFetchAnnul;
   std::vector<bool> theOne;
 
-  std::pair<eBranchType, bool> decode(uint32_t opcode) {
+  std::pair<eBranchType, bool> decode([[maybe_unused]] uint32_t opcode) {
 #if FLEXUS_TARGET_IS(v9)
     uint32_t op = opcode >> 30 & 3;
     switch (op) {
@@ -219,7 +219,7 @@ public:
   }
 
   ///////////////// ITraceIn port
-  bool available(interface::ITraceIn const &, index_t anIndex) {
+  bool available(interface::ITraceIn const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
   void push(interface::ITraceIn const &, index_t anIndex,
@@ -248,7 +248,7 @@ public:
   }
 
   ///////////////// ITraceInModern port
-  bool available(interface::ITraceInModern const &, index_t anIndex) {
+  bool available(interface::ITraceInModern const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
   void push(interface::ITraceInModern const &, index_t anIndex,

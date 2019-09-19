@@ -1,4 +1,4 @@
-#! bin/sh
+#!/bin/bash
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -10,18 +10,26 @@ if [ ! -f ".clang-format" ]; then
 fi
 
 content=$(pwd)
-echo $content
+echo "$content"
 
-cd ..
-cp -r $content test_format
+cp -r "$content" ../test_format
 
-cd test_format
-find . -name "*.hpp" -or -name "*.cpp" -or -name "*.h" -or -name "*.c" | xargs clang-format -i -style=file
+pushd ../test_format
+find . -type f -name "*.hpp" -or -name "*.cpp" -or -name "*.h" -or -name "*.c" \
+    -exec sh -c "
+for f do
+    if ! git check-ignore -q \"$f\"; then
+       clang-format -i -style=file $f
+    fi
+done
+" find-sh {} +
+ret=$?
 
-cd ..
+popd
+
 compare_result=$(diff -uqrNa $content test_format)
 
-if [ -z $compare_result ]; then
+if [ -z "$compare_result" ] && [ $ret -eq 0 ]; then
     echo -e "${GREEN}All source code in commit are properly formatted.${NC}"
     rm -rf test_format
     exit 0

@@ -308,7 +308,7 @@ private:
   }
 
 public:
-  virtual void count(TransactionTracker const &aTransaction) {
+  virtual void count([[maybe_unused]] TransactionTracker const &aTransaction) {
     /*
     using ll::bind;
     using ll::_1;

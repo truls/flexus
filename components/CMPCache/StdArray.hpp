@@ -414,7 +414,7 @@ public:
     moveToTail(theBlockNum);
   }
 
-  virtual bool saveState(std::ostream &s) {
+  virtual bool saveState([[maybe_unused]] std::ostream &s) {
     return true;
   }
 
@@ -519,11 +519,13 @@ public:
     theMRUBits[theBlockNum] = 1;
   }
 
-  virtual bool saveState(std::ostream &s) {
+  virtual bool saveState([[maybe_unused]] std::ostream &s) {
     return true;
   }
 
-  virtual bool loadState(boost::archive::binary_iarchive &ia, int32_t theIndex, int32_t theSet) {
+  virtual bool loadState([[maybe_unused]] boost::archive::binary_iarchive &ia,
+                         [[maybe_unused]] int32_t theIndex,
+                         [[maybe_unused]] int32_t theSet) {
     return true;
   }
 
@@ -753,7 +755,7 @@ public:
   }
 
   // Checkpoint reading/writing functions
-  virtual bool saveState(std::ostream &s) {
+  virtual bool saveState([[maybe_unused]] std::ostream &s) {
     return true;
   }
 
@@ -829,17 +831,17 @@ public:
   virtual std::list<MemoryAddress> getSetTags(MemoryAddress addr) {
     return theSets[makeSet(addr)]->getTags();
   }
-  virtual bool setAlmostFull(boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
+  virtual bool setAlmostFull([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
                              MemoryAddress const &anAddress) const {
     return theSets[makeSet(anAddress)]->almostFull(AbstractArray<_State>::theLockedThreshold);
   }
 
-  virtual bool lockedVictimAvailable(boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
+  virtual bool lockedVictimAvailable([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
                                      MemoryAddress const &anAddress) const {
     return theSets[makeSet(anAddress)]->lockedVictimAvailable();
   }
 
-  virtual bool victimAvailable(boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
+  virtual bool victimAvailable([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
                                MemoryAddress const &anAddress) const {
     return theSets[makeSet(anAddress)]->victimAvailable();
   }

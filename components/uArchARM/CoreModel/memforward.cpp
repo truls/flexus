@@ -64,7 +64,7 @@ inline bits mask(eSize aSize) {
   }
 }
 
-bits value(MemQueueEntry const &anEntry, bool aFlipEndian) {
+bits value(MemQueueEntry const &anEntry, [[maybe_unused]] bool aFlipEndian) {
   DBG_Assert(anEntry.theValue);
   return *anEntry.theValue << (16 - anEntry.theSize) * 8;
 }
@@ -257,7 +257,10 @@ void CoreImpl::updateDependantLoads(memq_t::index<by_insn>::type::iterator anUpd
 
   // Loads with higher sequence numbers than anUpdatedStore must be squashed and
   // obtain their new value
-  boost::optional<memq_t::index<by_insn>::type::iterator> cached_search(nullptr);
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+  boost::optional<memq_t::index<by_insn>::type::iterator> cached_search;
+  #pragma GCC diagnostic pop
   iter = updated_store;
   ++iter;
   while (iter != last_match) {

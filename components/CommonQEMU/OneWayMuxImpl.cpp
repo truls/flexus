@@ -77,20 +77,26 @@ public:
 
   // Ports
   // From the instruction cache
-  bool available(interface::InI const &, index_t anIndex) {
+  bool available(interface::InI const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
 
-  void push(interface::InI const &, index_t anIndex, MemoryMessage &aMessage) {
+  void push(interface::InI const &,
+            [[maybe_unused]] index_t anIndex,
+            MemoryMessage &aMessage) {
     FLEXUS_CHANNEL(Out) << aMessage;
   }
 
   // From the data cache
-  bool available(interface::InD const &, index_t anIndex) {
+  bool available(interface::InD const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
 
-  void push(interface::InD const &, index_t anIndex, MemoryMessage &aMessage) {
+  void push(interface::InD const &,
+            [[maybe_unused]] index_t anIndex,
+            MemoryMessage &aMessage) {
     FLEXUS_CHANNEL(Out) << aMessage;
   }
 };
@@ -99,10 +105,10 @@ public:
 
 FLEXUS_COMPONENT_INSTANTIATOR(OneWayMux, nOneWayMux);
 
-FLEXUS_PORT_ARRAY_WIDTH(OneWayMux, InI) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(OneWayMux, InI) {
   return 1;
 }
-FLEXUS_PORT_ARRAY_WIDTH(OneWayMux, InD) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(OneWayMux, InD) {
   return 1;
 }
 

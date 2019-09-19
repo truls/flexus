@@ -26,7 +26,7 @@ namespace aux_ {
 class StatValue_CountAccumulator : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theCount;
   }
@@ -58,17 +58,18 @@ public:
     }
   }
 
-  void reduceCount(const StatValueBase &aBase) {
+  void reduceCount([[maybe_unused]] const StatValueBase &aBase) {
     ++theCount;
   }
 
-  void update(update_type anUpdate) {
+  void update([[maybe_unused]] update_type anUpdate) {
     ++theCount;
   }
   void reset(value_type /*ignored*/) {
     theCount = 0;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     anOstream << theCount;
   }
   int64_t asLongLong() const {
@@ -83,7 +84,8 @@ inline boost::intrusive_ptr<StatValueBase> StatValueBase::countAccumulator() {
 class StatValue_AvgAccumulator : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theTotal;
     ar &theCount;
@@ -159,7 +161,8 @@ public:
     theTotal = 0;
     theCount = 0;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     if (theCount > 0) {
       anOstream << static_cast<double>(theTotal) / theCount;
     } else {
@@ -192,7 +195,7 @@ inline boost::intrusive_ptr<StatValueBase> StatValue_Average::avgAccumulator() {
 class StatValue_StdDevAccumulator : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &k;
     ar &Sum;
@@ -213,7 +216,7 @@ private:
 public:
   StatValue_StdDevAccumulator() : k(0), Sum(0.0), SumSq(0.0), SigmaSqSum(0.0) {
   }
-  void reduceSum(const StatValueBase &aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase &aBase) {
     k = 0;
     Sum = 0;
     SumSq = 0;
@@ -266,7 +269,8 @@ public:
     SumSq = 0;
     SigmaSqSum = 0;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     if (k == 0) {
       anOstream << "{nan}";
     } else {

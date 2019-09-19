@@ -102,7 +102,7 @@ struct Operation {
   virtual ~Operation() {
   }
   virtual Operand operator()(std::vector<Operand> const &operands) = 0;
-  virtual Operand evalExtra(std::vector<Operand> const &operands) {
+  virtual Operand evalExtra([[maybe_unused]] std::vector<Operand> const &operands) {
     return (uint64_t)0;
   }
   virtual char const *describe() const = 0;

@@ -447,11 +447,12 @@ public:
 
   // get a message decsribing the work to be done
   // also reserve any necessary controller resources
-  virtual MemoryMessage_p getIdleWorkMessage(ProcessEntry_p process) {
+  virtual MemoryMessage_p getIdleWorkMessage([[maybe_unused]] ProcessEntry_p process) {
     return nullptr;
   }
 
-  virtual void removeIdleWorkReservations(ProcessEntry_p process, Action &action) {
+  virtual void removeIdleWorkReservations([[maybe_unused]] ProcessEntry_p process,
+                                          [[maybe_unused]] Action &action) {
   }
 
   // take any necessary actions to start the idle work
@@ -460,7 +461,7 @@ public:
   }
 
   // take any necessary actions to complete the idle work
-  virtual void completeIdleWork(MemoryMessage_p msg) {
+  virtual void completeIdleWork([[maybe_unused]] MemoryMessage_p msg) {
     return;
   }
 

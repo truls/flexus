@@ -268,11 +268,11 @@ bool Channel::drive(void) {
     if (messagesWaiting > 0) {
       state = CS_WAIT_FOR_ACCEPT;
       // intentional fall through
+      [[fallthrough]];
     } else {
       break;
     }
   }
-
   case CS_WAIT_FOR_ACCEPT: {
     // Check the output port for available buffers
     // We give priority to the lowest numbered network
@@ -316,6 +316,7 @@ bool Channel::drive(void) {
       break;
     }
   }
+  [[fallthrough]];
 
   case CS_TRANSFERRING: {
     // Count down the transfer timer, if finished, go

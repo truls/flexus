@@ -101,7 +101,7 @@ public:
   bool &evictable() {
     return theEvictable;
   }
-  const bool evictable() const {
+  bool evictable() const {
     return theEvictable;
   }
   void setEvictable(bool val) const {
@@ -110,7 +110,7 @@ public:
   bool &pending() {
     return thePending;
   }
-  const bool pending() const {
+  bool pending() const {
     return thePending;
   }
   void setPending(bool val) const {
@@ -267,7 +267,7 @@ public:
   typedef typename evict_buf_t::template nth_index<1>::type::iterator iterator;
   typedef typename evict_buf_t::template nth_index<1>::type::const_iterator const_iterator;
 
-  virtual void saveState(std::ostream &anOstream) {
+  virtual void saveState([[maybe_unused]] std::ostream &anOstream) {
   }
 
   virtual void loadState(std::istream &anIstream) {

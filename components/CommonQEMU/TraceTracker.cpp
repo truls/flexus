@@ -80,20 +80,23 @@ using namespace Core;
 namespace nTraceTracker {
 
 void TraceTracker::access(int32_t aNode, SharedTypes::tFillLevel cache, address_t addr,
-                          address_t pc, bool prefetched, bool write, bool miss, bool priv,
-                          uint64_t ltime) {
+                          [[maybe_unused]] address_t pc, [[maybe_unused]] bool prefetched,
+                          [[maybe_unused]] bool write, [[maybe_unused]] bool miss,
+                          [[maybe_unused]] bool priv, [[maybe_unused]] uint64_t ltime) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] access 0x" << std::hex << addr));
   // DBG_(Dev, (<< "[" << aNode << ":" << cache << "] access 0x" << std::hex <<
   // addr << " (ts:" << ltime <<")"));
 }
 
 void TraceTracker::commit(int32_t aNode, SharedTypes::tFillLevel cache, address_t addr,
-                          address_t pc, uint64_t aLogicalTime) {
+                          [[maybe_unused]] address_t pc,
+                          [[maybe_unused]] uint64_t aLogicalTime) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] commit 0x" << std::hex << addr));
 }
 
-void TraceTracker::store(int32_t aNode, SharedTypes::tFillLevel cache, address_t addr, address_t pc,
-                         bool miss, bool priv, uint64_t aLogicalTime) {
+void TraceTracker::store(int32_t aNode, SharedTypes::tFillLevel cache, address_t addr,
+                         [[maybe_unused]] address_t pc, [[maybe_unused]] bool miss,
+                         [[maybe_unused]] bool priv, [[maybe_unused]] uint64_t aLogicalTime) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] store 0x" << std::hex << addr));
 }
 
@@ -102,7 +105,8 @@ void TraceTracker::prefetch(int32_t aNode, SharedTypes::tFillLevel cache, addres
 }
 
 void TraceTracker::fill(int32_t aNode, SharedTypes::tFillLevel cache, address_t block,
-                        SharedTypes::tFillLevel fillLevel, bool isFetch, bool isWrite) {
+                        SharedTypes::tFillLevel fillLevel, [[maybe_unused]] bool isFetch,
+                        [[maybe_unused]] bool isWrite) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] fill 0x" << std::hex << block));
   DBG_Assert(fillLevel != SharedTypes::eUnknown);
 }
@@ -114,7 +118,7 @@ void TraceTracker::prefetchFill(int32_t aNode, SharedTypes::tFillLevel cache, ad
 }
 
 void TraceTracker::prefetchHit(int32_t aNode, Flexus::SharedTypes::tFillLevel cache,
-                               address_t block, bool isWrite) {
+                               address_t block, [[maybe_unused]] bool isWrite) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] prefetch hit 0x" << std::hex << block));
 }
 
@@ -129,7 +133,7 @@ void TraceTracker::insert(int32_t aNode, SharedTypes::tFillLevel cache, address_
 }
 
 void TraceTracker::eviction(int32_t aNode, SharedTypes::tFillLevel cache, address_t block,
-                            bool drop) {
+                            [[maybe_unused]] bool drop) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] evict 0x" << std::hex << block));
 }
 
@@ -155,25 +159,25 @@ void TraceTracker::invalidTagReplace(int32_t aNode, SharedTypes::tFillLevel cach
 }
 
 void TraceTracker::accessLoad(int32_t aNode, SharedTypes::tFillLevel cache, address_t block,
-                              uint32_t offset, int32_t size) {
+                              uint32_t offset, [[maybe_unused]] int32_t size) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] accessLoad 0x" << std::hex << block << ","
                  << offset));
 }
 
 void TraceTracker::accessStore(int32_t aNode, SharedTypes::tFillLevel cache, address_t block,
-                               uint32_t offset, int32_t size) {
+                               uint32_t offset, [[maybe_unused]] int32_t size) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] accessStore 0x" << std::hex << block << ","
                  << offset));
 }
 
 void TraceTracker::accessFetch(int32_t aNode, SharedTypes::tFillLevel cache, address_t block,
-                               uint32_t offset, int32_t size) {
+                               uint32_t offset, [[maybe_unused]] int32_t size) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] accessLoad 0x" << std::hex << block << ","
                  << offset));
 }
 
 void TraceTracker::accessAtomic(int32_t aNode, SharedTypes::tFillLevel cache, address_t block,
-                                uint32_t offset, int32_t size) {
+                                uint32_t offset, [[maybe_unused]] int32_t size) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] accessAtomic 0x" << std::hex << block << ","
                  << offset));
 }

@@ -1,19 +1,19 @@
 set(KnottyKraken_REQUIRED_COMPONENTS
-  CommonQEMU 
-  uFetch 
-  armDecoder 
-  uArchARM 
-  FetchAddressGenerate 
+  CommonQEMU
+  uFetch
+  armDecoder
+  uArchARM
+  FetchAddressGenerate
   Cache
-  MemoryLoopback 
-  MemoryMap 
-  MagicBreakQEMU 
-  CMPCache 
-  MultiNic 
-  NetShim 
-  TraceTrackerQEMU 
-  MTManager 
-  SplitDestinationMapper 
+  MemoryLoopback
+  MemoryMap
+  MagicBreakQEMU
+  CMPCache
+  MultiNic
+  NetShim
+  TraceTrackerQEMU
+  MTManager
+  SplitDestinationMapper
   MMU
 )
 

@@ -78,7 +78,7 @@ public:
   virtual MemoryTransport getIdleWorkTransport() = 0;
   virtual MemoryTransport getCacheEvictTransport() = 0;
   virtual MemoryTransport getDirEvictTransport() = 0;
-  virtual void getIdleWorkReservations(ProcessEntry_p process) {
+  virtual void getIdleWorkReservations([[maybe_unused]] ProcessEntry_p process) {
   }
 
   virtual bool freeCacheEBPending() {
@@ -92,7 +92,7 @@ public:
     return (DirEB().full() || !CacheEBHasSpace());
   }
 
-  virtual int32_t getEBRequirements(const MemoryTransport &transport) {
+  virtual int32_t getEBRequirements([[maybe_unused]] const MemoryTransport &transport) {
     return 1;
   }
 
@@ -100,9 +100,9 @@ public:
   virtual bool CacheEBHasSpace() const {
     return (!CacheEB().full() && arrayEvictResourcesAvailable());
   }
-  virtual bool EBHasSpace(const MemoryTransport &transport) {
+  virtual bool EBHasSpace([[maybe_unused]] const MemoryTransport &transport) {
     return (!DirEB().full() && CacheEBHasSpace());
-  }
+}
 
   virtual int32_t maxSnoopsPerRequest() {
     return 2;

@@ -161,6 +161,7 @@ public:
   void init(API::conf_object_t *aMapObject, int aVM) {
     theMapObject = aMapObject;
     theVM = aVM;
+    theUnderlyingObject = aMapObject; // silence warning
     // ALEX - Not setting up tracer for now.
     //
     // API::attr_value_t attr;
@@ -200,7 +201,8 @@ public:
 struct ValueTracker {
   static ValueTracker **theGlobalTracker;
   static int theNumTrackers;
-  static ValueTracker &valueTracker(int node) {
+  // FIXME: Is this unused node param needed?
+  static ValueTracker &valueTracker([[maybe_unused]] int node) {
     if (!theGlobalTracker) {
       theNumTrackers = 1 /*Flexus::Qemu::ProcessorMapper::numVMs()*/;
       if (theNumTrackers == 0) {

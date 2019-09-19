@@ -623,7 +623,7 @@ private:
   //==========================================================================
 public:
   int32_t availableROB() const;
-  const uint32_t core() const;
+  uint32_t core() const;
   bool isSynchronized() const {
     return theROB.empty();
   }

@@ -103,7 +103,7 @@ bool CMPCacheController::isQuiesced() const {
          SnoopOut.empty() && ReplyOut.empty() && thePolicy->isQuiesced();
 }
 
-void CMPCacheController::saveState(std::string const &aDirName) {
+void CMPCacheController::saveState([[maybe_unused]] std::string const &aDirName) {
 }
 
 void CMPCacheController::loadState(std::string const &aDirName) {

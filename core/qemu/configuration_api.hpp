@@ -70,7 +70,7 @@ public:
 
   // defineClass does nothing for built-in classes, since they are defined
   // by Qemu
-  template <class Class> static void defineClass(Class &aClass) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
   }
 };
 
@@ -107,7 +107,7 @@ public:
   ObjectClassImpl const &operator*() const {
     return *theImpl;
   }
-  operator bool const() const {
+  operator bool () {
     return theImpl;
   }
 
@@ -121,7 +121,7 @@ public:
 
   // The default defineClass() implementation does nothing.  This is
   // overridden in order to add attributes or commands to a class.
-  template <class Class> static void defineClass(Class &aClass) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
   }
 };
 namespace aux_ {
@@ -207,7 +207,7 @@ public:
 
   // This function is the constructor Qemu will call to create objects of the
   // type this class represents.
-  static API::conf_object_t *constructor(void *aThing) {
+  static API::conf_object_t *constructor([[maybe_unused]] void *aThing) {
     // Note: the reintepret cast here is safe since QemuObject is POD and
     // conf_object comes first in QemuObject.
     return 0;

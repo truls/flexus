@@ -100,7 +100,7 @@ public:
   ConsoleBreakString_QemuObject(ConsoleBreakString_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass(Class &aClass) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
 
 #if 0
     aClass.addCommand
@@ -152,7 +152,7 @@ public:
   RegressionTesting_QemuObject(RegressionTesting_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass(Class &aClass) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
 
 #if 0
     aClass.addCommand
@@ -233,7 +233,7 @@ public:
   IterationTracker_QemuObject(IterationTracker_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass(Class &aClass) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
 #if 0
     aClass.addCommand
     ( & IterationTracker_QemuObject_Impl::setIterationCount

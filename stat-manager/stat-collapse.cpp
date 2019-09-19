@@ -65,7 +65,7 @@ void usage() {
             << std::endl;
 }
 
-void help(std::string const &command) {
+void help([[maybe_unused]] std::string const &command) {
   usage();
 }
 

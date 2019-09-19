@@ -96,13 +96,13 @@ struct ReuseDistanceSlice : public boost::counted_base { /*, public FastAlloc */
     return slice;
   }
 
-  const ReuseDistanceSliceType type() const {
+  ReuseDistanceSliceType type() const {
     return theType;
   }
   const MemoryAddress address() const {
     return theAddress;
   }
-  const int64_t meanReuseDist() const {
+  int64_t meanReuseDist() const {
     return theReuseDist;
   }
 

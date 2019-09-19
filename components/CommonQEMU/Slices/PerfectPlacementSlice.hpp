@@ -96,7 +96,7 @@ struct PerfectPlacementSlice : public boost::counted_base { /*, public FastAlloc
     return slice;
   }
 
-  const PerfectPlacementSliceType type() const {
+  PerfectPlacementSliceType type() const {
     return theType;
   }
   const MemoryAddress address() const {

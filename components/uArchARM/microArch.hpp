@@ -66,7 +66,7 @@ struct microArch {
             std::function<void(int32_t)> mmuResyncFunction);
 
   virtual int32_t availableROB() = 0;
-  virtual const uint32_t core() const = 0;
+  virtual uint32_t core() const = 0;
   virtual bool isSynchronized() = 0;
   virtual bool isQuiesced() = 0;
   virtual bool isStalled() = 0;

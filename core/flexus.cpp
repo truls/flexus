@@ -225,7 +225,7 @@ public:
     Flexus::Dbg::Debugger::theDebugger->connectCycleCount(&theCycleCount);
   }
 #else
-  FlexusImpl(Qemu::API::conf_object_t *anObject)
+  FlexusImpl([[maybe_unused]] Qemu::API::conf_object_t *anObject)
       : theWatchdogTimeout(100000), theNumWatchdogs(0), theInitialized(false), theCycleCount(0),
         theStatInterval(100), theRegionInterval(100000000), theProfileInterval(1000000),
         theTimestampInterval(100000), theStopCycle(2000000000), theCycleCountStat("sys-cycles"),
@@ -244,7 +244,7 @@ void FlexusImpl::printMMU(int32_t aCPU) {
   Flexus::Simics::Processor::getProcessor(aCPU)->validateMMU();
 }
 #else
-void FlexusImpl::printMMU(int32_t aCPU) {
+void FlexusImpl::printMMU([[maybe_unused]] int32_t aCPU) {
   // Flexus::Qemu::Processor::getProcessor(aCPU)->dumpMMU();
   // Flexus::Qemu::Processor::getProcessor(aCPU)->validateMMU();
   DBG_(Crit, (<< "printMMU not implemented yet. Still need to port mai_api.hpp "));
@@ -929,7 +929,7 @@ public:
   Flexus_Obj(FlexusImpl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass(Class &aC) {
+  template <class Class> static void defineClass([[maybe_unused]] Class &aC) {
     //	aClass = aClass; // normally, command definitions would go here
     // Don't think above does anything
     // in order to add commands to the QEMU command line to interface

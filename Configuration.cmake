@@ -2,8 +2,8 @@ set(FLEXUS_ROOT ${CMAKE_SOURCE_DIR})
 
 # add option -fPIC
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-# add option --std=c++11
-set(CMAKE_CXX_STANDARD 11)
+# add option --std=c++17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -44,7 +44,9 @@ endif()
 
 if(NOT GCC_FLAGS)
   message( STATUS "GCC_FLAGS was not specified; using default" )
-  set(GCC_FLAGS -O3 -funroll-loops -fno-omit-frame-pointer -g3 -Wall -Werror -fmessage-length=160 -x c++)
+  set(GCC_FLAGS -O3 -funroll-loops -fno-omit-frame-pointer -g3 -Wall -Wextra -Werror -fmessage-length=160 -x c++)
+
+
 endif()
 
 add_definitions(

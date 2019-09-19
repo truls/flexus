@@ -86,7 +86,7 @@ public:
         [this](int32_t x, MemoryMessage &y) {
           this->toL1D(x, y);
         }, // std::bind( &DecoupledFeederComponent::toL1D, this, _1, _2)
-        [this](int32_t x, MemoryMessage &y, uint32_t dummy) {
+        [this](int32_t x, MemoryMessage &y, [[maybe_unused]] uint32_t dummy) {
           this->modernToL1I(x, y);
         }, // std::bind( &DecoupledFeederComponent::modernToL1I, this, _1, _2)
         [this](MemoryMessage &x) {
@@ -99,7 +99,7 @@ public:
         //, cfg.WhiteBoxPeriod
         cfg.SendNonAllocatingStores);
     //    printf("Is the FLEXUS_COMPONENT_CONSTRUCTOR(DecoupledFeeder) run?\n");
-    size_t i;
+
     Flexus::SharedTypes::MemoryMessage msg(MemoryMessage::LoadReq);
     //    DecoupledFeederComponent::toL1D((int32_t) 0, msg);
 
@@ -218,7 +218,8 @@ public:
     theFlexus->invokeDrives();
   }
 
-  void OnPeriodicEvent(Qemu::API::conf_object_t *ignored, long long aPeriod) {
+  void OnPeriodicEvent([[maybe_unused]] Qemu::API::conf_object_t *ignored,
+                       [[maybe_unused]] long long aPeriod) {
     doHousekeeping();
   }
 
@@ -227,7 +228,9 @@ public:
 
 }; // end class DecoupledFeeder
 extern "C" {
-void houseKeeping(void *obj, void *ign, void *ign2) {
+void houseKeeping(void *obj,
+                  [[maybe_unused]] void *ign,
+                  [[maybe_unused]] void *ign2) {
   static_cast<DecoupledFeederComponent *>(obj)->doHousekeeping();
 }
 }
@@ -240,24 +243,24 @@ void houseKeeping(void *obj, void *ign, void *ign2) {
 //}
 //}
 FLEXUS_COMPONENT_INSTANTIATOR(DecoupledFeeder, nDecoupledFeeder);
-FLEXUS_PORT_ARRAY_WIDTH(DecoupledFeeder, ToL1D) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(DecoupledFeeder, ToL1D) {
   //  printf("DecoupldFeeder 1\n");
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(DecoupledFeeder, ToL1I) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(DecoupledFeeder, ToL1I) {
   //   printf("DecoupldFeeder 2\n");
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(DecoupledFeeder, ToBPred) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(DecoupledFeeder, ToBPred) {
   //   printf("DecoupldFeeder 3\n");
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
-FLEXUS_PORT_ARRAY_WIDTH(DecoupledFeeder, ToNAW) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(DecoupledFeeder, ToNAW) {
   //   printf("DecoupldFeeder 4\n");
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }
 
-FLEXUS_PORT_ARRAY_WIDTH(DecoupledFeeder, ToMMU) {
+FLEXUS_PORT_ARRAY_WIDTH_NO_CFG(DecoupledFeeder, ToMMU) {
   //   printf("DecoupldFeeder 4\n");
   return Flexus::Core::ComponentManager::getComponentManager().systemWidth();
 }

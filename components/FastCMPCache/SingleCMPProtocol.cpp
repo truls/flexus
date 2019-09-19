@@ -343,7 +343,8 @@ public:
     return iter->action;
   };
 
-  virtual MemoryMessage::MemoryMessageType evict(uint64_t tagset, CoherenceState_t state) {
+  virtual MemoryMessage::MemoryMessageType evict([[maybe_unused]] uint64_t tagset,
+                                                CoherenceState_t state) {
     if (state == kModified) {
       return MemoryMessage::EvictDirty;
     } else {

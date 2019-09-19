@@ -232,7 +232,8 @@ class TransactionTrackerImpl : public BreakpointTracker {
   uint64_t theCycleMinimum;
 
 public:
-  void OnMagicBreakpoint(Qemu::API::conf_object_t *aCpu, uint64_t aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
+                         uint64_t aBreakpoint) {
 
 #if FLEXUS_TARGET_IS(x86)
     int64_t pc = Qemu::API::QEMU_get_program_counter(aCpu);
@@ -429,7 +430,8 @@ class TerminateOnMagicBreakTracker : public BreakpointTracker {
   int32_t theMagicBreakpoint;
 
 public:
-  void OnMagicBreakpoint(Qemu::API::conf_object_t *aCpu, long long aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
+                         long long aBreakpoint) {
 
 #if FLEXUS_TARGET_IS(x86)
     int64_t pc = Qemu::API::QEMU_get_program_counter(aCpu);
@@ -468,7 +470,8 @@ public:
 
 class RegressionTrackerImpl : public RegressionTracker {
 public:
-  void OnMagicBreakpoint(Qemu::API::conf_object_t *aCpu, long long aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
+                         long long aBreakpoint) {
     DBG_(Dev, (<< "Regression Testing Breakpoint: " << aBreakpoint));
     if (aBreakpoint == theStopBreakpoint) {
       DBG_(Dev, (<< "Stop breakpoint.  Terminating Simulation."));
@@ -733,7 +736,8 @@ class SimPrintHandlerImpl : public SimPrintHandler {
   }
 
 public:
-  void OnMagicBreakpoint(Qemu::API::conf_object_t *aCpu, long long aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
+                         [[maybe_unused]] long long aBreakpoint) {
 #if FLEXUS_TARGET_IS(v9)
     uint32_t cpu_no = Qemu::API::QEMU_get_cpu_index(aCpu);
 
@@ -925,12 +929,15 @@ class PacketTrackerImpl : public BreakpointTracker {
   Stat::StatCounter thePackets_ServerToClient;
   Stat::StatCounter theServerTxData;
 
-  void OnPacketV2(Qemu::API::conf_object_t *aNetwork, long long aTimestamp) {
+  void OnPacketV2([[maybe_unused]] Qemu::API::conf_object_t *aNetwork,
+                                                                                      long long aTimestamp) {
     OnPacket(0, 0, aTimestamp);
   }
 
 public:
-  void OnPacket(int32_t aNetworkID, int32_t aFrameType, long long aTimestamp) {
+  void OnPacket([[maybe_unused]] int32_t aNetworkID,
+                [[maybe_unused]] int32_t aFrameType,
+                [[maybe_unused]] long long aTimestamp) {
     if (theNetwork == 0) {
       return;
     }
@@ -1020,7 +1027,8 @@ public:
 
 class ConsoleStringTrackerImpl : public ConsoleStringTracker {
 public:
-  void OnXtermString(Qemu::API::conf_object_t *ignored, char *aString) {
+  void OnXtermString([[maybe_unused]] Qemu::API::conf_object_t *ignored,
+                     char *aString) {
     DBG_(Dev, (<< "Console termination string " << aString << " has appeared."));
     Flexus::Core::theFlexus->terminateSimulation();
   }
@@ -1032,7 +1040,7 @@ public:
   //	  );
 
 public:
-  void addString(std::string const &aString) {
+  void addString([[maybe_unused]] std::string const &aString) {
 #if 0
     Simics::API::conf_object_t * con = Simics::API::SIM_get_object("con0");
     if (con == 0) {

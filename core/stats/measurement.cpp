@@ -20,14 +20,14 @@ namespace aux_ {
 
 template <class Archive>
 void save(Archive &ar, ::boost::intrusive_ptr<Flexus::Stat::aux_::Measurement> const &ptr,
-          uint32_t version) {
+          [[maybe_unused]] uint32_t version) {
   Measurement *msmt = ptr.get();
   ar &msmt;
 }
 
 template <class Archive>
 void load(Archive &ar, ::boost::intrusive_ptr<Flexus::Stat::aux_::Measurement> &ptr,
-          uint32_t version) {
+          [[maybe_unused]] uint32_t version) {
   Measurement *msmt;
   ar &msmt;
   ptr = boost::intrusive_ptr<Flexus::Stat::aux_::Measurement>(msmt);
@@ -77,7 +77,8 @@ void SimpleMeasurement ::close() {
   }
 }
 
-void SimpleMeasurement ::print(std::ostream &anOstream, std::string const &options) {
+void SimpleMeasurement ::print(std::ostream &anOstream,
+                               [[maybe_unused]] std::string const &options) {
   stat_handle_map::iterator iter = theStats.begin();
   stat_handle_map::iterator end = theStats.end();
   anOstream << *this << std::endl;
@@ -899,7 +900,8 @@ void PeriodicMeasurement ::close() {
   }
 }
 
-void PeriodicMeasurement ::print(std::ostream &anOstream, std::string const &options) {
+void PeriodicMeasurement ::print(std::ostream &anOstream,
+                                 [[maybe_unused]] std::string const &options) {
   stat_handle_map::iterator iter = theStats.begin();
   stat_handle_map::iterator end = theStats.end();
   anOstream << *this << std::endl;
@@ -967,7 +969,8 @@ void LoggedPeriodicMeasurement ::close() {
   }
 }
 
-void LoggedPeriodicMeasurement ::print(std::ostream &anOstream, std::string const &options) {
+void LoggedPeriodicMeasurement ::print(std::ostream &anOstream,
+                                       [[maybe_unused]] std::string const &options) {
   stat_handle_map::iterator iter = theStats.begin();
   stat_handle_map::iterator end = theStats.end();
   anOstream << getStatManager()->ticks();

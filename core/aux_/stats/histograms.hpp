@@ -57,7 +57,7 @@ struct InstanceCounterPrint {
 class StatValue_Log2Histogram : public StatValueBase, private HistogramPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theBuckets;
   }
@@ -158,7 +158,7 @@ public:
 class StatValue_WeightedLog2Histogram : public StatValueBase, private HistogramPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theBuckets;
   }
@@ -261,7 +261,7 @@ public:
 class StatValue_StdDevLog2Histogram : public StatValueBase, private HistogramPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theBuckets;
     ar &theBucketCounts;
@@ -425,7 +425,7 @@ template <> class StatValue_UniqueCounter<uint32_t> : public StatValueBase {
 
 public:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theSet;
   }
@@ -461,7 +461,8 @@ public:
   void reset(value_type /*ignored*/) {
     theSet.clear();
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     anOstream << theSet.size();
   }
   int64_t asLongLong() const {
@@ -536,7 +537,7 @@ template <>
 class StatValue_InstanceCounter<std::string> : public StatValueBase, private InstanceCounterPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theMap;
   }
@@ -631,7 +632,7 @@ template <>
 class StatValue_InstanceCounter<int64_t> : public StatValueBase, private InstanceCounterPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, uint32_t version) {
+  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theMap;
   }
@@ -851,22 +852,23 @@ public:
 public:
   StatValueArray_InstanceCounter() {
   }
-  void reduceSum(const StatValueBase *aBase) {
+  void reduceSum([[maybe_unused]] const StatValueBase *aBase) {
     std::cerr << "Reductions not supported (StatValueArray_InstanceCounter)" << std::endl;
   }
   void update(update_type anUpdate) {
     theMap[anUpdate.first] += anUpdate.second;
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print([[maybe_unused]] std::ostream &anOstream,
+             [[maybe_unused]] std::string const &options = std::string("")) const {
     //???
   }
-  void newValue(accumulation_type aValueType) {
+  void newValue([[maybe_unused]] accumulation_type aValueType) {
     //???
   }
   void reset(value_type /*ignored*/) {
     theMap.clear();
   }
-  StatValueBase &operator[](int32_t anIndex) {
+  StatValueBase &operator[]([[maybe_unused]] int32_t anIndex) {
     return *this;
   }
   std::size_t size() {

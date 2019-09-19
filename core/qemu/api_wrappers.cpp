@@ -4,7 +4,7 @@
 namespace Flexus {
 namespace Qemu {
 namespace API {
-void QEMU_write_configuration_to_file(const char *aFilename) {
+void QEMU_write_configuration_to_file([[maybe_unused]] const char *aFilename) {
   /*Qemu::API::SIM_write_configuration_to_file(aFilename);*/
   // XXX: Does nothing.
 }

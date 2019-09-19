@@ -91,32 +91,32 @@ typedef struct PSTATE {
     return (theVal & PSTATE_V) != 0;
   }
 
-  const uint32_t d() const {
+  uint32_t d() const {
     return theVal;
   }
 
-  const uint32_t EL() const {
+  uint32_t EL() const {
     return extract32(theVal, 2, 2);
   }
 
-  const uint32_t SP() const {
+  uint32_t SP() const {
     return theVal & PSTATE_SP;
   }
 
-  const uint32_t M() const {
+  uint32_t M() const {
     return extract32(theVal, 0, 5);
   }
 
-  const uint32_t DAIF() const {
+  uint32_t DAIF() const {
     return theVal & PSTATE_DAIF;
   }
 
-  const void setDAIF(const uint32_t aVal) {
+  void setDAIF(const uint32_t aVal) {
     uint32_t mask = theVal & ~PSTATE_DAIF;
     theVal = mask | (aVal & PSTATE_DAIF);
   }
 
-  const uint32_t NZCV() const {
+  uint32_t NZCV() const {
     return theVal & PSTATE_NZCV;
   }
 

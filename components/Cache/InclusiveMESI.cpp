@@ -126,7 +126,7 @@ InclusiveMESI::InclusiveMESI(CacheController *aController, CacheInitInfo *anInit
 // Perform lookup, select action and update cache state if necessary
 std::tuple<bool, bool, Action> InclusiveMESI::doRequest(MemoryTransport transport,
                                                         bool has_maf_entry,
-                                                        TransactionTracker_p waking_tracker) {
+                                                        [[maybe_unused]] TransactionTracker_p waking_tracker) {
   bool is_write = false;
   bool is_prefetchwrite = false;
   bool is_upgrade = false;
@@ -1010,6 +1010,8 @@ Action InclusiveMESI::handleBackMessage(MemoryTransport transport) {
         return Action(kNoAction, tracker, false);
       }
     }
+    DBG_Assert(false, (<< "We should not be here"));
+    break;
   case MemoryMessage::BackInvalidate:
     if (state == State::Invalid) {
       if (theNAckAlways) {
@@ -1362,6 +1364,7 @@ Action InclusiveMESI::handleBackMessage(MemoryTransport transport) {
     switch (msg->type()) {
     case MemoryMessage::FwdReplyOwned:
       dirty_data = true;
+      [[fallthrough]];
     case MemoryMessage::MissReply:
     case MemoryMessage::FwdReply:
       result->setState(State::Shared);
@@ -1847,7 +1850,7 @@ Action InclusiveMESI::finalizeSnoop(MemoryTransport transport, LookupResult_p re
   case MemoryMessage::WriteFwd:
     // If we got dirty data, then we don't need to access the data array
     requires_data = !requires_data;
-
+    [[fallthrough]];
   case MemoryMessage::Invalidate:
   case MemoryMessage::BackInvalidate:
 
@@ -2109,7 +2112,8 @@ Action InclusiveMESI::handleSnoopMessage(MemoryTransport transport) {
 // at this cache level.
 // Action InclusiveMESI::handleIprobe(bool aHit, MemoryMessage_p fetchReq,
 // TransactionTracker_p tracker) {
-Action InclusiveMESI::handleIprobe(bool aHit, MemoryTransport transport) {
+Action InclusiveMESI::handleIprobe([[maybe_unused]] bool aHit,
+                                  MemoryTransport transport) {
 
   MemoryMessage_p fetchReq = transport[MemoryMessageTag];
   TransactionTracker_p tracker = transport[TransactionTrackerTag];

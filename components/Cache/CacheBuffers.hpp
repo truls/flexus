@@ -105,7 +105,7 @@ public:
   bool &evictable() {
     return theEvictable;
   }
-  const bool evictable() const {
+  bool evictable() const {
     return theEvictable;
   }
   void setEvictable(bool val) const {
@@ -115,7 +115,7 @@ public:
   bool &pending() {
     return thePending;
   }
-  const bool pending() const {
+  bool pending() const {
     return thePending;
   }
   void setPending(bool val) const {
@@ -190,8 +190,8 @@ public:
   }
 
   void unreserve() {
+    DBG_Assert(theReserve > 0);
     --theReserve;
-    DBG_Assert(theReserve >= 0);
   }
 
   uint32_t freeEntries() const {
@@ -253,7 +253,7 @@ public:
   typedef typename evict_buf_t::template nth_index<1>::type::iterator iterator;
   typedef typename evict_buf_t::template nth_index<1>::type::const_iterator const_iterator;
 
-  virtual void saveState(std::ostream &anOstream) {
+  virtual void saveState([[maybe_unused]] std::ostream &anOstream) {
   }
 
   virtual void loadState(std::istream &anIstream) {
@@ -386,7 +386,7 @@ public:
     DBG_(Iface, (<< "Evict buffer removing entry for " << iter->theBlockAddress));
     theEvictions.erase(iter);
     theCurSize--;
-  }
+   }
 
   // exact address checking should be fine here, since the original writeback
   // request should have been aligned on a block boundary
@@ -649,7 +649,7 @@ struct RequestTrackerEntry {
 };
 
 struct ULLHash {
-  const std::size_t operator()(uint64_t x) const {
+  std::size_t operator()(uint64_t x) const {
     return (std::size_t)x;
   }
 };
