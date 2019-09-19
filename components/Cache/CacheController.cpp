@@ -146,21 +146,21 @@ std::ostream &operator<<(std::ostream &s, ProcessEntry &process) {
 // Now that there are an array of FrontSideOut ports
 // we need to look at each one to determine whether
 // the empty()/full() conditions are met globally.
-const bool CacheController::isFrontSideOutEmpty_D(void) const {
+bool CacheController::isFrontSideOutEmpty_D(void) const {
   for (int32_t i = 0; i < theCores; i++)
     if (!FrontSideOut_D[i].empty())
       return false;
   return true;
 }
 
-const bool CacheController::isFrontSideOutEmpty_I(void) const {
+bool CacheController::isFrontSideOutEmpty_I(void) const {
   for (int32_t i = 0; i < theCores; i++)
     if (!FrontSideOut_I[i].empty())
       return false;
   return true;
 }
 
-const bool CacheController::isFrontSideOutFull(void) const {
+bool CacheController::isFrontSideOutFull(void) const {
   for (int32_t i = 0; i < theCores; i++)
     if (FrontSideOut_I[i].full(theFrontSideOutReserve) ||
         FrontSideOut_D[i].full(theFrontSideOutReserve))
@@ -168,7 +168,7 @@ const bool CacheController::isFrontSideOutFull(void) const {
   return false;
 }
 
-const bool
+bool
 CacheController::isQueueSetEmpty(const std::vector<MessageQueue<MemoryTransport>> &queues) const {
   for (int32_t i = 0; i < theCores; i++) {
     if (!queues[i].empty())
@@ -178,7 +178,7 @@ CacheController::isQueueSetEmpty(const std::vector<MessageQueue<MemoryTransport>
   return true;
 }
 
-const bool CacheController::isPipelineSetEmpty(const std::vector<Pipeline> &pipelines) const {
+bool CacheController::isPipelineSetEmpty(const std::vector<Pipeline> &pipelines) const {
   for (int32_t i = 0; i < theBanks; i++) {
     if (!pipelines[i].empty())
       return false;
@@ -186,7 +186,7 @@ const bool CacheController::isPipelineSetEmpty(const std::vector<Pipeline> &pipe
   return true;
 }
 
-const bool
+bool
 CacheController::isQueueSetFull(const MessageQueue<MemoryTransport> *const &queues) const {
 
   for (int32_t i = 0; i < theCores; i++) {
@@ -197,7 +197,7 @@ CacheController::isQueueSetFull(const MessageQueue<MemoryTransport> *const &queu
   return true;
 }
 
-const bool CacheController::isWakeMAFListEmpty() const {
+bool CacheController::isWakeMAFListEmpty() const {
   for (int32_t i = 0; i < theBanks; i++) {
     if (!theWakeMAFList[i].empty())
       return false;
@@ -205,7 +205,7 @@ const bool CacheController::isWakeMAFListEmpty() const {
   return true;
 }
 
-const bool CacheController::isIProbeListEmpty() const {
+bool CacheController::isIProbeListEmpty() const {
   for (int32_t i = 0; i < theBanks; i++) {
     if (!theIProbeList[i].empty())
       return false;
@@ -213,19 +213,19 @@ const bool CacheController::isIProbeListEmpty() const {
   return true;
 }
 
-const uint32_t CacheController::getBank(const ProcessEntry_p entry) const {
+uint32_t CacheController::getBank(const ProcessEntry_p entry) const {
   return getBank(addressOf(entry));
 }
 
-const uint32_t CacheController::getBank(const MemoryTransport trans) const {
+uint32_t CacheController::getBank(const MemoryTransport trans) const {
   return getBank(trans[MemoryMessageTag]->address());
 }
 
-const uint32_t CacheController::getBank(const boost::intrusive_ptr<MemoryMessage> msg) const {
+uint32_t CacheController::getBank(const boost::intrusive_ptr<MemoryMessage> msg) const {
   return getBank(msg->address());
 }
 
-const uint32_t CacheController::getBank(const MemoryAddress address) const {
+uint32_t CacheController::getBank(const MemoryAddress address) const {
   // Hard-coded for 64-byte lines
   return ((((uint64_t)address) >> 6) % theBanks);
 }

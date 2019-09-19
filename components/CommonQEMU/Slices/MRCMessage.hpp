@@ -74,7 +74,7 @@ private:
   int64_t theTag;
 
 public:
-  const MRCMessageType type() const {
+  MRCMessageType type() const {
     return theType;
   }
 

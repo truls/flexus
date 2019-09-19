@@ -105,7 +105,7 @@ public:
   bool &evictable() {
     return theEvictable;
   }
-  const bool evictable() const {
+  bool evictable() const {
     return theEvictable;
   }
   void setEvictable(bool val) const {
@@ -115,7 +115,7 @@ public:
   bool &pending() {
     return thePending;
   }
-  const bool pending() const {
+  bool pending() const {
     return thePending;
   }
   void setPending(bool val) const {
@@ -649,7 +649,7 @@ struct RequestTrackerEntry {
 };
 
 struct ULLHash {
-  const std::size_t operator()(uint64_t x) const {
+  std::size_t operator()(uint64_t x) const {
     return (std::size_t)x;
   }
 };

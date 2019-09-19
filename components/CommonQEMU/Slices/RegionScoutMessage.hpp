@@ -100,7 +100,7 @@ private:
   std::list<MemoryAddress> theTagList;
 
 public:
-  const RegionScoutMessageType type() const {
+  RegionScoutMessageType type() const {
     return theType;
   }
   void setType(const RegionScoutMessageType &type) {
@@ -114,28 +114,28 @@ public:
     theRegion = region;
   }
 
-  const int32_t owner() const {
+  int32_t owner() const {
     return theOwner;
   }
   void setOwner(const int32_t &owner) {
     theOwner = owner;
   }
 
-  const bool shared() const {
+  bool shared() const {
     return theShared;
   }
   void setShared(const bool &shared) {
     theShared = shared;
   }
 
-  const int32_t count() const {
+  int32_t count() const {
     return theCount;
   }
   void setCount(const int32_t &count) {
     theCount = count;
   }
 
-  const uint32_t blocks() const {
+  uint32_t blocks() const {
     return theBlocks;
   }
   void setBlocks(const uint32_t &blocks) {

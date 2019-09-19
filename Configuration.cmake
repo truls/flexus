@@ -46,7 +46,7 @@ if(NOT GCC_FLAGS)
   message( STATUS "GCC_FLAGS was not specified; using default" )
   # set(GCC_FLAGS -O3 -funroll-loops -fno-omit-frame-pointer -g3 -Wall -Werror -fmessage-length=160 -x c++)
   # set(GCC_FLAGS -O3 -funroll-loops -fno-omit-frame-pointer -g3 -Wall -Wextra  -fmessage-length=160 -x c++)
-  set(GCC_FLAGS -O3 -funroll-loops -fno-omit-frame-pointer -g3 -Wall -Wunused-parameter  -fmessage-length=160 -x c++)
+  set(GCC_FLAGS -O3 -funroll-loops -fno-omit-frame-pointer -g3 -Wall -Wunused-parameter -Wignored-qualifiers  -fmessage-length=160 -x c++)
 
 
 endif()

@@ -445,7 +445,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     return msg;
   }
 
-  const MemoryMessageType type() const {
+  MemoryMessageType type() const {
     return theType;
   }
   const MemoryAddress address() const {
@@ -457,7 +457,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
   const bits data() const {
     return theData;
   }
-  const int32_t reqSize() const {
+  int32_t reqSize() const {
     return theReqSize;
   }
   bool isPriv() const {
@@ -506,13 +506,13 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
   void setInvs() {
     theAnyInvs = true;
   }
-  const int32_t coreIdx() const {
+  int32_t coreIdx() const {
     return theCoreIdx;
   }
   int32_t &coreIdx() {
     return theCoreIdx;
   }
-  const tFillLevel fillLevel() const {
+  tFillLevel fillLevel() const {
     return theFillLevel;
   }
   tFillLevel &fillLevel() {
@@ -521,14 +521,14 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
   uint32_t serial() const {
     return theSerial;
   }
-  const tFillType fillType() const {
+  tFillType fillType() const {
     return theFillType;
   }
   tFillType &fillType() {
     return theFillType;
   }
 
-  const int32_t outstandingMsgs() const {
+  int32_t outstandingMsgs() const {
     return theOutstandingMessages;
   }
   int32_t &outstandingMsgs() {
@@ -567,7 +567,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     return theBranchAnnul;
   }
 
-  bool isRequest() const {
+  bool isRequest() {
     switch (theType) {
     case LoadReq:
     case StoreReq:

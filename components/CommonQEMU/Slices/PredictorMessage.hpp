@@ -72,7 +72,7 @@ public:
   PredictorMessage(tPredictorMessageType aType, int32_t aNode, tAddress anAddress)
       : theType(aType), theNode(aNode), theAddress(anAddress) {
   }
-  const tPredictorMessageType type() const {
+  tPredictorMessageType type() const {
     return theType;
   }
   int32_t node() const {

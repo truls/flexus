@@ -76,7 +76,7 @@ private:
   int64_t theTag;
 
 public:
-  const PrefetchCommandType type() const {
+  PrefetchCommandType type() const {
     return theType;
   }
   PrefetchCommandType &type() {

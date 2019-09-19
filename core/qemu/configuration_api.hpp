@@ -107,7 +107,7 @@ public:
   ObjectClassImpl const &operator*() const {
     return *theImpl;
   }
-  operator bool const() const {
+  operator bool () {
     return theImpl;
   }
 

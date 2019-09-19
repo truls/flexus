@@ -268,7 +268,7 @@ public:
     return theAvailableROB;
   }
 
-  const uint32_t core() const {
+  uint32_t core() const {
     return theNode;
   }
 

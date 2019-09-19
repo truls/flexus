@@ -99,7 +99,7 @@ struct PrefetchMessage : public boost::counted_base {
     // because of a replacement
   };
 
-  const PrefetchMessageType type() const {
+  PrefetchMessageType type() const {
     return theType;
   }
   const MemoryAddress address() const {
@@ -113,7 +113,7 @@ struct PrefetchMessage : public boost::counted_base {
     return theAddress;
   }
 
-  const int64_t streamID() const {
+  int64_t streamID() const {
     return theStreamID;
   }
   int64_t &streamID() {

@@ -101,7 +101,7 @@ public:
   bool &evictable() {
     return theEvictable;
   }
-  const bool evictable() const {
+  bool evictable() const {
     return theEvictable;
   }
   void setEvictable(bool val) const {
@@ -110,7 +110,7 @@ public:
   bool &pending() {
     return thePending;
   }
-  const bool pending() const {
+  bool pending() const {
     return thePending;
   }
   void setPending(bool val) const {
