@@ -42,6 +42,7 @@ class MemoryAddress_
 public:
   MemoryAddress_() : address(0) {
   }
+  MemoryAddress_(const MemoryAddress_&) = default;
   explicit MemoryAddress_(underlying_type newAddress) : address(newAddress) {
   }
   bool operator<(MemoryAddress_ const &other) {
