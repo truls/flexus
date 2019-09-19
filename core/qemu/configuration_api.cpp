@@ -11,7 +11,7 @@ namespace Qemu {
 
 namespace aux_ {
 API::conf_class_t *RegisterClass_stub([[maybe_unused]] std::string const &name,
-                                     API::class_data_t *class_data) {
+                                      [[maybe_unused]] API::class_data_t *class_data) {
   return new API::conf_class_t;
 }
 
