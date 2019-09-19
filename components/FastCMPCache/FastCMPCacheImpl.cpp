@@ -139,7 +139,7 @@ class FLEXUS_COMPONENT(FastCMPCache) {
   }
 
   inline MemoryMessage::MemoryMessageType
-  calculateResponse(const MemoryMessage::MemoryMessageType &a,
+  calculateResponse([[maybe_unused]] const MemoryMessage::MemoryMessageType &a,
                     const MemoryMessage::MemoryMessageType &b) const {
     return b;
   }
@@ -345,7 +345,8 @@ public:
   }
 
   ////////////////////// from ICache
-  bool available(interface::FetchRequestIn const &, index_t anIndex) {
+  bool available([[maybe_unused]] interface::FetchRequestIn const &,
+                 [[maybe_unused]] index_t anIndex) {
     return true;
   }
 
@@ -360,7 +361,7 @@ public:
   }
 
   ////////////////////// from DCache
-  bool available(interface::RequestIn const &, index_t anIndex) {
+  bool available(interface::RequestIn const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
 
@@ -474,7 +475,7 @@ public:
   }
 
   ////////////////////// from DCache
-  bool available(interface::RegionNotify const &, index_t anIndex) {
+  bool available(interface::RegionNotify const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
 

@@ -161,7 +161,7 @@ public:
 
   virtual void processRequestResponse(int32_t index, const MMType &request, MMType &response,
                                       AbstractEntry_p dir_entry, PhysicalMemoryAddress address,
-                                      bool off_chip) {
+                                      [[maybe_unused]] bool off_chip) {
     switch (request) {
     case MemoryMessage::EvictClean:
     case MemoryMessage::EvictWritable:
@@ -195,7 +195,9 @@ public:
     DBG_Assert(false, (<< "Uknown Request+Response combination: " << request << "-" << response));
   }
 
-  virtual void updateLRU(int32_t index, AbstractEntry_p dir_entry, PhysicalMemoryAddress address) {
+  virtual void updateLRU([[maybe_unused]] int32_t index,
+                         [[maybe_unused]] AbstractEntry_p dir_entry,
+                         [[maybe_unused]] PhysicalMemoryAddress address) {
   }
 
   virtual void initialize(const std::string &aName) {
@@ -211,7 +213,8 @@ public:
     }
   }
 
-  virtual void regionNotify(int32_t anIndex, RegionScoutMessage &aMessage) {
+  virtual void regionNotify([[maybe_unused]] int32_t anIndex,
+                            [[maybe_unused]] RegionScoutMessage &aMessage) {
   }
 
   void setNumCores(int32_t n) {
@@ -235,11 +238,13 @@ public:
     theInvalidateAction = action;
   }
 
-  virtual void saveState(std::ostream &s, const std::string &aDirName) {
+  virtual void saveState([[maybe_unused]] std::ostream &s,
+                         [[maybe_unused]] const std::string &aDirName) {
     DBG_Assert(false);
   }
 
-  virtual bool loadState(std::istream &s, const std::string &aDirName) {
+  virtual bool loadState([[maybe_unused]] std::istream &s,
+                         [[maybe_unused]] const std::string &aDirName) {
     return false;
   }
 

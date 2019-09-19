@@ -361,7 +361,8 @@ const CoherenceProtocol::access_t CoherenceProtocol::kUnknownAccess;
 // Only a few actual cases
 template <>
 void CP::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::SameState, CP::NoUpdateLRU,
-                           CP::NoResponse>(LookupResult_p lookup, MemoryMessage &message) {
+                           CP::NoResponse>([[maybe_unused]] LookupResult_p lookup,
+                                           [[maybe_unused]] MemoryMessage &message) {
 }
 
 template <>
@@ -421,6 +422,7 @@ void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::M_St
 template <>
 void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::SameState,
                                           CP::UpdateLRU, CP::NoResponse>(LookupResult_p lookup,
+                                                                         [[maybe_unused]]
                                                                          MemoryMessage &message) {
 
   lookup->updateLRU();
@@ -452,7 +454,7 @@ void CoherenceProtocol::doCoherenceAction<CP::SendUpgrade, CP::NoAllocate, CP::E
 template <>
 void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::M_State, CP::UpdateLRU,
                                           CP::NoResponse>(LookupResult_p lookup,
-                                                          MemoryMessage &message) {
+                                                          [[maybe_unused]] MemoryMessage &message) {
 
   lookup->changeState(kModified, true, false);
 }
@@ -460,7 +462,7 @@ void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::M_St
 template <>
 void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::E_State, CP::UpdateLRU,
                                           CP::NoResponse>(LookupResult_p lookup,
-                                                          MemoryMessage &message) {
+                                                          [[maybe_unused]] MemoryMessage &message) {
 
   lookup->changeState(kExclusive, true, false);
 }
@@ -566,7 +568,8 @@ void CoherenceProtocol::doCoherenceAction<CP::SendFetch, CP::Allocate, CP::Depen
 
 template <>
 void CoherenceProtocol::doCoherenceAction<CP::SendNAW, CP::NoAllocate, CP::SameState,
-                                          CP::NoUpdateLRU, CP::FillDepend>(LookupResult_p lookup,
+                                          CP::NoUpdateLRU, CP::FillDepend>([[maybe_unused]]
+                                                                           LookupResult_p lookup,
                                                                            MemoryMessage &message) {
   forwardMessage(message);
 }
@@ -580,7 +583,8 @@ class CoherenceProtocol::SnoopAction<MMType, Resp, CP::NoSnoop, CP::SameState, f
 public:
   SnoopAction(CoherenceProtocol *proto) : BaseSnoopAction(proto) {
   }
-  virtual void operator()(LookupResult_p lookup, MemoryMessage &message) {
+  virtual void operator()([[maybe_unused]] LookupResult_p lookup,
+                          MemoryMessage &message) {
     // Should we update the LRU order here?
     message.type() = Resp;
   }

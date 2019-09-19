@@ -62,7 +62,8 @@ struct RTSerializer {
   int8_t owner;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar,
+                                          [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
     ar &owner;

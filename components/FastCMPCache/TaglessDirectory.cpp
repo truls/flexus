@@ -635,7 +635,8 @@ private:
   }
 
 protected:
-  virtual void addSharer(int32_t index, AbstractEntry_p dir_entry, PhysicalMemoryAddress address) {
+  virtual void addSharer(int32_t index, AbstractEntry_p dir_entry,
+                         [[maybe_unused]] PhysicalMemoryAddress address) {
     TaglessLookupResult *my_entry = dynamic_cast<TaglessLookupResult *>(dir_entry.get());
 
     DBG_Assert(my_entry != nullptr);
@@ -648,7 +649,7 @@ protected:
   }
 
   virtual void addExclusiveSharer(int32_t index, AbstractEntry_p dir_entry,
-                                  PhysicalMemoryAddress address) {
+                                  [[maybe_unused]] PhysicalMemoryAddress address) {
     TaglessLookupResult *my_entry = dynamic_cast<TaglessLookupResult *>(dir_entry.get());
     DBG_Assert(my_entry != nullptr);
 
@@ -726,7 +727,7 @@ protected:
   }
 
   virtual void makeSharerExclusive(int32_t index, AbstractEntry_p dir_entry,
-                                   PhysicalMemoryAddress address) {
+                                   [[maybe_unused]] PhysicalMemoryAddress address) {
     // BlockDirectoryEntry *my_entry =
     // dynamic_cast<BlockDirectoryEntry*>(dir_entry); if (my_entry == nullptr) {
     // return;
@@ -740,7 +741,8 @@ protected:
     my_entry->theTrueState->makeExclusive(index);
   }
 
-  TaglessLookupResult_p findOrCreateEntry(PhysicalMemoryAddress addr, int32_t index) {
+  TaglessLookupResult_p findOrCreateEntry(PhysicalMemoryAddress addr,
+                                          [[maybe_unused]] int32_t index) {
 
     TaglessLookupResult_p result(new TaglessLookupResult());
 
@@ -787,7 +789,8 @@ protected:
     return result;
   }
 
-  TaglessLookupResult_p findEntry(PhysicalMemoryAddress addr, int32_t index) {
+  TaglessLookupResult_p findEntry(PhysicalMemoryAddress addr,
+                                  [[maybe_unused]] int32_t index) {
 
     TaglessLookupResult_p result(new TaglessLookupResult());
 
@@ -903,7 +906,7 @@ protected:
 public:
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p>
   lookup(int32_t index, PhysicalMemoryAddress address, MMType req_type,
-         std::list<std::function<void(void)>> &xtra_actions) {
+         [[maybe_unused]] std::list<std::function<void(void)>> &xtra_actions) {
 
     TaglessLookupResult_p block = findOrCreateEntry(address, index);
 
@@ -982,7 +985,7 @@ public:
     bool valid = true;
     return std::tie(block->theTaglessState.sharers(), block->theTaglessState.state(), block, valid);
   }
-  void saveState(std::ostream &s, const std::string &aDirName) {
+  void saveState(std::ostream &s,[[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_oarchive oa(s);
 
     int32_t tmp = theNumSets;
@@ -998,7 +1001,7 @@ public:
     }
   }
 
-  bool loadState(std::istream &s, const std::string &aDirName) {
+  bool loadState(std::istream &s, [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_iarchive ia(s);
 
     int32_t sets, buckets;

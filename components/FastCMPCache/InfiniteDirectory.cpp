@@ -190,7 +190,7 @@ protected:
   }
 
   virtual void removeSharer(int32_t index, AbstractEntry_p dir_entry,
-                            PhysicalMemoryAddress address) {
+                            [[maybe_unused]] PhysicalMemoryAddress address) {
     InfiniteDirectoryEntry *my_entry = dynamic_cast<InfiniteDirectoryEntry *>(dir_entry.get());
     if (my_entry == nullptr) {
       return;
@@ -199,7 +199,7 @@ protected:
   }
 
   virtual void makeSharerExclusive(int32_t index, AbstractEntry_p dir_entry,
-                                   PhysicalMemoryAddress address) {
+                                   [[maybe_unused]] PhysicalMemoryAddress address) {
     InfiniteDirectoryEntry *my_entry = dynamic_cast<InfiniteDirectoryEntry *>(dir_entry.get());
     if (my_entry == nullptr) {
       return;
@@ -228,8 +228,10 @@ protected:
 
 public:
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p>
-  lookup(int32_t index, PhysicalMemoryAddress address, MMType req_type,
-         std::list<std::function<void(void)>> &xtra_actions) {
+  lookup([[maybe_unused]] int32_t index,
+         PhysicalMemoryAddress address,
+         [[maybe_unused]] MMType req_type,
+         [[maybe_unused]] std::list<std::function<void(void)>> &xtra_actions) {
 
     InfiniteDirectoryEntry_p entry = findEntry(address);
     SharingVector sharers;
@@ -243,7 +245,9 @@ public:
   }
 
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p, bool>
-  snoopLookup(int32_t index, PhysicalMemoryAddress address, MMType req_type) {
+  snoopLookup([[maybe_unused]] int32_t index,
+              PhysicalMemoryAddress address,
+              [[maybe_unused]] MMType req_type) {
 
     InfiniteDirectoryEntry_p entry = findEntry(address);
     bool valid = false;
@@ -278,7 +282,8 @@ public:
     }
   }
 
-  void saveState(std::ostream &s, const std::string &aDirName) {
+  void saveState(std::ostream &s,
+                 [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_oarchive oa(s);
 
     uint32_t count = (uint32_t)theDirectory.size();
@@ -294,7 +299,8 @@ public:
     }
   }
 
-  bool loadState(std::istream &s, const std::string &aDirName) {
+  bool loadState(std::istream &s,
+                 [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_iarchive ia(s);
     int32_t count;
     ia >> count;

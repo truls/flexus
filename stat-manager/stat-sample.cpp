@@ -63,7 +63,7 @@ void usage() {
   std::cout << "Usage: stat-sample <output stat file> <input stat files>* " << std::endl;
 }
 
-void help(std::string const &command) {
+void help([[maybe_unused]] std::string const &command) {
   usage();
 }
 

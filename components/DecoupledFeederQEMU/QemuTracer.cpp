@@ -256,7 +256,7 @@ public:
     return k_no_stall; // Never stalls
   }
 
-  API::cycles_t trace_mem_hier_operate(API::conf_object_t *space,
+  API::cycles_t trace_mem_hier_operate([[maybe_unused]] API::conf_object_t *space,
                                        API::memory_transaction_t *mem_trans) {
     int mn = API::QEMU_get_cpu_index(theCPU);
     // debugTransaction(mem_trans); // ustiugov: uncomment to track every memory
@@ -551,7 +551,7 @@ public:
   void updateStats() {
   }
 
-  API::cycles_t dma_mem_hier_operate(API::conf_object_t *space,
+  API::cycles_t dma_mem_hier_operate([[maybe_unused]] API::conf_object_t *space,
                                      API::memory_transaction_t *mem_trans) {
 
     const int32_t k_no_stall = 0;
@@ -638,7 +638,7 @@ public:
   virtual ~QemuTracerManagerImpl() {
   }
 
-  void setQemuQuantum(int64_t aSwitchTime) {
+  void setQemuQuantum([[maybe_unused]] int64_t aSwitchTime) {
   }
 
   void setSystemTick(double aTickFreq) {
