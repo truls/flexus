@@ -314,6 +314,7 @@ bool CoreImpl::processReply(MemOp const &anOperation) {
   case kCASReply:
   case kStoreReply:
     acquireWritePermission(addr);
+    [[fallthrough]];
   case kLoadReply:
   case kAtomicPreloadReply:
     if (anOperation.theTracker && !anOperation.theTracker->completionCycle()) {

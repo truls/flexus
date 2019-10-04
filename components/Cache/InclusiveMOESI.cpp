@@ -772,6 +772,8 @@ Action InclusiveMOESI::handleBackMessage(MemoryTransport transport) {
         return Action(kNoAction, tracker, false);
       }
     }
+    DBG_Assert(false, (<< "We should not be here"));
+    break;
   case MemoryMessage::BackInvalidate:
     if (state == State::Invalid) {
       if (theNAckAlways) {
@@ -1357,7 +1359,7 @@ Action InclusiveMOESI::finalizeSnoop(MemoryTransport transport, LookupResult_p r
   case MemoryMessage::WriteFwd:
     // If we got dirty data, then we don't need to access the data array
     requires_data = !requires_data;
-
+    [[fallthrough]];
   case MemoryMessage::Invalidate:
   case MemoryMessage::BackInvalidate:
 

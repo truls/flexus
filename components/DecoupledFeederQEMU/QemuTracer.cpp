@@ -407,6 +407,7 @@ public:
         break;
       case API::QEMU_Trans_Instr_Fetch:
         DBG_Assert(false);
+        break;
       case API::QEMU_Trans_Cache:
         // We don't really support these operations
         return k_no_stall;

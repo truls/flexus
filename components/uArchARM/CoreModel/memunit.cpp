@@ -797,8 +797,9 @@ CoreImpl::doLoad(memq_t::index<by_insn>::type::iterator lsq_entry,
   switch (lsq_entry->status()) {
   case kAwaitingValue:
     DBG_Assert(lsq_entry->isAtomic());
-    // Pass through to kComplete case below, as kAwaitingValue indicates
+    // Fall through to kComplete case below, as kAwaitingValue indicates
     // the load is complete
+    [[fallthrough]];
   case kComplete:
     // Record previous value.  If we can't get the same value again
     // via snooping, we will squash the load's dependance

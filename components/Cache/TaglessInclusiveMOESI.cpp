@@ -1207,6 +1207,7 @@ Action TaglessInclusiveMOESIControllerImpl::handleBackMessage(MemoryTransport tr
       break;
     case MemoryMessage::FwdNAck:
       DBG_Assert(false, (<< "UpgradeReq received FwdNAck! We don't need no stinkin' data!"));
+      break;
     default:
       DBG_Assert(false, (<< "UpgradeReq received unexpected reply: " << (*msg)));
       break;
@@ -1398,7 +1399,7 @@ Action TaglessInclusiveMOESIControllerImpl::finalizeSnoop(MemoryTransport transp
   case MemoryMessage::WriteFwd:
     // If we got dirty data, then we don't need to access the data array
     requires_data = !requires_data;
-
+    [[fallthrough]];
   case MemoryMessage::Invalidate:
   case MemoryMessage::BackInvalidate:
 

@@ -155,6 +155,7 @@ void NonInclusiveMESIPolicy::doRequest(ProcessEntry_p process, bool has_maf) {
       if (msg->isEvictType()) {
         return doEvict(process, has_maf);
       }
+      [[fallthrough]];
     case eWaitRequest:
       // There's already a stalled request, to reduce starvation, we'll stall as
       // well
