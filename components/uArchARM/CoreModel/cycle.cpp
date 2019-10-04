@@ -1041,7 +1041,7 @@ PSTATE CoreImpl::_PSTATE() {
 }
 
 SCTLR_EL CoreImpl::_SCTLR(uint32_t anELn) {
-  DBG_Assert(anELn >= 0 || anELn <= 3);
+  DBG_Assert(anELn <= 3);
   return SCTLR_EL(theSCTLR_EL[anELn]);
 }
 
@@ -1052,7 +1052,7 @@ SysRegInfo &CoreImpl::getSysRegInfo(uint8_t opc0, uint8_t opc1, uint8_t opc2, ui
 
 void CoreImpl::increaseEL() {
   uint32_t el = extract32(thePSTATE, 2, 2);
-  if (el < 0 || el >= 1)
+  if (el >= 1)
     DBG_Assert(false);
 
   el++;

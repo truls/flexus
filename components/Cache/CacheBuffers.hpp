@@ -190,8 +190,8 @@ public:
   }
 
   void unreserve() {
+    DBG_Assert(theReserve > 0);
     --theReserve;
-    DBG_Assert(theReserve >= 0);
   }
 
   uint32_t freeEntries() const {
