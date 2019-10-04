@@ -398,7 +398,6 @@ public:
     static const int32_t kSave_ValidBit = 1;
     static const int32_t kSave_DirtyBit = 2;
     static const int32_t kSave_ModifiableBit = 4;
-    static const int32_t kSave_PrefetchedBit = 8;
 
     if (theTextFlexpoints) {
       int32_t shift = blockShift + log_base2(theNumSets);
@@ -502,7 +501,6 @@ public:
     static const int32_t kSave_ValidBit = 1;
     static const int32_t kSave_DirtyBit = 2;
     static const int32_t kSave_ModifiableBit = 4;
-    static const int32_t kSave_PrefetchedBit = 8;
 
     if (theTextFlexpoints) {
       int32_t shift = blockShift + log_base2(theNumSets);

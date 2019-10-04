@@ -72,7 +72,7 @@ namespace Qemu = Flexus::Qemu;
 namespace API = Qemu::API;
 
 std::set<API::conf_object_t *> theTimingModels;
-const uint32_t kLargeMemoryQueue = 16000;
+
 extern "C" {
 void TraceMemHierOperate(void *obj, API::conf_object_t *space,
                          API::memory_transaction_t *mem_trans);
@@ -156,7 +156,6 @@ class QemuTracerImpl {
   API::conf_object_t *theUnderlyingObject;
   API::conf_object_t *theCPU;
   int32_t theIndex;
-  API::conf_object_t *thePhysMemory;
   API::conf_object_t *thePhysIO;
 
   TracerStats *theUserStats;
@@ -258,7 +257,6 @@ public:
 
   API::cycles_t trace_mem_hier_operate([[maybe_unused]] API::conf_object_t *space,
                                        API::memory_transaction_t *mem_trans) {
-    int mn = API::QEMU_get_cpu_index(theCPU);
     // debugTransaction(mem_trans); // ustiugov: uncomment to track every memory
     // op Flexus::SharedTypes::MemoryMessage msg(MemoryMessage::LoadReq);
     // toL1D((int32_t) 0, msg);
@@ -695,10 +693,8 @@ private:
   }
 
   void createDMATracer(void) {
-    bool client_server = false;
     // Create QemuTracer Factory
     Qemu::Factory<DMATracer> tracer_factory;
-    API::conf_class_t *trace_class = tracer_factory.getQemuClass();
 
     std::string tracer_name("dma-tracer");
     theDMATracer = tracer_factory.create(tracer_name);
