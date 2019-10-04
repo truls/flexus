@@ -1,12 +1,12 @@
 set(KeenKraken_REQUIRED_COMPONENTS
-  CommonQEMU 
-  DecoupledFeederQEMU 
-  FastCache 
-  FastCMPCache 
-  FastMemoryLoopback 
-  MagicBreakQEMU 
-  BPWarm 
-  TraceTrackerQEMU 
+  CommonQEMU
+  DecoupledFeederQEMU
+  FastCache
+  FastCMPCache
+  FastMemoryLoopback
+  MagicBreakQEMU
+  BPWarm
+  TraceTrackerQEMU
   MMU
 )
 
