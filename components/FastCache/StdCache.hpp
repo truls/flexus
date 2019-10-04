@@ -105,7 +105,7 @@ private:
   struct by_way {};
 
   struct Int64Hash {
-    const std::size_t operator()(int64_t x) const {
+    std::size_t operator()(int64_t x) const {
       return (std::size_t)(x >> 6);
     }
   };

@@ -265,7 +265,7 @@ public:
   struct by_way {};
 
   struct ULLHash {
-    const std::size_t operator()(uint64_t x) const {
+    std::size_t operator()(uint64_t x) const {
       return (std::size_t)x;
     }
   };
