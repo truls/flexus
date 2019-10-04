@@ -1441,7 +1441,7 @@ public:
     DBG_Assert(set_count == theNumRTSets,
                (<< "Error loading flexpoints. Flexpoint containts " << set_count
                 << " RT sets, but simulator configured for " << theNumRTSets << " RT sets."));
-    DBG_Assert(set_count == theRTAssociativity,
+    DBG_Assert(assoc == theRTAssociativity,
                (<< "Error loading flexpoints. Flexpoint containts " << assoc
                 << "-way RT sets, but simulator configured for " << theRTAssociativity
                 << "-way RT sets."));
@@ -1500,7 +1500,7 @@ public:
     DBG_Assert(set_count == theNumDataSets,
                (<< "Error loading flexpoints. Flexpoint containts " << set_count
                 << " Data sets, but simulator configured for " << theNumDataSets << " Data sets."));
-    DBG_Assert(set_count == theAssociativity,
+    DBG_Assert(assoc == theAssociativity,
                (<< "Error loading flexpoints. Flexpoint containts " << assoc
                 << "-way Data sets, but simulator configured for " << theAssociativity
                 << "-way Data sets."));
