@@ -257,7 +257,10 @@ void CoreImpl::updateDependantLoads(memq_t::index<by_insn>::type::iterator anUpd
 
   // Loads with higher sequence numbers than anUpdatedStore must be squashed and
   // obtain their new value
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
   boost::optional<memq_t::index<by_insn>::type::iterator> cached_search;
+  #pragma GCC diagnostic pop
   iter = updated_store;
   ++iter;
   while (iter != last_match) {
