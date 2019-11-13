@@ -62,26 +62,39 @@
 #include <components/CommonQEMU/seq_map.hpp>
 #include <core/qemu/mai_api.hpp>
 
-#define LOG2(x)                                                                                           \
-  ((x) == 1                                                                                               \
-       ? 0                                                                                                \
-       : ((x) == 2                                                                                        \
-              ? 1                                                                                         \
-              : ((x) == 4 ? 2                                                                             \
-                          : ((x) == 8 ? 3                                                                 \
-                                      : ((x) == 16                                                        \
-                                             ? 4                                                          \
-                                             : ((x) == 32                                                 \
-                                                    ? 5                                                   \
-                                                    : ((x) == 64 ? 6                                      \
-                                                                 : ((x) == 128                            \
-                                                                        ? 7                               \
-                                                                        : ((x) == 256                     \
-                                                                               ? 8                        \
-                                                                               : ((x) == 512              \
-                                                                                      ? 9                 \
-                                                                                      : ((x) == 1024 ? 10 \
-                                                                                                     : ((x) == 2048 ? 11 : ((x) == 4096 ? 12 : ((x) == 8192 ? 13 : ((x) == 16384 ? 14 : ((x) == 32768 ? 15 : ((x) == 65536 ? 16 : ((x) == 131072 ? 17 : ((x) == 262144 ? 18 : ((x) == 524288 ? 19 : ((x) == 1048576 ? 20 : ((x) == 2097152 ? 21 : ((x) == 4194304 ? 22 : ((x) == 8388608 ? 23 : ((x) == 16777216 ? 24 : ((x) == 33554432 ? 25 : ((x) == 67108864 ? 26 : -0xffff)))))))))))))))))))))))))))
+// clang-format off
+#define LOG2(x)        \
+  ((x)==1 ? 0 :         \
+  ((x)==2 ? 1 :         \
+  ((x)==4 ? 2 :         \
+  ((x)==8 ? 3 :         \
+  ((x)==16 ? 4 :        \
+  ((x)==32 ? 5 :        \
+  ((x)==64 ? 6 :        \
+  ((x)==128 ? 7 :       \
+  ((x)==256 ? 8 :       \
+  ((x)==512 ? 9 :       \
+  ((x)==1024 ? 10 :     \
+  ((x)==2048 ? 11 :     \
+  ((x)==4096 ? 12 :     \
+  ((x)==8192 ? 13 :     \
+  ((x)==16384 ? 14 :    \
+  ((x)==32768 ? 15 :    \
+  ((x)==65536 ? 16 :    \
+  ((x)==131072 ? 17 :   \
+  ((x)==262144 ? 18 :   \
+  ((x)==524288 ? 19 :   \
+  ((x)==1048576 ? 20 :  \
+  ((x)==2097152 ? 21 :  \
+  ((x)==4194304 ? 22 :  \
+  ((x)==8388608 ? 23 :  \
+  ((x)==16777216 ? 24 : \
+  ((x)==33554432 ? 25 : \
+  ((x)==67108864 ? 26 : -0xffff)))))))))))))))))))))))))))
+// clang-format on
+
+#include <components/uFetch/SimCache.hpp>
+
 
 namespace nuFetch {
 
@@ -90,129 +103,6 @@ using namespace Core;
 using namespace SharedTypes;
 
 static const uint64_t kBadTag = 0xFFFFFFFFFFFFFFFFULL;
-
-typedef flexus_boost_set_assoc<uint64_t, int> SimCacheArray;
-typedef SimCacheArray::iterator SimCacheIter;
-struct SimCache {
-  SimCacheArray theCache;
-  int32_t theCacheSize;
-  int32_t theCacheAssoc;
-  int32_t theCacheBlockShift;
-  int32_t theBlockSize;
-  std::string theName;
-
-  void init(int32_t aCacheSize, int32_t aCacheAssoc, int32_t aBlockSize, const std::string &aName) {
-    theCacheSize = aCacheSize;
-    theCacheAssoc = aCacheAssoc;
-    theBlockSize = aBlockSize;
-    theCacheBlockShift = LOG2(theBlockSize);
-    theCache.init(theCacheSize / theBlockSize, theCacheAssoc, 0);
-    theName = aName;
-  }
-
-  void loadState(std::string const &aDirName) {
-    std::string fname(aDirName);
-    DBG_(VVerb, (<< "Loading state: " << fname << " for ufetch order L1i cache"));
-    std::ifstream ifs(fname.c_str());
-    if (!ifs.good()) {
-      DBG_(VVerb,
-           (<< " saved checkpoint state " << fname << " not found.  Resetting to empty cache. "));
-    } else {
-      ifs >> std::skipws;
-
-      if (!loadArray(ifs)) {
-        DBG_(VVerb, (<< "Error loading checkpoint state from file: " << fname
-                     << ".  Make sure your checkpoints match your current "
-                        "cache configuration."));
-        DBG_Assert(false);
-      }
-      ifs.close();
-    }
-  }
-  bool loadArray(std::istream &s) {
-    static const int32_t kSave_ValidBit = 1;
-    int32_t tagShift = LOG2(theCache.sets());
-
-    char paren;
-    int32_t dummy;
-    int32_t load_state;
-    uint64_t load_tag;
-    for (uint32_t i = 0; i < theCache.sets(); i++) {
-      s >> paren; // {
-      if (paren != '{') {
-        DBG_(Crit, (<< "Expected '{' when loading checkpoint"));
-        return false;
-      }
-      for (uint32_t j = 0; j < theCache.assoc(); j++) {
-        s >> paren >> load_state >> load_tag >> paren;
-        DBG_(Trace, (<< theName << " Loading block " << std::hex
-                     << (((load_tag << tagShift) | i) << theCacheBlockShift) << " with state "
-                     << ((load_state & kSave_ValidBit) ? "Shared" : "Invalid") << " in way " << j));
-        if (load_state & kSave_ValidBit) {
-          theCache.insert(std::make_pair(((load_tag << tagShift) | i), 0));
-          DBG_Assert(theCache.size() <= theCache.assoc());
-        }
-      }
-      s >> paren; // }
-      if (paren != '}') {
-        DBG_(Crit, (<< "Expected '}' when loading checkpoint"));
-        return false;
-      }
-
-      // useless associativity information
-      s >> paren; // <
-      if (paren != '<') {
-        DBG_(Crit, (<< "Expected '<' when loading checkpoint"));
-        return false;
-      }
-      for (uint32_t j = 0; j < theCache.assoc(); j++) {
-        s >> dummy;
-      }
-      s >> paren; // >
-      if (paren != '>') {
-        DBG_(Crit, (<< "Expected '>' when loading checkpoint"));
-        return false;
-      }
-    }
-    return true;
-  }
-
-  uint64_t insert(uint64_t addr) {
-    uint64_t ret_val = 0;
-    addr = addr >> theCacheBlockShift;
-    SimCacheIter iter = theCache.find(addr);
-    if (iter != theCache.end()) {
-      theCache.move_back(iter);
-      return ret_val; // already present
-    }
-    if ((int)theCache.size() >= theCacheAssoc) {
-      ret_val = theCache.front_key() << theCacheBlockShift;
-      theCache.pop_front();
-    }
-    theCache.insert(std::make_pair(addr, 0));
-    return ret_val;
-  }
-
-  bool lookup(uint64_t addr) {
-    addr = addr >> theCacheBlockShift;
-    SimCacheIter iter = theCache.find(addr);
-    if (iter != theCache.end()) {
-      theCache.move_back(iter);
-      return true; // present
-    }
-    return false; // not present
-  }
-
-  bool inval(uint64_t addr) {
-    addr = addr >> theCacheBlockShift;
-    SimCacheIter iter = theCache.find(addr);
-    if (iter != theCache.end()) {
-      theCache.erase(iter);
-      return true; // invalidated
-    }
-    return false; // not present
-  }
-};
 
 class FLEXUS_COMPONENT(uFetch) {
   FLEXUS_COMPONENT_IMPL(uFetch);
