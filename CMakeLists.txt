@@ -7,6 +7,17 @@ include_directories(${FLEXUS_ROOT})
 include_directories(SYSTEM ${BOOST_INCLUDEDIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${FLEXUS_ROOT}/CMakeFiles)
 
+# Add option to force colored output
+option (FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)." FALSE)
+
+if (${FORCE_COLORED_OUTPUT})
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+       add_compile_options (-fdiagnostics-color=always)
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+       add_compile_options (-fcolor-diagnostics)
+    endif ()
+endif ()
+
 # compile core
 file(GLOB_RECURSE CORE_SOURCE ${FLEXUS_ROOT}/core/*.cpp)
 file(GLOB_RECURSE QEMU_SOUECE ${FLEXUS_ROOT}/core/qemu/*.cpp)
