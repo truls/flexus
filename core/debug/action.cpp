@@ -11,11 +11,6 @@
 
 #include <core/target.hpp>
 
-// FIXME need to make sure that CONFIG_QEMU actually works
-#ifndef CONFIG_QEMU
-#define CONFIG_QEMU
-#endif
-
 #include <core/flexus.hpp>
 #include <core/stats.hpp>
 

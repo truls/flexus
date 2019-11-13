@@ -51,33 +51,7 @@
 
 #include <core/qemu/configuration_api.hpp>
 
-// ALEX - Remove the following if running w/ Qemu instead of Simics
-#ifndef CONFIG_QEMU
-namespace Flexus {
-namespace Qemu {
-namespace API {
-extern "C" {
-#include FLEXUS_SIMICS_API_HEADER(types)
-#define restrict
-#include FLEXUS_SIMICS_API_HEADER(memory)
-#undef restrict
-
-#include FLEXUS_SIMICS_API_ARCH_HEADER
-
-#include FLEXUS_SIMICS_API_HEADER(configuration)
-#include FLEXUS_SIMICS_API_HEADER(processor)
-#include FLEXUS_SIMICS_API_HEADER(front)
-#include FLEXUS_SIMICS_API_HEADER(event)
-#undef printf
-#include FLEXUS_SIMICS_API_HEADER(callbacks)
-#include FLEXUS_SIMICS_API_HEADER(breakpoints)
-} // extern "C"
-} // namespace API
-} // namespace Qemu
-} // namespace Flexus
-#else
 #include <core/qemu/api.h>
-#endif
 
 namespace API = Flexus::Qemu::API;
 
