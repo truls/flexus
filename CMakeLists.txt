@@ -27,6 +27,18 @@ foreach(COMPONENT ${${SIMULATOR}_REQUIRED_COMPONENTS})
     target_compile_options(${COMPONENT} PRIVATE -c ${GCC_FLAGS})
 endforeach()
 
+# compile stat-manager
+file(GLOB_RECURSE STATMGR_DEPS ${FLEXUS_ROOT}/core/debug/*.cpp)
+set(STATMGR_DEPS ${STATMGR_DEPS} ${FLEXUS_ROOT}/core/stats/stats.cpp
+  ${FLEXUS_ROOT}/core/stats/stats_calc.cpp ${FLEXUS_ROOT}/core/stats/measurement.cpp)
+#file(GLOB_RECURSE STATMGR_SOURCE ${FLEXUS_ROOT}/stat-manager/*.cpp)
+foreach(EXEC stat-manager stat-collapse stat-sample)
+  add_executable(${EXEC} ${FLEXUS_ROOT}/stat-manager/${EXEC}.cpp ${STATMGR_DEPS})
+  target_compile_options(${EXEC} PRIVATE -c ${GCC_FLAGS})
+  target_link_libraries(${EXEC} "-L${BOOST_LIBRARYDIR}"
+    boost_system boost_regex boost_serialization boost_iostreams z)
+endforeach()
+
 # compile simulators
 add_library(wiring OBJECT ${FLEXUS_ROOT}/simulators/${SIMULATOR}/wiring.cpp)
 target_compile_options(wiring PRIVATE -c ${GCC_FLAGS})
