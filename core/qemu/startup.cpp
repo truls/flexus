@@ -176,7 +176,7 @@ void print_copyright() {
   cerr << "//   QFlex simulator - Built as " << Flexus::theSimulatorName
        << " from commit hash " << Flexus::theSimulatorCommitHash
        << " " << Flexus::theSimulatorTreeStatus
-       << " from branch " << Flexus::theSimualtorBranchName
+       << " from branch " << Flexus::theSimulatorBranchName
        << endl << endl;
 }
 // clang-format on

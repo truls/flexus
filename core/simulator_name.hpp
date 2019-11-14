@@ -56,7 +56,7 @@ namespace Flexus {
   // The hash of the git commit this simulator was compiled from
   extern const char theSimulatorCommitHash[];
   // The name of the git branch this simulator was compiled from
-  extern const char theSimualtorBranchName[];
+  extern const char theSimulatorBranchName[];
   // Holds the string 'dirty' if the git working tree was dirty when
   // the wimulator was compiled
   extern const char theSimulatorTreeStatus[];
