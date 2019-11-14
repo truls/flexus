@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.10.2)
 project(flexus)
 
 include(Configuration.cmake)
-include(${FLEXUS_ROOT}/simulators/${SIMULATOR}/${SIMULATOR}.cmake)
+foreach(SIM ${SIMULATORS})
+    include(${FLEXUS_ROOT}/simulators/${SIM}/${SIM}.cmake)
+endforeach()
 include_directories(${FLEXUS_ROOT})
 include_directories(SYSTEM ${BOOST_INCLUDEDIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${FLEXUS_ROOT}/CMakeFiles)
@@ -28,14 +30,21 @@ add_library(qemu STATIC ${QEMU_SOUECE})
 target_compile_options(core PRIVATE -c ${GCC_FLAGS})
 target_compile_options(qemu PRIVATE -c ${GCC_FLAGS})
 
-# compile components
-foreach(COMPONENT ${${SIMULATOR}_REQUIRED_COMPONENTS})
-    file(GLOB_RECURSE COMPONENT_${COMPONENT}_SOURCE "${FLEXUS_ROOT}/components/${COMPONENT}/*.cpp")
-    if (${COMPONENT} STREQUAL "NetShim")
-        list(FILTER COMPONENT_NetShim_SOURCE EXCLUDE REGEX "^${FLEXUS_ROOT}/components/NetShim/testing")
-    endif()
-    add_library(${COMPONENT} STATIC ${COMPONENT_${COMPONENT}_SOURCE})
-    target_compile_options(${COMPONENT} PRIVATE -c ${GCC_FLAGS})
+# Get set union of components required by all simulator
+set(ALL_COMPONENTS)
+foreach(SIM ${SIMULATORS})
+  list(APPEND ALL_COMPONENTS ${${SIM}_REQUIRED_COMPONENTS})
+endforeach()
+list(REMOVE_DUPLICATES ALL_COMPONENTS)
+
+# Compile components
+foreach(COMPONENT ${ALL_COMPONENTS})
+  file(GLOB_RECURSE COMPONENT_${COMPONENT}_SOURCE "${FLEXUS_ROOT}/components/${COMPONENT}/*.cpp")
+  if (${COMPONENT} STREQUAL "NetShim")
+    list(FILTER COMPONENT_NetShim_SOURCE EXCLUDE REGEX "^${FLEXUS_ROOT}/components/NetShim/testing")
+  endif()
+  add_library(${COMPONENT} STATIC ${COMPONENT_${COMPONENT}_SOURCE})
+  target_compile_options(${COMPONENT} PRIVATE -c ${GCC_FLAGS})
 endforeach()
 
 # compile stat-manager
@@ -51,12 +60,14 @@ foreach(EXEC stat-manager stat-collapse stat-sample)
 endforeach()
 
 # compile simulators
-add_library(wiring OBJECT ${FLEXUS_ROOT}/simulators/${SIMULATOR}/wiring.cpp)
-target_compile_options(wiring PRIVATE -c ${GCC_FLAGS})
-add_library(${SIMULATOR} SHARED $<TARGET_OBJECTS:wiring>)
-target_link_libraries(${SIMULATOR} "-Wl,--whole-archive" "-Wl,-export-dynamic" ${${SIMULATOR}_REQUIRED_COMPONENTS})
-target_link_libraries(${SIMULATOR} "-Wl,--whole-archive" core qemu "-Wl,--no-whole-archive")
-target_link_libraries(${SIMULATOR} "-L${BOOST_LIBRARYDIR}" boost_system boost_regex boost_serialization boost_iostreams z)
+foreach(SIM ${SIMULATORS})
+  add_library(wiring_${SIM} OBJECT ${FLEXUS_ROOT}/simulators/${SIM}/wiring.cpp)
+  target_compile_options(wiring_${SIM} PRIVATE -c ${GCC_FLAGS})
+  add_library(${SIM} SHARED $<TARGET_OBJECTS:wiring_${SIM}>)
+  target_link_libraries(${SIM} "-Wl,--whole-archive" "-Wl,-export-dynamic" ${${SIM}_REQUIRED_COMPONENTS})
+  target_link_libraries(${SIM} "-Wl,--whole-archive" core qemu "-Wl,--no-whole-archive")
+  target_link_libraries(${SIM} "-L${BOOST_LIBRARYDIR}" boost_system boost_regex boost_serialization boost_iostreams z)
+endforeach()
 
 # clean for cmake
 add_custom_target(clean_cmake
