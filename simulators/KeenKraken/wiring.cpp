@@ -49,10 +49,7 @@
 
 // This section contains the name of the simulator
 #include <core/simulator_name.hpp>
-namespace Flexus {
-// Simulator Name
-std::string theSimulatorName = "Keen Kraken v1.0";
-} // namespace Flexus
+FLEXUS_DECLARE_SIMULATOR("Keen Kraken v1.0");
 
 #include FLEXUS_BEGIN_DECLARATION_SECTION()
 

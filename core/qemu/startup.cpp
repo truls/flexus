@@ -164,16 +164,20 @@ void print_copyright() {
   cerr << "//       ****          ******       ***            ***   ***             ********                     //" << endl;
   cerr << "//        *****        *******      ***            ***    ****   ****   ****  ****                    //" << endl;
   cerr << "//           ****    ****   ***     ***            ***      ********   ***      ***                   //" << endl;
-  cerr << "//                                                                                                    //" << endl; 
+  cerr << "//                                                                                                    //" << endl;
   cerr << "//   QFlex (C) 2016-2017                                                                              //" << endl;
   cerr << "//   Website: https://parsa-epfl.github.io/qflex/                                                     //" << endl;
   cerr << "//   QFlex uses software developed externally:                                                        //" << endl;
   cerr << "//   [NS-3](https://www.gnu.org/copyleft/gpl.html)                                                    //" << endl;
   cerr << "//   [QEMU](http://wiki.qemu.org/License)                                                             //" << endl;
   cerr << "//   [SimFlex] (http://parsa.epfl.ch/simflex/)                                                        //" << endl;
-  cerr << "//                                                                                                    //" << endl; 
+  cerr << "//                                                                                                    //" << endl;
   cerr << "////////////////////////////////////////////////////////////////////////////////////////////////////////" << endl << endl << endl;;
-  cerr << "//   QFlex simulator - Built as " << Flexus::theSimulatorName << endl << endl;
+  cerr << "//   QFlex simulator - Built as " << Flexus::theSimulatorName
+       << " from commit hash " << Flexus::theSimulatorCommitHash
+       << " " << Flexus::theSimulatorTreeStatus
+       << " from branch " << Flexus::theSimualtorBranchName
+       << endl << endl;
 }
 // clang-format on
 

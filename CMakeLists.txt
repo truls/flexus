@@ -20,6 +20,17 @@ if (${FORCE_COLORED_OUTPUT})
     endif ()
 endif ()
 
+# Get version information
+execute_process(COMMAND ${CMAKE_COMMAND} -E env git rev-parse HEAD
+  OUTPUT_VARIABLE FLEXUS_GIT_HASH)
+string(STRIP ${FLEXUS_GIT_HASH} FLEXUS_GIT_HASH)
+execute_process(COMMAND ${CMAKE_COMMAND} -E env bash -c "git branch | grep '^\*' | sed 's/^..//'"
+  OUTPUT_VARIABLE FLEXUS_GIT_BRANCH)
+string(STRIP ${FLEXUS_GIT_BRANCH} FLEXUS_GIT_BRANCH)
+execute_process(COMMAND ${CMAKE_COMMAND} -E env bash -c "git diff --quiet || echo 'dirty'"
+  OUTPUT_VARIABLE FLEXUS_GIT_TREE_STATUS)
+string(STRIP ${FLEXUS_GIT_TREE_STATUS} FLEXUS_GIT_TREE_STATUS)
+
 # compile core
 file(GLOB_RECURSE CORE_SOURCE ${FLEXUS_ROOT}/core/*.cpp)
 file(GLOB_RECURSE QEMU_SOUECE ${FLEXUS_ROOT}/core/qemu/*.cpp)
@@ -62,7 +73,10 @@ endforeach()
 # compile simulators
 foreach(SIM ${SIMULATORS})
   add_library(wiring_${SIM} OBJECT ${FLEXUS_ROOT}/simulators/${SIM}/wiring.cpp)
-  target_compile_options(wiring_${SIM} PRIVATE -c ${GCC_FLAGS})
+  target_compile_options(wiring_${SIM} PRIVATE -c ${GCC_FLAGS}
+    -DFLEXUS_GIT_HASH="${FLEXUS_GIT_HASH}"
+    -DFLEXUS_GIT_BRANCH="${FLEXUS_GIT_BRANCH}"
+    -DFLEXUS_GIT_TREE_STATUS="${FLEXUS_GIT_TREE_STATUS}")
   add_library(${SIM} SHARED $<TARGET_OBJECTS:wiring_${SIM}>)
   target_link_libraries(${SIM} "-Wl,--whole-archive" "-Wl,-export-dynamic" ${${SIM}_REQUIRED_COMPONENTS})
   target_link_libraries(${SIM} "-Wl,--whole-archive" core qemu "-Wl,--no-whole-archive")
