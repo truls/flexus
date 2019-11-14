@@ -49,10 +49,7 @@
   }                                                                     \
   struct semicolon_eater__
 
-#include <string>
-
 namespace Flexus {
-
   extern "C" {
   // The name of the simulator
   extern const char theSimulatorName[];
