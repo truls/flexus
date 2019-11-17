@@ -460,9 +460,9 @@ struct CombiningImpl : public BranchPredictor {
   }
 
   VirtualMemoryAddress predictConditional(FetchAddr &aFetch) {
-    eDirection bimodal = theBimodal.direction(aFetch.theAddress);
-    eDirection gshare = theGShare.direction(aFetch.theAddress);
-    eDirection meta = theMeta.direction(aFetch.theAddress);
+    eDirection bimodal = theBimodal.direction(aFetch.address);
+    eDirection gshare = theGShare.direction(aFetch.address);
+    eDirection meta = theMeta.direction(aFetch.address);
     eDirection prediction;
 
     // Decide which predictor to believe
@@ -489,11 +489,11 @@ struct CombiningImpl : public BranchPredictor {
     // overall prediction or just the gshare part.
     theGShare.shiftIn(gshare);
 
-    DBG_(Verb, (<< theIndex << "-BPRED-COND:  " << aFetch.theAddress << " BIMOD " << bimodal
+    DBG_(Verb, (<< theIndex << "-BPRED-COND:  " << aFetch.address << " BIMOD " << bimodal
                 << " GSHARE " << gshare << " META " << meta << " OVERALL " << prediction));
 
-    if (prediction <= kTaken && theBTB.target(aFetch.theAddress)) {
-      return *theBTB.target(aFetch.theAddress);
+    if (prediction <= kTaken && theBTB.target(aFetch.address)) {
+      return *theBTB.target(aFetch.address);
     } else {
       return VirtualMemoryAddress(0);
     }
@@ -501,7 +501,7 @@ struct CombiningImpl : public BranchPredictor {
 
   VirtualMemoryAddress predict(FetchAddr &aFetch) {
     aFetch.theBPState = boost::intrusive_ptr<BPredState>(new BPredState());
-    aFetch.theBPState->thePredictedType = theBTB.type(aFetch.theAddress);
+    aFetch.theBPState->thePredictedType = theBTB.type(aFetch.address);
     aFetch.theBPState->theSerial = theSerial++;
     aFetch.theBPState->thePredictedTarget = VirtualMemoryAddress(0);
     aFetch.theBPState->thePrediction = kStronglyTaken;
@@ -520,8 +520,8 @@ struct CombiningImpl : public BranchPredictor {
     case kUnconditional:
       ++thePredictions;
       ++thePredictions_Unconditional;
-      if (theBTB.target(aFetch.theAddress)) {
-        aFetch.theBPState->thePredictedTarget = *theBTB.target(aFetch.theAddress);
+      if (theBTB.target(aFetch.address)) {
+        aFetch.theBPState->thePredictedTarget = *theBTB.target(aFetch.address);
       } else {
         aFetch.theBPState->thePredictedTarget = VirtualMemoryAddress(0);
       }
@@ -530,8 +530,8 @@ struct CombiningImpl : public BranchPredictor {
     case kCall:
       ++thePredictions;
       ++thePredictions_Unconditional;
-      if (theBTB.target(aFetch.theAddress)) {
-        aFetch.theBPState->thePredictedTarget = *theBTB.target(aFetch.theAddress);
+      if (theBTB.target(aFetch.address)) {
+        aFetch.theBPState->thePredictedTarget = *theBTB.target(aFetch.address);
       } else {
         aFetch.theBPState->thePredictedTarget = VirtualMemoryAddress(0);
       }
@@ -548,7 +548,7 @@ struct CombiningImpl : public BranchPredictor {
 
     if (aFetch.theBPState->thePredictedType != kNonBranch) {
       DBG_(Verb,
-           (<< theIndex << "-BPRED-PREDICT: PC \t" << aFetch.theAddress << " serial "
+           (<< theIndex << "-BPRED-PREDICT: PC \t" << aFetch.address << " serial "
             << aFetch.theBPState->theSerial << " Target \t" << aFetch.theBPState->thePredictedTarget
             << "\tType " << aFetch.theBPState->thePredictedType));
     }

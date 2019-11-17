@@ -81,9 +81,9 @@ struct BPredState : boost::counted_base {
 };
 
 struct FetchAddr {
-  Flexus::SharedTypes::VirtualMemoryAddress theAddress;
+  Flexus::SharedTypes::VirtualMemoryAddress address;
   boost::intrusive_ptr<BPredState> theBPState;
-  FetchAddr(Flexus::SharedTypes::VirtualMemoryAddress anAddress) : theAddress(anAddress) {
+  FetchAddr(Flexus::SharedTypes::VirtualMemoryAddress anAddress) : address(anAddress) {
   }
 };
 

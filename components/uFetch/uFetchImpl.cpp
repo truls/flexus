@@ -729,7 +729,7 @@ private:
 
       while (remaining_fetch > 0 && (theFAQ[anIndex].size() > 0 || theFlexus->quiescing())) {
         FetchAddr fetch_addr = theFAQ[anIndex].front();
-        VirtualMemoryAddress block_addr(fetch_addr.theAddress & theBlockMask);
+        VirtualMemoryAddress block_addr(fetch_addr.address & theBlockMask);
 
         if (available_lines.count(block_addr) == 0) {
           // Line needs to be fetched from I-cache
@@ -753,17 +753,17 @@ private:
           available_lines.insert(block_addr);
         }
 
-        sendFetchRequest(anIndex, fetch_addr.theAddress);
+        sendFetchRequest(anIndex, fetch_addr.address);
 
         theFAQ[anIndex].pop_front();
         // DBG_(VVerb, ( << "\e[1;34m" << "FETCH UNIT: Fetched " <<
         // fetch_addr.theAddress << " and poping it out of FAQ" << "\e[0m" ) );
         theBundle->theOpcodes.emplace_back(
-            FetchedOpcode(fetch_addr.theAddress,
+            FetchedOpcode(fetch_addr.address,
                           0 // op_code not resolved yet - waiting for translation
                           ,
                           fetch_addr.theBPState, theFetchReplyTransactionTracker[anIndex]));
-        DBG_(VVerb, (<< "adding entry in the fetch bundle " << fetch_addr.theAddress));
+        DBG_(VVerb, (<< "adding entry in the fetch bundle " << fetch_addr.address));
 
         theBundle->theFillLevels.push_back(eL1I);
         ++theFetches;
