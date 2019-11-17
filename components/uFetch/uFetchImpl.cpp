@@ -59,42 +59,11 @@
 #define DBG_SetDefaultOps AddCat(uFetch)
 #include DBG_Control()
 
-#include <components/CommonQEMU/seq_map.hpp>
 #include <core/qemu/mai_api.hpp>
 
-// clang-format off
-#define LOG2(x)        \
-  ((x)==1 ? 0 :         \
-  ((x)==2 ? 1 :         \
-  ((x)==4 ? 2 :         \
-  ((x)==8 ? 3 :         \
-  ((x)==16 ? 4 :        \
-  ((x)==32 ? 5 :        \
-  ((x)==64 ? 6 :        \
-  ((x)==128 ? 7 :       \
-  ((x)==256 ? 8 :       \
-  ((x)==512 ? 9 :       \
-  ((x)==1024 ? 10 :     \
-  ((x)==2048 ? 11 :     \
-  ((x)==4096 ? 12 :     \
-  ((x)==8192 ? 13 :     \
-  ((x)==16384 ? 14 :    \
-  ((x)==32768 ? 15 :    \
-  ((x)==65536 ? 16 :    \
-  ((x)==131072 ? 17 :   \
-  ((x)==262144 ? 18 :   \
-  ((x)==524288 ? 19 :   \
-  ((x)==1048576 ? 20 :  \
-  ((x)==2097152 ? 21 :  \
-  ((x)==4194304 ? 22 :  \
-  ((x)==8388608 ? 23 :  \
-  ((x)==16777216 ? 24 : \
-  ((x)==33554432 ? 25 : \
-  ((x)==67108864 ? 26 : -0xffff)))))))))))))))))))))))))))
-// clang-format on
+#include <components/uFetch/LogTwoLookup.hpp>
 
 #include <components/uFetch/SimCache.hpp>
-
 
 namespace nuFetch {
 
@@ -125,9 +94,6 @@ class FLEXUS_COMPONENT(uFetch) {
   Stat::StatCounter theAllocations;
   Stat::StatMax theMaxOutstandingEvicts;
 
-  // The I-cache
-  SimCache theI;
-
   // Indicates whether a miss is outstanding, and what the physical address
   // of the miss is
   std::vector<boost::optional<PhysicalMemoryAddress>> theIcacheMiss;
@@ -150,6 +116,9 @@ class FLEXUS_COMPONENT(uFetch) {
   uint32_t theIndexShift;
   uint64_t theBlockMask;
   uint32_t theMissQueueSize;
+
+  // The I-cache
+  SimCache theI;
 
   std::list<MemoryTransport> theMissQueue;
   std::list<MemoryTransport> theSnoopQueue;
@@ -207,12 +176,12 @@ public:
         theFailedTranslations(statName() + "-FailedTranslations"),
         theMisses(statName() + "-Misses"), theHits(statName() + "-Hits"),
         theMissCycles(statName() + "-MissCycles"), theAllocations(statName() + "-Allocations"),
-        theMaxOutstandingEvicts(statName() + "-MaxEvicts"), theLastVTagSet(0), theLastPhysical(0) {
+    theMaxOutstandingEvicts(statName() + "-MaxEvicts"), theLastVTagSet(0), theLastPhysical(0),
+    theI(cfg.Size, cfg.Associativity, cfg.ICacheLineSize, statName()) {
   }
 
   void initialize() {
 
-    theI.init(cfg.Size, cfg.Associativity, cfg.ICacheLineSize, statName());
     theIndexShift = LOG2(cfg.ICacheLineSize);
     theBlockMask = ~(cfg.ICacheLineSize - 1);
     theBundle = new FetchBundle();
