@@ -77,79 +77,76 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
   // enumerated message type
   enum MemoryMessageType {
     // CPU-initiated requests
-    LoadReq,
+
     // This is a request to read a word of data (really, it can be any
     // length, as int64_t as it does not span multiple cache blocks).
     // LoadReply is the only valid response.
-    StoreReq,
+    LoadReq,
     // This is a request to write a word of data (again, any length
     // except spanning multiple blocks), which is contained in the
     // request.  StoreReply is the only valid response.
-    StorePrefetchReq,
+    StoreReq,
     // This is a request to write SPECULATIVELY a word of data (again, any
     // length
     // except spanning multiple blocks), which is contained in the
     // request.  StorePrefetchReply is the only valid response.
+    StorePrefetchReq,
+    // This is a request to read an instruction cache line
+    // In the SimFlex tracer this request can be initiated by
+    // either the CPU or the cache (request from front side).
     FetchReq,
     // This is a request to read an instruction cache line
     // In the SimFlex tracer this request can be initiated by
     // either the CPU or the cache (request from front side).
     NonAllocatingStoreReq,
-    // This is a request to read an instruction cache line
-    // In the SimFlex tracer this request can be initiated by
-    // either the CPU or the cache (request from front side).
 
     RMWReq,
-    CmpxReq,
     // This is a compare and swap atomic operation. It obtains write
     // permission to the appropriate cache block, reads the previous
     // value of the specified word and updates the word with data
     // contained in the request.  The previous word value is returned
     // as part of CmpxReply, the only valid reply.
+    CmpxReq,
 
-    AtomicPreloadReq,
     // This is a request to read the value of a cache line for
     // a TSO++ atomic preload.  If the data is available in L1,
     // this request immediately generates an AtomicPreloadReply
     // containing the data.  Additionally, if the line is not
     // writable, this message is treated like a store prefetch (but
     // the AtomicPreloadReply is sent right away).
+    AtomicPreloadReq,
 
     // Requests from front side (initiated by CPU or cache)
-    FlushReq,
+
     // This is a request to flush dirty data out of the memory hierarchy.
     // Lines will be written back and not invalidated.  It is guaranteed
     // that a FlushReq propagates the entire depth of the hierarchy.
     // There is no response.
-    //
-    // FetchReq,
-    // This is a request to read an instruction cache line
-    // In the SimFlex tracer this request can be initiated by
-    // either the CPU or the cache (request from front side).
+    FlushReq,
 
-    // Requests from front side (initiated by cache only)
-    ReadReq,
+    // ***  Requests from front side (initiated by cache only)
+
     // This is a request for a chunk of data to be read.  The data does
     // not need be modifiable, although it may be.  The valid response
     // types are MissReply, MissReplyWritable, and MissReplyDirty.
-    WriteReq,
+    ReadReq,
     // This is a request for a chunk of data to be read with modify
     // permission.  MissReplyWritable and MissReplyDirty are valid responses.
-    WriteAllocate,
+    WriteReq,
     // This is a request to write a chunk of data (which is contained in
     // the request) and also to read a (possibly larger) chunk of data.
     // This allows the write operation to occur at the current level and
     // also at the lower level.  The data chunk retrieved must be
     // modifiable.  MissReplyWritable and MissReplyDirty are the valid
     // response types.
-    UpgradeReq,
+    WriteAllocate,
     // This is a request to obtain modify permission for a chunk of data.
     // The originator must have the line in non-modifiable state.  There
     // are two possible responses:
     //   1. UpgradeReply (normal case)
     //   2. MissReplyWritable (if the data were updated without informing
     //      the originator - contains this updated data)
-    UpgradeAllocate,
+    UpgradeReq,
     // This is a request to obtain modify permission for a chunk of data,
     // and also write a chunk of data at the lower level (this data is
     // included in the request).  The originator must have the line in
@@ -157,121 +154,125 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     //   1. UpgradeReply (normal case)
     //   2. MissReplyWritable (if the data were updated without informing
     //      the originator - contains this updated data)
-    Flush,
+    UpgradeAllocate,
     // This is a request to flush dirty data out of the memory hierarchy,
     // including the dirty data contained in the request.  See FlushReq.
     // There is no response.
-    EvictDirty,
+    Flush,
     // This is a request to write back dirty data at a lower level in
     // the hierarchy (this data is included in the request), because the
     // originator has invalidated the line.  There is no response.
-    EvictWritable,
+    EvictDirty,
     // This message indicates that the originator invalidated a line that
     // was not dirty but was modifiable.  No response is necessary.
-    EvictClean,
+    EvictWritable,
     // This message indicates that the originator invalidated a line that
     // was not dirty.  No response is necessary.
+    EvictClean,
 
-    SVBClean,
     // This message indicates that a line has been dropped from the SVB.
     // It is used by the SimplePrefetchController to figure out when a block
     // is evicted from both the SVB and the L1 cache.
+    SVBClean,
 
-    // Responses to CPU
-    LoadReply,
+    // *** Responses to CPU
+
     // This is a response to a LoadReq; carries word data for which
     // write permission is not granted.
-    StoreReply,
+    LoadReply,
     // This is a response indicating that a StoreReq has been fulfilled.
-    StorePrefetchReply,
+    StoreReply,
     // This is a response indicating that a StorePrefetchReq has been fulfilled.
-    FetchReply,
+    StorePrefetchReply,
     // Response to a FetchRequest
+    FetchReply,
     RMWReply,
-    CmpxReply,
     // This is a response to a CmpxReq, containing previous word data,
     // and indicating that the swap has been fulfilled.
+    CmpxReply,
 
     AtomicPreloadReply,
 
-    // Responses to front side
-    MissReply,
+    // *** Responses to front side
+
     // This is a response that contains data for which write permission
     // is not granted.
-    MissReplyWritable,
+    MissReply,
     // This is a response that contains data which may be modified.
-    MissReplyDirty,
+    MissReplyWritable,
     // This is a response that contains data which may be modified and
     // is already dirty.
-    UpgradeReply,
+    MissReplyDirty,
     // This is a response to indicate that modify permission has been given
     // for the desired chunk of data.
-    NonAllocatingStoreReply,
+    UpgradeReply,
     // A non-allocating store went to memory and was completed without
     // allocating the block.
+    NonAllocatingStoreReply,
 
-    // Requests from back side
-    Invalidate,
+    // *** Requests from back side
     // This is a request to ensure the line is not present anywhere above
     // the originator's level in the memory hierarchy.  There are two
     // possible responses:
     //   1. InvalidateAck (no dirty data found)
     //   2. InvUpdateAck (dirty data found and included in response)
-    Downgrade,
+    Invalidate,
     // This is a request to ensure the line is not dirty or modifiable
     // anywhere above the originator's lever in the memory hierarchy.
     // There are two possible responses:
     //   1. DowngradeAck (no dirty data found)
     //   2. DownUpdateAck (dirty data found and included in response)
-    Probe,
+    Downgrade,
     // This is a request to determine the status of a particular block
     // in the cache hierarchy.  There are four possible responses:
     //   1. ProbedNotPresent (block not present in hierarchy)
     //   2. ProbedClean (block present and not modifiable)
     //   3. ProbedWritable (block present and modifiable, but not dirty)
     //   4. ProbedDirty (block present and modified)
+    Probe,
     DownProbe,
-    ReturnReq,
     // JCS - Asks a higher-level cache to return a clean copy of a
     //       block, but not invalidate/evict the line
+    ReturnReq,
 
-    // Responses to back side
+    // *** Responses to back side
+
+    // This is a response to indicate the Invalidate has been satisfied
+    // in the hierarchy above.
     InvalidateAck,
     // This is a response to indicate the Invalidate has been satisfied
-    // in the hierarchy above.
-    InvUpdateAck,
-    // This is a response to indicate the Invalidate has been satisfied
     // in the hierarchy above.  It contains data that had been dirty in
     // the hierarchy.
+    InvUpdateAck,
+    // This is a response to indicate the Downgrade has been satisfied
+    // in the hierarchy above.
     DowngradeAck,
     // This is a response to indicate the Downgrade has been satisfied
-    // in the hierarchy above.
-    DownUpdateAck,
-    // This is a response to indicate the Downgrade has been satisfied
     // in the hierarchy above.  It contains data that had been dirty in
     // the hierarchy.
-    ProbedNotPresent,
+    DownUpdateAck,
     // This is a response to a Probe that indicates the block is not
     // present in the hierarchy above.
-    ProbedClean,
+    ProbedNotPresent,
     // This is a response to a Probe that indicates the block is present
     // in the hierarchy above, but not modified or writable (in any level).
-    ProbedWritable,
+    ProbedClean,
     // This is a response to a Probe that indicates the block is present
     // and writable (but not dirty) in at least one level of the hierarchy
     // above.
-    ProbedDirty,
+    ProbedWritable,
     // This is a response to a Probe that indicates the block is present
     // and modified in at least one level of the hierarchy above.
+    ProbedDirty,
     DownProbePresent,
     DownProbeNotPresent,
-    ReturnReply,
     // JCS - Acknowledgement with data from a ReturnReq
+    ReturnReply,
 
-    // Prefetch requests (from the front side)
-    StreamFetch,
+    // *** Prefetch requests (from the front side)
+
     // Requests a block be streamed from L2 to SVB.
-    PrefetchReadNoAllocReq,
+    StreamFetch,
     // This is a request for a chunk of data to be read.  It will be
     // inserted into a prefetch buffer upon reply. Caches that receive this
     // message
@@ -280,37 +281,39 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     // to the next cache level, and return either PrefetchReadReply or
     // PrefetchWritableReply.  The cache should NOT allocate the block when
     // it is returned, it should be passed through to the prefetcer above.
-    PrefetchReadAllocReq,
+    PrefetchReadNoAllocReq,
     // This is a request for a chunk of data to be allocated in
     // lower levels of the hierarchy.  The cache that receives the
     // PrefetchReadAllocReq and all caches below it should allocate the block.
     // If the block is already present at the cache level receiving this
     // message, the cache should reply with PrefetchReadRedundant.
     // Valid responses are the same as for PrefetchReadReq.
-    PrefetchInsert,
+    PrefetchReadAllocReq,
     // This is a request that carries data, asks that the cache
     // allocates space for it, and is the result of a prefetch
     // operation.  The data is clean and non-modifiable.  There is
     // no response.
-    PrefetchInsertWritable,
+    PrefetchInsert,
     // This is a request that carries data, asks that the cache
     // allocates space for it, and is the result of a prefetch
     // operation.  The data is clean and modifiable.  There is no
     // response.
+    PrefetchInsertWritable,
 
-    // Prefetch responses (from the back side)
-    PrefetchReadReply,
+    // *** Prefetch responses (from the back side)
+
     // This is a response to a prefetch read operation.  It contains
     // data for which write permission is not granted.
-    PrefetchWritableReply,
+    PrefetchReadReply,
     // This is a response to a prefetch read operation.  It contains
     // data which may be modified.
-    PrefetchDirtyReply,
+    PrefetchWritableReply,
     // May only be sent in response to a stream fetch operation.
-    PrefetchReadRedundant,
-    // This is a response to a prefetch read opertion, indicating
+    PrefetchDirtyReply,
+    // This is a response to a prefetch read operation, indicating
     // that the requested block is already present in the hierarchy.
     // It contains no data.
+    PrefetchReadRedundant,
     StreamFetchWritableReply,
     StreamFetchRejected,
 
@@ -349,7 +352,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
 
     // BackInvalidate msgs are generated to maintain inclusion (directory
     // inclusion, cache inclusion)
-    // To avoid changin L1 caches, L1's don't know about BackInvalidates
+    // To avoid changing L1 caches, L1's don't know about BackInvalidates
     BackInvalidate,
 
     InvalidateNAck,
