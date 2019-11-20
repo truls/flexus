@@ -23,9 +23,7 @@ struct ComponentManager {
   virtual ~ComponentManager() {
   }
   virtual void initComponents() = 0;
-  // added by PLotfi
   virtual void finalizeComponents() = 0;
-  // end PLotfi
   virtual bool isQuiesced() const = 0;
   virtual void doSave(std::string const &aDirectory) const = 0;
   virtual void doLoad(std::string const &aDirectory) = 0;
