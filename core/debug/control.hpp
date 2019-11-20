@@ -44,7 +44,7 @@
 #include <core/debug/aux_/new_categories.hpp>
 #undef DBG_DefineCategories
 
-#endif // DBG_NewCategories
+#endif // DBG_DefineCategories
 
 #if defined(DBG_DeclareCategories)
 
