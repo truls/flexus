@@ -8,21 +8,23 @@
 namespace Flexus {
 namespace Core {
 
+using Flexus::Core::index_t;
+
 struct ComponentInterface {
 
   // This allows components to have push output ports
   template <class Port, typename AvailableFn, typename ManipulateFn>
   static Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>
   get_channel(Port const &, AvailableFn avail, ManipulateFn manip,
-              Flexus::Core::index_t aComponentIndex) {
+              index_t aComponentIndex) {
     return Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>(avail, manip, aComponentIndex);
   }
 
   template <class Port, typename AvailableFn, typename ManipulateFn>
   static Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>
   get_channel_array(Port const &, AvailableFn avail, ManipulateFn manip,
-                    Flexus::Core::index_t aComponentIndex, Flexus::Core::index_t aPortIndex,
-                    Flexus::Core::index_t aPortWidth) {
+                    index_t aComponentIndex, index_t aPortIndex,
+                    index_t aPortWidth) {
     DBG_Assert(aPortIndex < aPortWidth,
                (<< "PortIndex: " << aPortIndex << " Width: " << aPortWidth));
     return Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>(
