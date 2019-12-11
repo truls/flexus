@@ -1118,8 +1118,8 @@ void NonInclusiveMESIPolicy::handleReply(ProcessEntry_p process) {
   // Replies include InvalidateAck, InvUpdateAck, FetchAck, ReadAck, WriteAck,
   // UpgradeAck, EvictAck The rest refer to oustanding requests
 
-  MemoryMessage_p req = process->transport()[MemoryMessageTag];
-  int32_t requester = process->transport()[DestinationTag]->requester;
+  const MemoryMessage_p req = process->transport()[MemoryMessageTag];
+  const int32_t requester = process->transport()[DestinationTag]->requester;
   MemoryTransport rep_transport(process->transport());
 
   switch (req->type()) {

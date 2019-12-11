@@ -179,14 +179,14 @@ private:
 
   std::string theName;
 
-  int32_t getBank(uint64_t addr) {
+  int32_t getBank(uint64_t addr) const {
     if (theSkewShift >= 0) {
       return ((addr >> theBankShift) ^ (addr >> theSkewShift)) & theBankMask;
     } else {
       return (addr >> theBankShift) & theBankMask;
     }
   }
-  int32_t getGroup(uint64_t addr) {
+  int32_t getGroup(uint64_t addr) const {
     if (theSkewShift >= 0) {
       return ((addr >> theGroupShift) ^ (addr >> theSkewShift)) & theGroupMask;
     } else {
