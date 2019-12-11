@@ -50,7 +50,8 @@
 namespace nSetAssoc {
 namespace aux_ {
 
-template <class UserDefinedSet> struct BaseLookupResult {
+template <class UserDefinedSet>
+struct BaseLookupResult {
   typedef UserDefinedSet Set;
   typedef typename Set::Block Block;
   typedef typename Set::Tag Tag;

@@ -790,8 +790,7 @@ protected:
     return result;
   }
 
-  TaglessLookupResult_p findEntry(PhysicalMemoryAddress addr,
-                                  [[maybe_unused]] int32_t index) {
+  TaglessLookupResult_p findEntry(PhysicalMemoryAddress addr, [[maybe_unused]] int32_t index) {
 
     TaglessLookupResult_p result(new TaglessLookupResult());
 
@@ -986,7 +985,7 @@ public:
     bool valid = true;
     return std::tie(block->theTaglessState.sharers(), block->theTaglessState.state(), block, valid);
   }
-  void saveState(std::ostream &s,[[maybe_unused]] const std::string &aDirName) {
+  void saveState(std::ostream &s, [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_oarchive oa(s);
 
     int32_t tmp = theNumSets;

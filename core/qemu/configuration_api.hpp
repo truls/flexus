@@ -30,7 +30,8 @@ enum Persistence {
   Transient = API::QEMU_Class_Kind_Pseudo
 };
 
-template <class ObjectClassImpl> class BuiltInObject : public aux_::Object, public aux_::BuiltIn {
+template <class ObjectClassImpl>
+class BuiltInObject : public aux_::Object, public aux_::BuiltIn {
 protected:
   ObjectClassImpl theImpl;
 
@@ -70,11 +71,13 @@ public:
 
   // defineClass does nothing for built-in classes, since they are defined
   // by Qemu
-  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aClass) {
   }
 };
 
-template <class ObjectClassImpl> class AddInObject /*: public aux_::Object */ {
+template <class ObjectClassImpl>
+class AddInObject /*: public aux_::Object */ {
   ObjectClassImpl *theImpl;
 
 public:
@@ -107,7 +110,7 @@ public:
   ObjectClassImpl const &operator*() const {
     return *theImpl;
   }
-  operator bool () {
+  operator bool() {
     return theImpl;
   }
 
@@ -121,7 +124,8 @@ public:
 
   // The default defineClass() implementation does nothing.  This is
   // overridden in order to add attributes or commands to a class.
-  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aClass) {
   }
 };
 namespace aux_ {
@@ -131,7 +135,8 @@ struct no_class_registration_tag {};
 
 // trait template for determining of CppObjectClass represents a Qemu Builtin
 // class
-template <class CppObjectClass> struct is_builtin {
+template <class CppObjectClass>
+struct is_builtin {
   static const bool value = std::is_base_of<BuiltIn, CppObjectClass>::value;
 };
 
@@ -164,7 +169,8 @@ public:
 };
 
 // Implementation of the Class type for Qemu classes
-template <class CppObjectClass, bool IsBuiltin /*true*/> class ClassImpl : public BaseClassImpl {
+template <class CppObjectClass, bool IsBuiltin /*true*/>
+class ClassImpl : public BaseClassImpl {
 protected:
   // Class objects for built in classes, never have to register the class, since
   // Qemu already knows about the class.  Thus, the "register" and "no-register"
@@ -188,7 +194,8 @@ struct NoType {
   char a[2];
 };
 
-template <class MemberFunction, int Arity> struct member_function_arity {
+template <class MemberFunction, int Arity>
+struct member_function_arity {
   static const bool value = (boost::member_function_traits<MemberFunction>::arity == Arity);
 };
 
@@ -253,7 +260,8 @@ struct Class : public aux_::ClassImpl<CppObjectClass, aux_::is_builtin<CppObject
   }
 };
 
-template <class CppObjectClass> class Factory {
+template <class CppObjectClass>
+class Factory {
   using class_ = Class<CppObjectClass>;
   class_ *theClass;
 

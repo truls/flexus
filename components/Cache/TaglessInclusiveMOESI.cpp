@@ -137,9 +137,9 @@ TaglessInclusiveMOESIControllerImpl::TaglessInclusiveMOESIControllerImpl(
 }
 
 // Perform lookup, select action and update cache state if necessary
-std::tuple<bool, bool, Action>
-TaglessInclusiveMOESIControllerImpl::doRequest(MemoryTransport transport, bool has_maf_entry,
-                                               [[maybe_unused]] TransactionTracker_p waking_tracker) {
+std::tuple<bool, bool, Action> TaglessInclusiveMOESIControllerImpl::doRequest(
+    MemoryTransport transport, bool has_maf_entry,
+    [[maybe_unused]] TransactionTracker_p waking_tracker) {
   bool is_write = false;
   bool is_upgrade = false;
   bool is_miss = false;
@@ -1657,7 +1657,7 @@ Action TaglessInclusiveMOESIControllerImpl::handleSnoopMessage(MemoryTransport t
 // Action TaglessInclusiveMOESIControllerImpl::handleIprobe(bool aHit,
 // MemoryMessage_p fetchReq, TransactionTracker_p tracker) {
 Action TaglessInclusiveMOESIControllerImpl::handleIprobe([[maybe_unused]] bool aHit,
-                                                        MemoryTransport transport) {
+                                                         MemoryTransport transport) {
 
   MemoryMessage_p fetchReq = transport[MemoryMessageTag];
   TransactionTracker_p tracker = transport[TransactionTrackerTag];

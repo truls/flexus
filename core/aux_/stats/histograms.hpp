@@ -57,7 +57,8 @@ struct InstanceCounterPrint {
 class StatValue_Log2Histogram : public StatValueBase, private HistogramPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theBuckets;
   }
@@ -158,7 +159,8 @@ public:
 class StatValue_WeightedLog2Histogram : public StatValueBase, private HistogramPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theBuckets;
   }
@@ -261,7 +263,8 @@ public:
 class StatValue_StdDevLog2Histogram : public StatValueBase, private HistogramPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theBuckets;
     ar &theBucketCounts;
@@ -378,7 +381,8 @@ public:
   }
 };
 
-template <class CountedValueType> class StatValue_UniqueCounter : public StatValueBase {
+template <class CountedValueType>
+class StatValue_UniqueCounter : public StatValueBase {
 
 public:
   virtual boost::intrusive_ptr<const StatValueBase> serialForm() const {
@@ -421,11 +425,13 @@ public:
   };
 };
 
-template <> class StatValue_UniqueCounter<uint32_t> : public StatValueBase {
+template <>
+class StatValue_UniqueCounter<uint32_t> : public StatValueBase {
 
 public:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theSet;
   }
@@ -470,7 +476,8 @@ public:
   };
 };
 
-template <class CountedValueType> class StatValueArray_UniqueCounter : public StatValueArrayBase {
+template <class CountedValueType>
+class StatValueArray_UniqueCounter : public StatValueArrayBase {
 
 public:
   virtual boost::intrusive_ptr<const StatValueBase> serialForm() const {
@@ -531,13 +538,15 @@ public:
   }
 };
 
-template <class CountedValueType> class StatValue_InstanceCounter;
+template <class CountedValueType>
+class StatValue_InstanceCounter;
 
 template <>
 class StatValue_InstanceCounter<std::string> : public StatValueBase, private InstanceCounterPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theMap;
   }
@@ -632,7 +641,8 @@ template <>
 class StatValue_InstanceCounter<int64_t> : public StatValueBase, private InstanceCounterPrint {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theMap;
   }
@@ -832,7 +842,8 @@ public:
   }
 };
 
-template <class CountedValueType> class StatValueArray_InstanceCounter : public StatValueArrayBase {
+template <class CountedValueType>
+class StatValueArray_InstanceCounter : public StatValueArrayBase {
   // NOT YET IMPLEMENTED
 
 public:
@@ -852,7 +863,7 @@ public:
 public:
   StatValueArray_InstanceCounter() {
   }
-  void reduceSum([[maybe_unused]] StatValueBase const& aBase) {
+  void reduceSum([[maybe_unused]] StatValueBase const &aBase) {
     std::cerr << "Reductions not supported (StatValueArray_InstanceCounter)" << std::endl;
   }
   void update(update_type anUpdate) {

@@ -316,7 +316,7 @@ bool Channel::drive(void) {
       break;
     }
   }
-  [[fallthrough]];
+    [[fallthrough]];
 
   case CS_TRANSFERRING: {
     // Count down the transfer timer, if finished, go

@@ -195,8 +195,7 @@ public:
     DBG_Assert(false, (<< "Uknown Request+Response combination: " << request << "-" << response));
   }
 
-  virtual void updateLRU([[maybe_unused]] int32_t index,
-                         [[maybe_unused]] AbstractEntry_p dir_entry,
+  virtual void updateLRU([[maybe_unused]] int32_t index, [[maybe_unused]] AbstractEntry_p dir_entry,
                          [[maybe_unused]] PhysicalMemoryAddress address) {
   }
 

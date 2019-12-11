@@ -259,7 +259,7 @@ void CoreImpl::updateDependantLoads(memq_t::index<by_insn>::type::iterator anUpd
   // obtain their new value
 #pragma GCC diagnostic push
 #if defined(__GNUC__) && !defined(__clang__)
-  #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
   boost::optional<memq_t::index<by_insn>::type::iterator> cached_search;
 #pragma GCC diagnostic pop

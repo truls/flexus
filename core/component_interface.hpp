@@ -15,16 +15,14 @@ struct ComponentInterface {
   // This allows components to have push output ports
   template <class Port, typename AvailableFn, typename ManipulateFn>
   static Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>
-  get_channel(Port const &, AvailableFn avail, ManipulateFn manip,
-              index_t aComponentIndex) {
+  get_channel(Port const &, AvailableFn avail, ManipulateFn manip, index_t aComponentIndex) {
     return Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>(avail, manip, aComponentIndex);
   }
 
   template <class Port, typename AvailableFn, typename ManipulateFn>
   static Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>
-  get_channel_array(Port const &, AvailableFn avail, ManipulateFn manip,
-                    index_t aComponentIndex, index_t aPortIndex,
-                    index_t aPortWidth) {
+  get_channel_array(Port const &, AvailableFn avail, ManipulateFn manip, index_t aComponentIndex,
+                    index_t aPortIndex, index_t aPortWidth) {
     DBG_Assert(aPortIndex < aPortWidth,
                (<< "PortIndex: " << aPortIndex << " Width: " << aPortWidth));
     return Flexus::Core::aux_::port<Port, AvailableFn, ManipulateFn>(

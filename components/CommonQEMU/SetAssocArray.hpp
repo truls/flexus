@@ -54,7 +54,8 @@ struct HighAssociative {};
 struct LowAssociative {};
 struct Infinite {};
 
-template <class UserDefinedSet, class Implementation = LowAssociative> class SetAssocArray;
+template <class UserDefinedSet, class Implementation = LowAssociative>
+class SetAssocArray;
 // UserDefinedSet must be:
 // derived from BaseSetDefinition
 //
@@ -64,7 +65,8 @@ template <class UserDefinedSet, class Implementation = LowAssociative> class Set
 // LowAssociative
 // Infinite
 
-template <class UserDefinedSet> class SetAssocArray<UserDefinedSet, LowAssociative> {
+template <class UserDefinedSet>
+class SetAssocArray<UserDefinedSet, LowAssociative> {
 
 public:
   // allow others to extract the block and set types
@@ -89,7 +91,8 @@ private:
   Set *theSets;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     ar &myNumSets;
     for (uint32_t i = 0; i < myNumSets; ++i) {
       ar &theSets[i];

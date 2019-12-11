@@ -77,26 +77,20 @@ public:
 
   // Ports
   // From the instruction cache
-  bool available(interface::InI const &,
-                 [[maybe_unused]] index_t anIndex) {
+  bool available(interface::InI const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
 
-  void push(interface::InI const &,
-            [[maybe_unused]] index_t anIndex,
-            MemoryMessage &aMessage) {
+  void push(interface::InI const &, [[maybe_unused]] index_t anIndex, MemoryMessage &aMessage) {
     FLEXUS_CHANNEL(Out) << aMessage;
   }
 
   // From the data cache
-  bool available(interface::InD const &,
-                 [[maybe_unused]] index_t anIndex) {
+  bool available(interface::InD const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
 
-  void push(interface::InD const &,
-            [[maybe_unused]] index_t anIndex,
-            MemoryMessage &aMessage) {
+  void push(interface::InD const &, [[maybe_unused]] index_t anIndex, MemoryMessage &aMessage) {
     FLEXUS_CHANNEL(Out) << aMessage;
   }
 };

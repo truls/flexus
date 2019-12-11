@@ -935,8 +935,8 @@ uint32_t CoreImpl::currentEL() {
 }
 
 void CoreImpl::invalidateCache([[maybe_unused]] eCacheType aType,
-                              [[maybe_unused]] eShareableDomain aDomain,
-                              [[maybe_unused]] eCachePoint aPoint) {
+                               [[maybe_unused]] eShareableDomain aDomain,
+                               [[maybe_unused]] eCachePoint aPoint) {
   // TODO
 }
 
@@ -978,14 +978,10 @@ bool CoreImpl::_SECURE() {
   return true;
 }
 
-void CoreImpl::SystemRegisterTrap([[maybe_unused]] uint8_t target_el,
-                                  [[maybe_unused]] uint8_t op0,
-                                  [[maybe_unused]] uint8_t op2,
-                                  [[maybe_unused]] uint8_t op1,
-                                  [[maybe_unused]] uint8_t crn,
-                                  [[maybe_unused]] uint8_t rt,
-                                  [[maybe_unused]] uint8_t crm,
-                                  [[maybe_unused]] uint8_t dir) {
+void CoreImpl::SystemRegisterTrap([[maybe_unused]] uint8_t target_el, [[maybe_unused]] uint8_t op0,
+                                  [[maybe_unused]] uint8_t op2, [[maybe_unused]] uint8_t op1,
+                                  [[maybe_unused]] uint8_t crn, [[maybe_unused]] uint8_t rt,
+                                  [[maybe_unused]] uint8_t crm, [[maybe_unused]] uint8_t dir) {
   //    assert (target_el >= _PSTATE().EL());
   //    theException = ExceptionSyndrome(Exception_SystemRegisterTrap);
   //    exception.syndrome<21:20> = op0;
@@ -1102,20 +1098,17 @@ void CoreImpl::markExclusiveGlobal(PhysicalMemoryAddress anAddress, eSize aSize)
   GLOBAL_EXCLUSIVE_MONITOR[theNode][anAddress] = aSize;
 }
 
-bool CoreImpl::isExclusiveLocal(PhysicalMemoryAddress anAddress,
-                                [[maybe_unused]] eSize aSize) {
+bool CoreImpl::isExclusiveLocal(PhysicalMemoryAddress anAddress, [[maybe_unused]] eSize aSize) {
   if (theLocalExclusivePhysicalMonitor.find(anAddress) == theLocalExclusivePhysicalMonitor.end())
     return false;
   return true;
 }
-bool CoreImpl::isExclusiveGlobal(PhysicalMemoryAddress anAddress,
-                                 [[maybe_unused]] eSize aSize) {
+bool CoreImpl::isExclusiveGlobal(PhysicalMemoryAddress anAddress, [[maybe_unused]] eSize aSize) {
   if (GLOBAL_EXCLUSIVE_MONITOR[theNode].find(anAddress) == GLOBAL_EXCLUSIVE_MONITOR[theNode].end())
     return false;
   return true;
 }
-bool CoreImpl::isExclusiveVA(VirtualMemoryAddress anAddress,
-                             [[maybe_unused]] eSize aSize) {
+bool CoreImpl::isExclusiveVA(VirtualMemoryAddress anAddress, [[maybe_unused]] eSize aSize) {
   if (theLocalExclusiveVirtualMonitor.find(anAddress) == theLocalExclusiveVirtualMonitor.end())
     return false;
   return true;

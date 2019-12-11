@@ -1,24 +1,21 @@
-#include <string>
 #include <fstream>
+#include <string>
 
-#include <core/component_interface.hpp>
-#include <components/uFetch/LogTwoLookup.hpp>
 #include <components/CommonQEMU/seq_map.hpp>
+#include <components/uFetch/LogTwoLookup.hpp>
+#include <core/component_interface.hpp>
 
 #include "SimCache.hpp"
 
 namespace nuFetch {
 
-SimCache::SimCache(int32_t aCacheSize, int32_t aCacheAssoc, int32_t aBlockSize, const std::string &aName) :
-    theCacheSize(aCacheSize),
-    theCacheAssoc(aCacheAssoc),
-    theCacheBlockShift(LOG2(aBlockSize)),
-    theBlockSize(aBlockSize),
-    theName(aName)
-  {
+SimCache::SimCache(int32_t aCacheSize, int32_t aCacheAssoc, int32_t aBlockSize,
+                   const std::string &aName)
+    : theCacheSize(aCacheSize), theCacheAssoc(aCacheAssoc), theCacheBlockShift(LOG2(aBlockSize)),
+      theBlockSize(aBlockSize), theName(aName) {
 
-    theCache.init(theCacheSize / theBlockSize, theCacheAssoc, 0);
-  }
+  theCache.init(theCacheSize / theBlockSize, theCacheAssoc, 0);
+}
 
 void SimCache::loadState(std::string const &aDirName) {
   std::string fname(aDirName);
@@ -33,7 +30,7 @@ void SimCache::loadState(std::string const &aDirName) {
     if (!loadArray(ifs)) {
       DBG_(VVerb, (<< "Error loading checkpoint state from file: " << fname
                    << ".  Make sure your checkpoints match your current "
-                   "cache configuration."));
+                      "cache configuration."));
       DBG_Assert(false);
     }
     ifs.close();
@@ -114,13 +111,13 @@ bool SimCache::lookup(uint64_t addr) {
   return false; // not present
 }
 
-  /**
-   * Invalidate an address in cache
-   *
-   * @param[in] addr The address to invalidate
-   *
-   * @return `true` if addr was invalidated and `false` otherwise
-   */
+/**
+ * Invalidate an address in cache
+ *
+ * @param[in] addr The address to invalidate
+ *
+ * @return `true` if addr was invalidated and `false` otherwise
+ */
 bool SimCache::inval(uint64_t addr) {
   addr = addr >> theCacheBlockShift;
   SimCacheIter iter = theCache.find(addr);
@@ -131,4 +128,4 @@ bool SimCache::inval(uint64_t addr) {
   return false; // not present
 }
 
-}
+} // namespace nuFetch

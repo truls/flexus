@@ -26,7 +26,8 @@ namespace aux_ {
 class StatValueArray_Counter : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theInitialValue;
     ar &theValues;
@@ -153,7 +154,8 @@ public:
 class StatValueArray_Annotation : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theInitialValue;
     ar &theValues;
@@ -216,7 +218,8 @@ public:
 class StatValueArray_Max : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theValues;
   }
@@ -270,7 +273,8 @@ public:
 class StatValueArray_Average : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theValues;
   }
@@ -324,7 +328,8 @@ public:
 class StatValueArray_StdDev : public StatValueArrayBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueArrayBase>(*this);
     ar &theValues;
   }

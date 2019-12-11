@@ -47,7 +47,8 @@
 
 namespace nSetAssoc {
 
-template <class UnderlyingType> class SimpleTag {
+template <class UnderlyingType>
+class SimpleTag {
 public:
   // Underlying type must be:
   // Assignable
@@ -78,7 +79,8 @@ public:
   }
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     ar &tag;
   }
 
@@ -100,7 +102,8 @@ public:
     return index;
   }
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     ar &index;
   }
 
@@ -126,7 +129,8 @@ public:
     return number;
   }
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     ar &number;
   }
 

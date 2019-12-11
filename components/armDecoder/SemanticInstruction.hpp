@@ -150,7 +150,8 @@ public:
   nuArchARM::InstructionDependance makeInstructionDependance(InternalDependance const &aDependance);
 
 public:
-  template <class T> void setOperand(eOperandCode anOperand, T aT) {
+  template <class T>
+  void setOperand(eOperandCode anOperand, T aT) {
     theOperands.set<T>(anOperand, aT);
   }
 
@@ -159,7 +160,8 @@ public:
     theOperands.set(anOperand, aT);
   }
 
-  template <class T> T &operand(eOperandCode anOperand);
+  template <class T>
+  T &operand(eOperandCode anOperand);
 
   Operand &operand(eOperandCode anOperand) {
     DBG_Assert(theOperands.hasOperand(anOperand),
@@ -225,20 +227,23 @@ inline nuArchARM::reg &SemanticInstruction::operand<nuArchARM::reg>(eOperandCode
   return theOperands.operand<reg>(anOperand);
 }
 
-template <> inline bits &SemanticInstruction::operand<bits>(eOperandCode anOperand) {
+template <>
+inline bits &SemanticInstruction::operand<bits>(eOperandCode anOperand) {
   // DBG_Assert( theOperands.hasOperand(anOperand), ( << "Request for
   // unavailable operand " << anOperand << "(" << static_cast<int>(anOperand) <<
   // ") by\n" << std::internal << *this << std::left ) );
   return theOperands.operand<bits>(anOperand);
 }
 
-template <> inline uint64_t &SemanticInstruction::operand<uint64_t>(eOperandCode anOperand) {
+template <>
+inline uint64_t &SemanticInstruction::operand<uint64_t>(eOperandCode anOperand) {
   // DBG_Assert( theOperands.hasOperand(anOperand), ( << "Request for
   // unavailable operand " << anOperand << "(" << static_cast<int>(anOperand) <<
   // ") by\n" << std::internal << *this << std::left ) );
   return theOperands.operand<uint64_t>(anOperand);
 }
-template <> inline int64_t &SemanticInstruction::operand<int64_t>(eOperandCode anOperand) {
+template <>
+inline int64_t &SemanticInstruction::operand<int64_t>(eOperandCode anOperand) {
   // DBG_Assert( theOperands.hasOperand(anOperand), ( << "Request for
   // unavailable operand " << anOperand << "(" << static_cast<int>(anOperand) <<
   // ") by\n" << std::internal << *this << std::left ) );

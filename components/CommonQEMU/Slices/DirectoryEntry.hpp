@@ -90,14 +90,16 @@ private:
   uint64_t theNodes;
 
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar/*, const uint32_t version*/) const {
+  template <class Archive>
+  void save(Archive &ar /*, const uint32_t version*/) const {
     ar &theState;
     ar &theWasModified;
     ar &thePastReaders;
     ar &theNodes;
   }
 
-  template <class Archive> void load(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void load(Archive &ar, const uint32_t version) {
     switch (version) {
     case 0:
       uint32_t tempEncodedState;

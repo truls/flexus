@@ -51,7 +51,8 @@
 #include <list>
 #include <map>
 
-template <class _AbstractType, typename _ParamType> class AbstractFactory {
+template <class _AbstractType, typename _ParamType>
+class AbstractFactory {
 public:
   // typedef _AbstractType *(cons_func_t)(std::list< std:pair<std::string,
   // std::string> >&);

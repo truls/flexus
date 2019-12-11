@@ -250,8 +250,7 @@ public:
     theDirectory.erase(address);
   }
 
-  virtual bool sameSet([[maybe_unused]] MemoryAddress a,
-                       [[maybe_unused]] MemoryAddress b) {
+  virtual bool sameSet([[maybe_unused]] MemoryAddress a, [[maybe_unused]] MemoryAddress b) {
     return theSameSetReturnValue;
   }
 

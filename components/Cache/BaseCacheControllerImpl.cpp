@@ -476,8 +476,8 @@ MemoryTransport BaseCacheControllerImpl::getWakingSnoopTransport() {
   return transport;
 }
 
-bool BaseCacheControllerImpl::snoopResourcesAvailable
-  ([[maybe_unused]] const const_MemoryMessage_p msg) {
+bool BaseCacheControllerImpl::snoopResourcesAvailable([
+    [maybe_unused]] const const_MemoryMessage_p msg) {
   // return !fullEvictBuffer() && !theController->isFrontSideOutFull();
   return true;
 }

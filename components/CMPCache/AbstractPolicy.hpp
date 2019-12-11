@@ -102,7 +102,7 @@ public:
   }
   virtual bool EBHasSpace([[maybe_unused]] const MemoryTransport &transport) {
     return (!DirEB().full() && CacheEBHasSpace());
-}
+  }
 
   virtual int32_t maxSnoopsPerRequest() {
     return 2;

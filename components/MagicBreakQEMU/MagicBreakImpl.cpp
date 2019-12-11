@@ -100,7 +100,8 @@ public:
   ConsoleBreakString_QemuObject(ConsoleBreakString_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aClass) {
 
 #if 0
     aClass.addCommand
@@ -152,7 +153,8 @@ public:
   RegressionTesting_QemuObject(RegressionTesting_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aClass) {
 
 #if 0
     aClass.addCommand
@@ -233,7 +235,8 @@ public:
   IterationTracker_QemuObject(IterationTracker_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aClass) {
 #if 0
     aClass.addCommand
     ( & IterationTracker_QemuObject_Impl::setIterationCount
@@ -341,7 +344,7 @@ public:
     }
     theTrackers.push_back(BreakpointTracker::newSimPrintHandler());
     // TODO: not supported with QEmu
-    //theTrackers.push_back(BreakpointTracker::newPacketTracker(
+    // theTrackers.push_back(BreakpointTracker::newPacketTracker(
     //    8083 /*SpecWEB port*/, 0x24 /*Server MAC byte*/, 0x25 /*Client MAC byte*/));
   }
 

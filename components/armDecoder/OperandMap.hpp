@@ -67,7 +67,8 @@ class OperandMap {
   operand_map theOperandMap;
 
 public:
-  template <class T> T &operand(eOperandCode anOperandId) {
+  template <class T>
+  T &operand(eOperandCode anOperandId) {
     return boost::get<T>(theOperandMap[anOperandId]);
   }
 
@@ -75,7 +76,8 @@ public:
     return theOperandMap[anOperandId];
   }
 
-  template <class T> void set(eOperandCode anOperandId, T aT) {
+  template <class T>
+  void set(eOperandCode anOperandId, T aT) {
     theOperandMap[anOperandId] = aT;
   }
 

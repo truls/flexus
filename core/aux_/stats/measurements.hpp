@@ -31,12 +31,14 @@ class Measurement : public boost::counted_base {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
+  template <class Archive>
+  void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &theName;
     std::string temp(theStatExpressionStr);
     ar &temp;
   }
-  template <class Archive> void load(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &theName;
     std::string temp;
     ar &temp;
@@ -104,8 +106,8 @@ class SimpleMeasurement : public Measurement {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<Measurement>(*this);
     ar &theStats;
   }
@@ -153,8 +155,8 @@ class PeriodicMeasurement : public Measurement {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<Measurement>(*this);
     ar &thePeriod;
     ar &theCurrentPeriod;
@@ -190,8 +192,8 @@ class LoggedPeriodicMeasurement : public Measurement {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<Measurement>(*this);
     ar &thePeriod;
     ar &theCurrentPeriod;

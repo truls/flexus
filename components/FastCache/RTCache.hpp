@@ -43,14 +43,14 @@
 
 #include <cstring>
 
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 #include <boost/dynamic_bitset.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/key_extractors.hpp>
 #include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/sequenced_index.hpp>
 #include <boost/multi_index_container.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
 #include <functional>
 
 using namespace boost::multi_index;
@@ -64,8 +64,8 @@ struct RTSerializer {
   int8_t owner;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
     ar &owner;
@@ -400,7 +400,7 @@ private:
   // Private data
 
   // TODO:
-   [[maybe_unused]] bool theTraceTrackerFlag;
+  [[maybe_unused]] bool theTraceTrackerFlag;
 
   int32_t theBlockSize;
   int32_t theRegionSize;

@@ -29,7 +29,8 @@ class StatValue_StdDevAccumulator;
 class StatValue_Counter : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
   }
@@ -132,8 +133,8 @@ public:
 class StatValue_PredictionCounter : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
     ar &thePending;
@@ -201,7 +202,8 @@ public:
 class StatValue_Annotation : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
   }
@@ -258,7 +260,8 @@ public:
 class StatValue_Max : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theValue;
     ar &theIsValid;
@@ -334,7 +337,8 @@ public:
 class StatValue_Average : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theTotal;
     ar &theCount;
@@ -412,7 +416,8 @@ public:
 class StatValue_StdDev : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &k;
     ar &Sum;

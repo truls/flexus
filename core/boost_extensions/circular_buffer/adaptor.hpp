@@ -237,7 +237,8 @@ public:
   }
 
   //! See the circular_buffer source documentation.
-  template <class InputIterator> void assign(InputIterator first, InputIterator last) {
+  template <class InputIterator>
+  void assign(InputIterator first, InputIterator last) {
     circular_buffer<T, Alloc>::assign(first, last);
     size_type capacity = circular_buffer<T, Alloc>::capacity();
     if (capacity > m_capacity)

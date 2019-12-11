@@ -158,7 +158,7 @@ public:
     return *this;
   }
 
-  SharingVector(const SharingVector&) = default;
+  SharingVector(const SharingVector &) = default;
 
   virtual void clear() {
     sharers.reset();

@@ -43,8 +43,7 @@ namespace narmDecoder {
 
 using namespace nuArchARM;
 
-static void branch_always(SemanticInstruction *inst,
-                          [[maybe_unused]] bool immediate,
+static void branch_always(SemanticInstruction *inst, [[maybe_unused]] bool immediate,
                           VirtualMemoryAddress target) {
   DECODER_TRACE;
 

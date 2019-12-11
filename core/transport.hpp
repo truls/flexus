@@ -11,38 +11,46 @@
 namespace Flexus {
 namespace Core {
 
-template <class Tag, class Slice> struct transport_entry {
+template <class Tag, class Slice>
+struct transport_entry {
   typedef Tag tag;
   typedef Slice slice;
 };
 
 namespace aux_ {
 struct extract_tag {
-  template <class Slice> struct apply;
+  template <class Slice>
+  struct apply;
 
-  template <class Tag, class Data> struct apply<transport_entry<Tag, Data>> { typedef Tag type; };
+  template <class Tag, class Data>
+  struct apply<transport_entry<Tag, Data>> {
+    typedef Tag type;
+  };
 };
 
-template <class Transport, class OtherTransport> struct transport_copier {
+template <class Transport, class OtherTransport>
+struct transport_copier {
   Transport &theDest;
   OtherTransport &theSrc;
 
   transport_copier(Transport &aDest, OtherTransport &aSrc) : theDest(aDest), theSrc(aSrc) {
   }
 
-  template <class Slice, bool IsMatch> struct copy {
-    void operator()([[maybe_unused]] Transport &theDest,
-                    [[maybe_unused]] OtherTransport &theSrc) {
+  template <class Slice, bool IsMatch>
+  struct copy {
+    void operator()([[maybe_unused]] Transport &theDest, [[maybe_unused]] OtherTransport &theSrc) {
     }
   };
 
-  template <class Slice> struct copy<Slice, true> {
+  template <class Slice>
+  struct copy<Slice, true> {
     void operator()(Transport &theDest, OtherTransport &theSrc) {
       theDest.set(Slice::tag(), theSrc[Slice::tag()]);
     }
   };
 
-  template <class Slice> void operator()(Slice const &) {
+  template <class Slice>
+  void operator()(Slice const &) {
     copy<Slice, mpl::contains<Transport, typename Slice::tag>::type::value>()(theDest, theSrc);
   }
 };
@@ -79,7 +87,8 @@ public:
   }
 };
 
-template <class SliceIter> class TransportSlice<0, SliceIter> {
+template <class SliceIter>
+class TransportSlice<0, SliceIter> {
 public:
   struct Unique {};
   // Ensure that using declarations compile
@@ -109,7 +118,8 @@ public:
   using base::set;
 
   // Copy constructor for a non-matching typelist
-  template <class OtherSlices> Transport(Transport<OtherSlices> const &anOtherTransport) {
+  template <class OtherSlices>
+  Transport(Transport<OtherSlices> const &anOtherTransport) {
     // Note: On entry to the constructor, all the members of this transport
     // have been default constructed, and are therefore null
     aux_::transport_copy(*this, anOtherTransport);

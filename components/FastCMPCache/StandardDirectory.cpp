@@ -204,16 +204,14 @@ protected:
   }
 
 public:
-  virtual void updateLRU([[maybe_unused]] int32_t index,
-                         [[maybe_unused]] AbstractEntry_p dir_entry,
+  virtual void updateLRU([[maybe_unused]] int32_t index, [[maybe_unused]] AbstractEntry_p dir_entry,
                          [[maybe_unused]] PhysicalMemoryAddress address) {
     // TODO: Update LRU Information
     // Also need to change replacement policy
   }
 
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p>
-  lookup([[maybe_unused]] int32_t index,
-         PhysicalMemoryAddress address, MMType req_type,
+  lookup([[maybe_unused]] int32_t index, PhysicalMemoryAddress address, MMType req_type,
          std::list<std::function<void(void)>> &xtra_actions) {
 
     StandardDirectoryEntry *entry =
@@ -232,8 +230,7 @@ public:
   }
 
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p, bool>
-  snoopLookup([[maybe_unused]] int32_t index,
-              PhysicalMemoryAddress address,
+  snoopLookup([[maybe_unused]] int32_t index, PhysicalMemoryAddress address,
               [[maybe_unused]] MMType req_type) {
 
     StandardDirectoryEntry *entry = findOrCreateEntry(address, false);
@@ -252,8 +249,7 @@ public:
 
     return std::tie(entry->sharers(), entry->state(), wrapper, valid);
   }
-  void saveState(std::ostream &s,
-                 [[maybe_unused]] const std::string &aDirName) {
+  void saveState(std::ostream &s, [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_oarchive oa(s);
 
     uint64_t set_count = theNumSets;
@@ -272,8 +268,7 @@ public:
     }
   }
 
-  bool loadState(std::istream &s,
-                 [[maybe_unused]] const std::string &aDirName) {
+  bool loadState(std::istream &s, [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_iarchive ia(s);
 
     uint64_t set_count = 0;

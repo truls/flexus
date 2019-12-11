@@ -62,7 +62,8 @@ using namespace Flexus;
 using namespace Flexus::SharedTypes;
 typedef uint32_t node_id_t;
 
-template <class MemoryMapComponent> struct MemoryMapImpl : public MemoryMap {
+template <class MemoryMapComponent>
+struct MemoryMapImpl : public MemoryMap {
   MemoryMapComponent &theMemoryMap;
   node_id_t theRequestingComponent;
   bool theRequestingComponent_isValid;
@@ -203,7 +204,8 @@ public:
   PageMap_QemuObject(PageMap_QemuObject_Impl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass([[maybe_unused]] Class &aClass) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aClass) {
 
     // ALEX - This is adding functions to Simics' Command Line Interface.
     // Disabled it, as the interface with QEMU is probably completely different

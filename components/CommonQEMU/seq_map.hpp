@@ -61,14 +61,16 @@ using namespace boost::multi_index;
 struct by_LRU {};
 struct by_index {};
 
-template <class T_key, class T_val> struct MapEntry_T {
+template <class T_key, class T_val>
+struct MapEntry_T {
   MapEntry_T(const std::pair<T_key, T_val> &apair) : first(apair.first), second(apair.second) {
   }
   T_key first;
   mutable T_val second;
 };
 
-template <class T_key, class T_val> class flexus_boost_seq_map {
+template <class T_key, class T_val>
+class flexus_boost_seq_map {
   typedef MapEntry_T<T_key, T_val> MapEntry;
 
   typedef multi_index_container<
@@ -159,7 +161,8 @@ public:
 
 #define FLEXUS_BOOST_SET_ASSOC_STATS 0
 
-template <class T_key, class T_val> class flexus_boost_set_assoc {
+template <class T_key, class T_val>
+class flexus_boost_set_assoc {
   typedef flexus_boost_seq_map<T_key, T_val> MapTable;
   typedef std::vector<MapTable> SetAssocTable;
 
@@ -184,8 +187,7 @@ public:
   typedef typename MapTable::seq_iter seq_iter;
   typedef typename MapTable::size_type size_type;
 
-  void init(uint32_t size, uint32_t assoc,
-            [[maybe_unused]] uint32_t usefulBottomBits) {
+  void init(uint32_t size, uint32_t assoc, [[maybe_unused]] uint32_t usefulBottomBits) {
     theSets = size / assoc;
     theAssoc = assoc;
     theTable.resize(theSets);

@@ -731,7 +731,7 @@ struct uArchARM {
   virtual void free([[maybe_unused]] mapped_reg aReg) {
     DBG_Assert(false);
   }
-  virtual void restore([[maybe_unused]] reg aName,[[maybe_unused]] mapped_reg aReg) {
+  virtual void restore([[maybe_unused]] reg aName, [[maybe_unused]] mapped_reg aReg) {
     DBG_Assert(false);
   }
   virtual void create([[maybe_unused]] boost::intrusive_ptr<SemanticAction> anAction) {
@@ -740,8 +740,9 @@ struct uArchARM {
   virtual void reschedule([[maybe_unused]] boost::intrusive_ptr<SemanticAction> anAction) {
     DBG_Assert(false);
   }
-  virtual eResourceStatus requestRegister([[maybe_unused]] mapped_reg aRegister,
-                                          [[maybe_unused]] InstructionDependance const &aDependance) {
+  virtual eResourceStatus
+  requestRegister([[maybe_unused]] mapped_reg aRegister,
+                  [[maybe_unused]] InstructionDependance const &aDependance) {
     DBG_Assert(false);
     return kNotReady;
   }
@@ -753,7 +754,7 @@ struct uArchARM {
     DBG_Assert(false);
     return (uint64_t)0ULL;
   }
-  virtual void squashRegister([[maybe_unused]]mapped_reg aRegister) {
+  virtual void squashRegister([[maybe_unused]] mapped_reg aRegister) {
     DBG_Assert(false);
   }
   virtual void writeRegister([[maybe_unused]] mapped_reg aRegister,
@@ -793,15 +794,12 @@ struct uArchARM {
     DBG_Assert(false);
   }
   virtual void insertLSQ([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
-                         [[maybe_unused]] eOperation anOperation,
-                         [[maybe_unused]] eSize aSize,
-                         [[maybe_unused]] bool aBypassSB,
-                         [[maybe_unused]] eAccType type) {
+                         [[maybe_unused]] eOperation anOperation, [[maybe_unused]] eSize aSize,
+                         [[maybe_unused]] bool aBypassSB, [[maybe_unused]] eAccType type) {
     DBG_Assert(false);
   }
   virtual void insertLSQ([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
-                         [[maybe_unused]] eOperation anOperation,
-                         [[maybe_unused]] eSize aSize,
+                         [[maybe_unused]] eOperation anOperation, [[maybe_unused]] eSize aSize,
                          [[maybe_unused]] bool aBypassSB,
                          [[maybe_unused]] InstructionDependance const &aDependance,
                          [[maybe_unused]] eAccType type) {
@@ -821,26 +819,28 @@ struct uArchARM {
                             [[maybe_unused]] PhysicalMemoryAddress theAddr) {
     DBG_Assert(false);
   }
-  virtual void updateStoreValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
-                                [[maybe_unused]] bits aValue,
-                                [[maybe_unused]] boost::optional<bits> anExtendedValue = boost::none) {
+  virtual void
+  updateStoreValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
+                   [[maybe_unused]] bits aValue,
+                   [[maybe_unused]] boost::optional<bits> anExtendedValue = boost::none) {
     DBG_Assert(false);
   }
   virtual void annulStoreValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
   virtual void updateCASValue([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn,
-                              [[maybe_unused]] bits aValue,
-                              [[maybe_unused]] bits aCMPValue) {
+                              [[maybe_unused]] bits aValue, [[maybe_unused]] bits aCMPValue) {
     DBG_Assert(false);
   }
-  virtual void retireMem([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  virtual void
+  retireMem([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
   }
   virtual void checkPageFault([[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual void commitStore([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  virtual void
+  commitStore([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
   }
   virtual uint32_t currentEL() {
@@ -871,14 +871,10 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual void SystemRegisterTrap([[maybe_unused]] uint8_t target_el,
-                                  [[maybe_unused]] uint8_t op0,
-                                  [[maybe_unused]] uint8_t op2,
-                                  [[maybe_unused]] uint8_t op1,
-                                  [[maybe_unused]] uint8_t crn,
-                                  [[maybe_unused]] uint8_t rt,
-                                  [[maybe_unused]] uint8_t crm,
-                                  [[maybe_unused]] uint8_t dir) {
+  virtual void SystemRegisterTrap([[maybe_unused]] uint8_t target_el, [[maybe_unused]] uint8_t op0,
+                                  [[maybe_unused]] uint8_t op2, [[maybe_unused]] uint8_t op1,
+                                  [[maybe_unused]] uint8_t crn, [[maybe_unused]] uint8_t rt,
+                                  [[maybe_unused]] uint8_t crm, [[maybe_unused]] uint8_t dir) {
     DBG_Assert(false);
   }
   virtual bool _SECURE() {
@@ -893,10 +889,8 @@ struct uArchARM {
     DBG_Assert(false);
     return SCTLR_EL(0);
   }
-  virtual SysRegInfo &getSysRegInfo([[maybe_unused]] uint8_t opc0,
-                                    [[maybe_unused]] uint8_t opc1,
-                                    [[maybe_unused]] uint8_t opc2,
-                                    [[maybe_unused]] uint8_t CRn,
+  virtual SysRegInfo &getSysRegInfo([[maybe_unused]] uint8_t opc0, [[maybe_unused]] uint8_t opc1,
+                                    [[maybe_unused]] uint8_t opc2, [[maybe_unused]] uint8_t CRn,
                                     [[maybe_unused]] uint8_t CRm) {
     DBG_Assert(false);
     return getPriv(kLastPrivReg);
@@ -911,18 +905,18 @@ struct uArchARM {
                          [[maybe_unused]] boost::intrusive_ptr<Instruction> anInsn) {
     DBG_Assert(false);
   }
-  virtual bits retrieveLoadValue([[maybe_unused]]
-                                 boost::intrusive_ptr<Instruction>
-                                 aCorrespondingInstruction) {
+  virtual bits
+  retrieveLoadValue([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
     return bits(0);
   }
-  virtual void setLoadValue([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction,
-                            [[maybe_unused]] bits aCorrespondingValue) {
+  virtual void
+  setLoadValue([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction,
+               [[maybe_unused]] bits aCorrespondingValue) {
     DBG_Assert(false);
   }
-  virtual bits
-  retrieveExtendedLoadValue([[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
+  virtual bits retrieveExtendedLoadValue(
+      [[maybe_unused]] boost::intrusive_ptr<Instruction> aCorrespondingInstruction) {
     DBG_Assert(false);
     return bits(0);
   }
@@ -1028,20 +1022,17 @@ struct uArchARM {
     DBG_Assert(false);
     return 0;
   }
-  virtual void setXRegister([[maybe_unused]] uint32_t aReg,
-                            [[maybe_unused]] uint64_t aVal) {
+  virtual void setXRegister([[maybe_unused]] uint32_t aReg, [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
-  virtual void writePR([[maybe_unused]] uint32_t aPR,
-                       [[maybe_unused]] uint64_t aVal) {
+  virtual void writePR([[maybe_unused]] uint32_t aPR, [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
   virtual uint64_t readPR([[maybe_unused]] ePrivRegs aPR) {
     DBG_Assert(false);
     return 0;
   }
-  virtual void bypass([[maybe_unused]] mapped_reg aReg,
-                      [[maybe_unused]] register_value aValue) {
+  virtual void bypass([[maybe_unused]] mapped_reg aReg, [[maybe_unused]] register_value aValue) {
     DBG_Assert(false);
   }
   virtual void connectBypass([[maybe_unused]] mapped_reg aReg,

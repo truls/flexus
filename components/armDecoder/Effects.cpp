@@ -1195,8 +1195,7 @@ struct ExclusiveMonitorPass : public Effect {
   eOperandCode theAddressCode;
   eSize theSize;
 
-  ExclusiveMonitorPass([[maybe_unused]] eOperandCode anAddressCode,
-                       [[maybe_unused]] eSize aSize) {
+  ExclusiveMonitorPass([[maybe_unused]] eOperandCode anAddressCode, [[maybe_unused]] eSize aSize) {
   }
 
   void invoke(SemanticInstruction &anInstruction) {

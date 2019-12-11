@@ -45,7 +45,8 @@
 #ifndef TYPESAFEENUM_HPP
 #define TYPESAFEENUM_HPP
 
-template <typename _ValType> class enumerator {
+template <typename _ValType>
+class enumerator {
 protected:
   enumerator(const _ValType n) : val(n) {
   }

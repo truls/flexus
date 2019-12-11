@@ -5,7 +5,8 @@
 namespace Flexus {
 namespace Qemu {
 
-template <class CppObjectClass> struct QemuObject {
+template <class CppObjectClass>
+struct QemuObject {
   API::conf_object_t conf_object;
   CppObjectClass theObject;
 };
@@ -13,33 +14,46 @@ template <class CppObjectClass> struct QemuObject {
 namespace Detail {
 
 // These templates determing the signature of a function given a Typedef for it
-template <typename Signature> struct function_ptr_traits;
+template <typename Signature>
+struct function_ptr_traits;
 
-template <typename R> struct function_ptr_traits<R (*)()> {
+template <typename R>
+struct function_ptr_traits<R (*)()> {
   static const int arity = 0;
   typedef R result_type;
   typedef void arg1_type;
   typedef void arg2_type;
   typedef R (*free_fn_ptr)();
-  template <class T> struct member { typedef R (T::*member_fn_ptr)(); };
+  template <class T>
+  struct member {
+    typedef R (T::*member_fn_ptr)();
+  };
 };
 
-template <typename R, typename T1> struct function_ptr_traits<R (*)(T1)> {
+template <typename R, typename T1>
+struct function_ptr_traits<R (*)(T1)> {
   static const int arity = 1;
   typedef R result_type;
   typedef T1 arg1_type;
   typedef void arg2_type;
   typedef R (*free_fn_ptr)(T1);
-  template <class T> struct member { typedef R (T::*member_fn_ptr)(); };
+  template <class T>
+  struct member {
+    typedef R (T::*member_fn_ptr)();
+  };
 };
 
-template <typename R, typename T1, typename T2> struct function_ptr_traits<R (*)(T1, T2)> {
+template <typename R, typename T1, typename T2>
+struct function_ptr_traits<R (*)(T1, T2)> {
   static const int arity = 2;
   typedef R result_type;
   typedef T1 arg1_type;
   typedef T2 arg2_type;
   typedef R (*free_fn_ptr)(T1, T2);
-  template <class T> struct member { typedef R (T::*member_fn_ptr)(T2); };
+  template <class T>
+  struct member {
+    typedef R (T::*member_fn_ptr)(T2);
+  };
 };
 
 template <typename R, typename T1, typename T2, typename T3>
@@ -50,7 +64,10 @@ struct function_ptr_traits<R (*)(T1, T2, T3)> {
   typedef T2 arg2_type;
   typedef T3 arg3_type;
   typedef R (*free_fn_ptr)(T1, T2, T3);
-  template <class T> struct member { typedef R (T::*member_fn_ptr)(T2, T3); };
+  template <class T>
+  struct member {
+    typedef R (T::*member_fn_ptr)(T2, T3);
+  };
 };
 
 template <typename R, typename T1, typename T2, typename T3, typename T4>
@@ -62,7 +79,10 @@ struct function_ptr_traits<R (*)(T1, T2, T3, T4)> {
   typedef T3 arg3_type;
   typedef T4 arg4_type;
   typedef R (*free_fn_ptr)(T1, T2, T3, T4);
-  template <class T> struct member { typedef R (T::*member_fn_ptr)(T2, T3, T4); };
+  template <class T>
+  struct member {
+    typedef R (T::*member_fn_ptr)(T2, T3, T4);
+  };
 };
 
 template <typename R, typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -75,7 +95,10 @@ struct function_ptr_traits<R (*)(T1, T2, T3, T4, T5)> {
   typedef T4 arg4_type;
   typedef T5 arg5_type;
   typedef R (*free_fn_ptr)(T1, T2, T3, T4, T5);
-  template <class T> struct member { typedef R (T::*member_fn_ptr)(T2, T3, T4, T5); };
+  template <class T>
+  struct member {
+    typedef R (T::*member_fn_ptr)(T2, T3, T4, T5);
+  };
 };
 
 template <typename R, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6,
@@ -93,25 +116,31 @@ struct function_ptr_traits<R (*)(T1, T2, T3, T4, T5, T6, T7, T8, T9)> {
   typedef T8 arg8_type;
   typedef T9 arg9_type;
   typedef R (*free_fn_ptr)(T1, T2, T3, T4, T5, T6, T7, T8, T9);
-  template <class T> struct member {
+  template <class T>
+  struct member {
     typedef R (T::*member_fn_ptr)(T2, T3, T4, T5, T6, T7, T8, T9);
   };
 };
 
 // The select_arity template chooses an implementation of the trampoline
 // function based on the arity of the target signature
-template <int Arity> struct select_arity;
+template <int Arity>
+struct select_arity;
 
-template <> struct select_arity<0> {
-  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn> struct FreeFnImpl {
+template <>
+struct select_arity<0> {
+  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn>
+  struct FreeFnImpl {
     static typename TargetSignature::result_type trampoline() {
       return FreeFn();
     }
   };
 };
 
-template <> struct select_arity<1> {
-  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn> struct FreeFnImpl {
+template <>
+struct select_arity<1> {
+  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn>
+  struct FreeFnImpl {
     static typename TargetSignature::result_type
     trampoline(typename TargetSignature::arg1_type arg1) {
       return FreeFn(arg1);
@@ -135,8 +164,10 @@ template <> struct select_arity<1> {
   };
 };
 
-template <> struct select_arity<2> {
-  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn> struct FreeFnImpl {
+template <>
+struct select_arity<2> {
+  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn>
+  struct FreeFnImpl {
     static typename TargetSignature::result_type
     trampoline(typename TargetSignature::arg1_type arg1, typename TargetSignature::arg2_type arg2) {
       return FreeFn(arg1, arg2);
@@ -161,8 +192,10 @@ template <> struct select_arity<2> {
   };
 };
 
-template <> struct select_arity<3> {
-  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn> struct FreeFnImpl {
+template <>
+struct select_arity<3> {
+  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn>
+  struct FreeFnImpl {
     static typename TargetSignature::result_type
     trampoline(typename TargetSignature::arg1_type arg1, typename TargetSignature::arg2_type arg2,
                typename TargetSignature::arg3_type arg3) {
@@ -190,8 +223,10 @@ template <> struct select_arity<3> {
   };
 };
 
-template <> struct select_arity<4> {
-  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn> struct FreeFnImpl {
+template <>
+struct select_arity<4> {
+  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn>
+  struct FreeFnImpl {
     static typename TargetSignature::result_type
     trampoline(typename TargetSignature::arg1_type arg1, typename TargetSignature::arg2_type arg2,
                typename TargetSignature::arg3_type arg3, typename TargetSignature::arg4_type arg4) {
@@ -220,8 +255,10 @@ template <> struct select_arity<4> {
   };
 };
 
-template <> struct select_arity<9> {
-  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn> struct FreeFnImpl {
+template <>
+struct select_arity<9> {
+  template <class TargetSignature, typename TargetSignature::free_fn_ptr FreeFn>
+  struct FreeFnImpl {
     static typename TargetSignature::result_type
     trampoline(typename TargetSignature::arg1_type arg1, typename TargetSignature::arg2_type arg2,
                typename TargetSignature::arg3_type arg3, typename TargetSignature::arg4_type arg4,
@@ -262,7 +299,8 @@ template <> struct select_arity<9> {
 
 } // namespace Detail
 
-template <typename Signature> struct make_signature_from_free_fn {
+template <typename Signature>
+struct make_signature_from_free_fn {
 private:
   typedef Detail::function_ptr_traits<Signature> signature_traits;
   typedef Detail::select_arity<signature_traits::arity> arity;
@@ -272,7 +310,8 @@ public:
   struct with : public arity::template FreeFnImpl<signature_traits, FreeFnPtr> {};
 };
 
-template <typename Signature> struct make_signature_from_addin_fn {
+template <typename Signature>
+struct make_signature_from_addin_fn {
 private:
   typedef Detail::function_ptr_traits<Signature> signature_traits;
   typedef Detail::select_arity<signature_traits::arity> arity;
@@ -283,7 +322,8 @@ public:
   struct with : public arity::template AddInFnImpl<signature_traits, T, TImpl, MemberFnPtr> {};
 };
 
-template <typename Signature> struct make_signature_from_addin_fn2 {
+template <typename Signature>
+struct make_signature_from_addin_fn2 {
 private:
   typedef Detail::function_ptr_traits<Signature> signature_traits;
   typedef Detail::select_arity<signature_traits::arity> arity;
@@ -294,13 +334,15 @@ public:
   struct with : public arity::template AddInFnImpl<signature_traits, T, TImpl, MemberFnPtr> {};
 };
 
-template <typename Signature> struct make_signature_from_member_fn {
+template <typename Signature>
+struct make_signature_from_member_fn {
 private:
   typedef Detail::function_ptr_traits<Signature> signature_traits;
   typedef Detail::select_arity<signature_traits::arity> arity;
 
 public:
-  template <class T> struct for_class {
+  template <class T>
+  struct for_class {
     template <typename signature_traits::template member<T>::member_fn_ptr MemberFnPtr>
     struct with : public arity::template MemberFnImpl<signature_traits, T, MemberFnPtr> {};
   };

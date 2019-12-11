@@ -84,8 +84,8 @@ struct RTSerializer {
   int8_t owner;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
     ar &owner;
@@ -97,8 +97,8 @@ struct BlockSerializer {
   uint8_t state;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     ar &tag;
     ar &state;
   }
@@ -518,8 +518,7 @@ private:
     return ((addr >> blockShift) & blockOffsetMask);
   }
 
-  inline uint64_t get_block_set(uint64_t addr,
-                                [[maybe_unused]] uint64_t way) const {
+  inline uint64_t get_block_set(uint64_t addr, [[maybe_unused]] uint64_t way) const {
     return ((addr >> blockShift) & blockSetMask);
   }
 
@@ -1608,9 +1607,7 @@ public:
     return false;
   }
 
-  bool loadState(std::istream &s,
-                 [[maybe_unused]] int32_t theIndex,
-                 bool aTextFlexpoint) {
+  bool loadState(std::istream &s, [[maybe_unused]] int32_t theIndex, bool aTextFlexpoint) {
 
     DBG_Assert(!aTextFlexpoint, (<< "RTArray does NOT support Text flexpoints."));
 

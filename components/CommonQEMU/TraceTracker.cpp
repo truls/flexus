@@ -89,8 +89,7 @@ void TraceTracker::access(int32_t aNode, SharedTypes::tFillLevel cache, address_
 }
 
 void TraceTracker::commit(int32_t aNode, SharedTypes::tFillLevel cache, address_t addr,
-                          [[maybe_unused]] address_t pc,
-                          [[maybe_unused]] uint64_t aLogicalTime) {
+                          [[maybe_unused]] address_t pc, [[maybe_unused]] uint64_t aLogicalTime) {
   DBG_(MyLevel, (<< "[" << aNode << ":" << cache << "] commit 0x" << std::hex << addr));
 }
 

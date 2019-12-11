@@ -736,7 +736,8 @@ public:
   Flexus_Obj(FlexusImpl *anImpl) : base(anImpl) {
   }
 
-  template <class Class> static void defineClass([[maybe_unused]] Class &aC) {
+  template <class Class>
+  static void defineClass([[maybe_unused]] Class &aC) {
     // aClass = aClass; // normally, command definitions would go here
     // Don't think above does anything
     // in order to add commands to the QEMU command line to interface

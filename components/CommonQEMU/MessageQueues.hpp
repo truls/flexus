@@ -60,7 +60,8 @@ using namespace Flexus;
 using namespace Core;
 using namespace SharedTypes;
 
-template <class Transport> class MessageQueue {
+template <class Transport>
+class MessageQueue {
   std::list<std::pair<Transport, int64_t>> theQueue;
   uint32_t theSize;
   uint32_t theCurrentUsage;
@@ -156,7 +157,8 @@ public:
 
 typedef uint64_t CycleTime;
 
-template <class Item> class DelayFifo {
+template <class Item>
+class DelayFifo {
   typedef std::pair<Item, CycleTime> DelayElement;
   std::list<DelayElement> theQueue;
   uint32_t theSize;
@@ -210,7 +212,8 @@ public:
 
 }; // class DelayFifo
 
-template <class Item> class PipelineFifo {
+template <class Item>
+class PipelineFifo {
   typedef std::pair<Item, uint64_t> PipelineElement;
   std::list<PipelineElement> theQueue;
   std::list<uint64_t> theServerReadyTimes;

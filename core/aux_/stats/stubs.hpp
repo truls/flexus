@@ -53,13 +53,15 @@ void load(Archive &ar, ::boost::intrusive_ptr<StatValueArrayBase> &ptr,
   ptr = boost::intrusive_ptr<Flexus::Stat::aux_::StatValueArrayBase>(svab);
 }
 
-template <class StatUpdater> struct StatUpdaterLink {
+template <class StatUpdater>
+struct StatUpdaterLink {
   virtual ~StatUpdaterLink() {
   }
   virtual void setNextUpdater(StatUpdater *aLink) = 0;
 };
 
-template <class StatUpdater> class StatUpdaterLinkImpl : public StatUpdaterLink<StatUpdater> {
+template <class StatUpdater>
+class StatUpdaterLinkImpl : public StatUpdaterLink<StatUpdater> {
 protected:
   StatUpdaterLink<StatUpdater> *thePreviousUpdater;
   StatUpdater *theNextUpdater;

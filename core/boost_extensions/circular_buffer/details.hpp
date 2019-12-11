@@ -28,12 +28,14 @@ struct cb_int_iterator_tag {
     \struct cb_iterator_category
     \brief Defines iterator category.
 */
-template <bool> struct cb_iterator_category {
+template <bool>
+struct cb_iterator_category {
   //! Represents iterators.
   typedef std::input_iterator_tag iterator_category;
 };
 
-template <> struct cb_iterator_category<true> {
+template <>
+struct cb_iterator_category<true> {
   //! Represents integral types (not iterators).
   typedef cb_int_iterator_tag iterator_category;
 };
@@ -42,7 +44,8 @@ template <> struct cb_iterator_category<true> {
     \struct cb_iterator_category_traits
     \brief Defines the iterator category tag for the given iterator.
 */
-template <class Iterator> struct cb_iterator_category_traits {
+template <class Iterator>
+struct cb_iterator_category_traits {
   //! Iterator category tag type.
   /*!
       Depending on the template parameter the <code>tag</code> distinguishes
@@ -80,12 +83,14 @@ struct cb_assign_tag {
     \struct cb_replace_category
     \brief Defines replace category for the given type.
 */
-template <bool> struct cb_replace_category {
+template <bool>
+struct cb_replace_category {
   //! Represents types which have to be destroyed.
   typedef cb_destroy_tag replace_category;
 };
 
-template <> struct cb_replace_category<true> {
+template <>
+struct cb_replace_category<true> {
   //! Represents types which do not have to be destroyed.
   typedef cb_assign_tag replace_category;
 };
@@ -94,7 +99,8 @@ template <> struct cb_replace_category<true> {
     \struct cb_replace_category_traits
     \brief Defines the replace category tag for the given type.
 */
-template <class Type> struct cb_replace_category_traits {
+template <class Type>
+struct cb_replace_category_traits {
   //! Replace category tag type.
   /*!
       Depending on the template parameter the <code>tag</code> distinguishes
@@ -104,14 +110,16 @@ template <class Type> struct cb_replace_category_traits {
   typedef typename cb_details::cb_replace_category<is_scalar<Type>::value>::replace_category tag;
 };
 
-template <class Traits> struct cb_nonconst_traits;
+template <class Traits>
+struct cb_nonconst_traits;
 
 /*!
     \struct cb_const_traits
     \brief Defines the data types for a const iterator.
     \param Traits Defines the basic types.
 */
-template <class Traits> struct cb_const_traits {
+template <class Traits>
+struct cb_const_traits {
   // Basic types
   typedef typename Traits::value_type value_type;
   typedef typename Traits::const_pointer pointer;
@@ -128,7 +136,8 @@ template <class Traits> struct cb_const_traits {
     \brief Defines the data types for a non-const iterator.
     \param Traits Defines the basic types.
 */
-template <class Traits> struct cb_nonconst_traits {
+template <class Traits>
+struct cb_nonconst_traits {
   // Basic types
   typedef typename Traits::value_type value_type;
   typedef typename Traits::pointer pointer;
@@ -144,7 +153,8 @@ template <class Traits> struct cb_nonconst_traits {
     \struct cb_helper_pointer
     \brief Helper pointer used in the cb_iterator.
 */
-template <class Traits0> struct cb_helper_pointer {
+template <class Traits0>
+struct cb_helper_pointer {
   bool m_end;
   typename Traits0::pointer m_it;
 };
@@ -327,7 +337,8 @@ public:
   }
 
   //! Equality.
-  template <class Traits0> bool operator==(const cb_iterator<Buff, Traits0> &it) const {
+  template <class Traits0>
+  bool operator==(const cb_iterator<Buff, Traits0> &it) const {
     BOOST_CB_ASSERT(is_valid());          // check for uninitialized or invalidated iterator
     BOOST_CB_ASSERT(it.is_valid());       // check for uninitialized or invalidated iterator
     BOOST_CB_ASSERT(m_buff == it.m_buff); // check for iterators of different containers
@@ -335,7 +346,8 @@ public:
   }
 
   //! Inequality.
-  template <class Traits0> bool operator!=(const cb_iterator<Buff, Traits0> &it) const {
+  template <class Traits0>
+  bool operator!=(const cb_iterator<Buff, Traits0> &it) const {
     BOOST_CB_ASSERT(is_valid());          // check for uninitialized or invalidated iterator
     BOOST_CB_ASSERT(it.is_valid());       // check for uninitialized or invalidated iterator
     BOOST_CB_ASSERT(m_buff == it.m_buff); // check for iterators of different containers
@@ -343,7 +355,8 @@ public:
   }
 
   //! Less.
-  template <class Traits0> bool operator<(const cb_iterator<Buff, Traits0> &it) const {
+  template <class Traits0>
+  bool operator<(const cb_iterator<Buff, Traits0> &it) const {
     BOOST_CB_ASSERT(is_valid());          // check for uninitialized or invalidated iterator
     BOOST_CB_ASSERT(it.is_valid());       // check for uninitialized or invalidated iterator
     BOOST_CB_ASSERT(m_buff == it.m_buff); // check for iterators of different containers
@@ -351,17 +364,20 @@ public:
   }
 
   //! Greater.
-  template <class Traits0> bool operator>(const cb_iterator<Buff, Traits0> &it) const {
+  template <class Traits0>
+  bool operator>(const cb_iterator<Buff, Traits0> &it) const {
     return it < *this;
   }
 
   //! Less or equal.
-  template <class Traits0> bool operator<=(const cb_iterator<Buff, Traits0> &it) const {
+  template <class Traits0>
+  bool operator<=(const cb_iterator<Buff, Traits0> &it) const {
     return !(it < *this);
   }
 
   //! Greater or equal.
-  template <class Traits0> bool operator>=(const cb_iterator<Buff, Traits0> &it) const {
+  template <class Traits0>
+  bool operator>=(const cb_iterator<Buff, Traits0> &it) const {
     return !(*this < it);
   }
 

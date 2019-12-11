@@ -33,8 +33,8 @@ struct CalcException {
 struct StatValueBase : public boost::counted_base {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize([[maybe_unused]] Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize([[maybe_unused]] Archive &ar, [[maybe_unused]] uint32_t version) {
   }
 
 public:
@@ -81,8 +81,8 @@ public:
 struct StatValueArrayBase : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize([[maybe_unused]] Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize([[maybe_unused]] Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
   }
 
@@ -140,10 +140,12 @@ protected:
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar,[[maybe_unused]] uint32_t version) const {
+  template <class Archive>
+  void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &*theStatName;
   }
-  template <class Archive> void load(Archive &ar,[[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     std::string temp;
     ar &temp;
     theStatName = new std::string(temp); // Leaks, but doesn't matter
@@ -169,12 +171,14 @@ class StatValueHandle : public StatValueHandle_Base {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
+  template <class Archive>
+  void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     boost::intrusive_ptr<const StatValueBase> temp(theValue->serialForm());
     ar &temp;
   }
-  template <class Archive> void load(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     ar &theValue;
   }
@@ -211,12 +215,14 @@ class StatValueArrayHandle : public StatValueHandle_Base {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
+  template <class Archive>
+  void save(Archive &ar, [[maybe_unused]] uint32_t version) const {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     boost::intrusive_ptr<const StatValueBase> temp(theValue->serialForm());
     ar &temp;
   }
-  template <class Archive> void load(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void load(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueHandle_Base>(*this);
     ar &theValue;
   }

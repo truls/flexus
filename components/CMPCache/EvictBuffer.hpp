@@ -77,7 +77,8 @@ public:
   }
 };
 
-template <typename _State> class AbstractDirEBEntry {
+template <typename _State>
+class AbstractDirEBEntry {
 private:
   mutable int theCacheEBReserved;
 
@@ -127,7 +128,8 @@ public:
   }
 };
 
-template <typename _State> class DirEvictBuffer : public AbstractDirEvictBuffer {
+template <typename _State>
+class DirEvictBuffer : public AbstractDirEvictBuffer {
 private:
   class EvictEntry : public AbstractDirEBEntry<_State> {
   private:

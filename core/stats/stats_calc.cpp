@@ -25,7 +25,8 @@ struct push_float {
   stack<float> &eval;
 };
 
-template <typename op> struct do_op {
+template <typename op>
+struct do_op {
   do_op(op const &the_op, stack<float> &eval_) : m_op(the_op), eval(eval_) {
   }
 
@@ -44,7 +45,8 @@ template <typename op> struct do_op {
   stack<float> &eval;
 };
 
-template <class op> do_op<op> make_op(op const &the_op, stack<float> &eval) {
+template <class op>
+do_op<op> make_op(op const &the_op, stack<float> &eval) {
   return do_op<op>(the_op, eval);
 }
 
@@ -273,7 +275,8 @@ struct calculator : public grammar<calculator> {
   std::map<std::string, Measurement *> &theMeasurements;
   std::string const &theDefault;
 
-  template <typename ScannerT> struct definition {
+  template <typename ScannerT>
+  struct definition {
     definition(calculator const &self) {
       real = real_p[push_float(self.eval)];
 

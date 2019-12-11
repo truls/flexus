@@ -146,8 +146,8 @@ typedef boost::intrusive_ptr<InfiniteDirectoryEntry> InfiniteDirectoryEntry_p;
 
 class HasZeroSharers {
 public:
-  bool operator()(const std::pair<const PhysicalMemoryAddress,
-                  InfiniteDirectoryEntry_p> &entry) const {
+  bool
+  operator()(const std::pair<const PhysicalMemoryAddress, InfiniteDirectoryEntry_p> &entry) const {
     return (entry.second->state == ZeroSharers);
   }
 };
@@ -229,8 +229,7 @@ protected:
 
 public:
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p>
-  lookup([[maybe_unused]] int32_t index,
-         PhysicalMemoryAddress address,
+  lookup([[maybe_unused]] int32_t index, PhysicalMemoryAddress address,
          [[maybe_unused]] MMType req_type,
          [[maybe_unused]] std::list<std::function<void(void)>> &xtra_actions) {
 
@@ -246,8 +245,7 @@ public:
   }
 
   virtual std::tuple<SharingVector, SharingState, AbstractEntry_p, bool>
-  snoopLookup([[maybe_unused]] int32_t index,
-              PhysicalMemoryAddress address,
+  snoopLookup([[maybe_unused]] int32_t index, PhysicalMemoryAddress address,
               [[maybe_unused]] MMType req_type) {
 
     InfiniteDirectoryEntry_p entry = findEntry(address);
@@ -283,8 +281,7 @@ public:
     }
   }
 
-  void saveState(std::ostream &s,
-                 [[maybe_unused]] const std::string &aDirName) {
+  void saveState(std::ostream &s, [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_oarchive oa(s);
 
     uint32_t count = (uint32_t)theDirectory.size();
@@ -300,8 +297,7 @@ public:
     }
   }
 
-  bool loadState(std::istream &s,
-                 [[maybe_unused]] const std::string &aDirName) {
+  bool loadState(std::istream &s, [[maybe_unused]] const std::string &aDirName) {
     boost::archive::binary_iarchive ia(s);
     int32_t count;
     ia >> count;

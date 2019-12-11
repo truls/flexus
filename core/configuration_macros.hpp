@@ -71,7 +71,8 @@
     std::string const &name() const {                                                              \
       return theConfigName_;                                                                       \
     }                                                                                              \
-    template <class Parameter> struct get;                                                         \
+    template <class Parameter>                                                                     \
+    struct get;                                                                                    \
     BOOST_PP_SEQ_FOR_EACH(FLEXUS_GENERATE_VAR, x, ParameterList)                                   \
   };                                                                                               \
   BOOST_PP_SEQ_FOR_EACH(FLEXUS_GENERATE_SPECIALIZATION, BOOST_PP_CAT(TemplateName, Configuration), \

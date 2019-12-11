@@ -151,9 +151,11 @@ bool checkStoreQueueEmpty(SemanticInstruction *anInstruction) {
   return anInstruction->core()->sbEmpty();
 }
 
-std::function<bool()> storeQueueEmptyConstraint( SemanticInstruction *anInstruction) {
-  return [anInstruction]() { (void) anInstruction; //Silence warning
-    return checkStoreQueueEmpty; };
+std::function<bool()> storeQueueEmptyConstraint(SemanticInstruction *anInstruction) {
+  return [anInstruction]() {
+    (void)anInstruction; // Silence warning
+    return checkStoreQueueEmpty;
+  };
 }
 
 bool checkSideEffectStoreConstraint(SemanticInstruction *anInstruction) {

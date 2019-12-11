@@ -71,7 +71,8 @@ typedef uint32_t BlockOffset;
 enum ReplacementPolicy { REPLACEMENT_LRU, REPLACEMENT_PLRU };
 
 // This is a cache block.  The accessor functions are braindead simple.
-template <typename _State, const _State &_DefaultState> class Block {
+template <typename _State, const _State &_DefaultState>
+class Block {
 public:
   Block(void) : theTag(0), theState(_DefaultState) {
   }
@@ -101,8 +102,10 @@ private:
 
 }; // class Block
 
-template <typename _State, const _State &_DefaultState> class Set;
-template <typename _State, const _State &_DefaultState> class StdArray;
+template <typename _State, const _State &_DefaultState>
+class Set;
+template <typename _State, const _State &_DefaultState>
+class StdArray;
 
 // The output of a cache lookup
 template <typename _State, const _State &_DefaultState>
@@ -172,7 +175,8 @@ protected:
 
 // The cache set, implements a set of cache blocks and applies a replacement
 // policy (from a derived class)
-template <typename _State, const _State &_DefaultState> class Set {
+template <typename _State, const _State &_DefaultState>
+class Set {
 public:
   Set(const int32_t aAssociativity) {
     theAssociativity = aAssociativity;
@@ -524,8 +528,7 @@ public:
   }
 
   virtual bool loadState([[maybe_unused]] boost::archive::binary_iarchive &ia,
-                         [[maybe_unused]] int32_t theIndex,
-                         [[maybe_unused]] int32_t theSet) {
+                         [[maybe_unused]] int32_t theIndex, [[maybe_unused]] int32_t theSet) {
     return true;
   }
 
@@ -831,18 +834,21 @@ public:
   virtual std::list<MemoryAddress> getSetTags(MemoryAddress addr) {
     return theSets[makeSet(addr)]->getTags();
   }
-  virtual bool setAlmostFull([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
-                             MemoryAddress const &anAddress) const {
+  virtual bool
+  setAlmostFull([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
+                MemoryAddress const &anAddress) const {
     return theSets[makeSet(anAddress)]->almostFull(AbstractArray<_State>::theLockedThreshold);
   }
 
-  virtual bool lockedVictimAvailable([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
-                                     MemoryAddress const &anAddress) const {
+  virtual bool lockedVictimAvailable(
+      [[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
+      MemoryAddress const &anAddress) const {
     return theSets[makeSet(anAddress)]->lockedVictimAvailable();
   }
 
-  virtual bool victimAvailable([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
-                               MemoryAddress const &anAddress) const {
+  virtual bool
+  victimAvailable([[maybe_unused]] boost::intrusive_ptr<AbstractArrayLookupResult<_State>> lookup,
+                  MemoryAddress const &anAddress) const {
     return theSets[makeSet(anAddress)]->victimAvailable();
   }
 

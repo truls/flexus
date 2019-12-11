@@ -42,7 +42,7 @@ class MemoryAddress_
 public:
   MemoryAddress_() : address(0) {
   }
-  MemoryAddress_(const MemoryAddress_&) = default;
+  MemoryAddress_(const MemoryAddress_ &) = default;
   explicit MemoryAddress_(underlying_type newAddress) : address(newAddress) {
   }
   bool operator<(MemoryAddress_ const &other) {
@@ -93,7 +93,8 @@ private:
   // Serialization Support
 public:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,[[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &address;
   }
 

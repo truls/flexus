@@ -7,15 +7,18 @@ namespace boost {
 
 namespace detail {
 
-template <typename MemberFunction> struct member_function_traits_helper;
+template <typename MemberFunction>
+struct member_function_traits_helper;
 
-template <typename R, typename T> struct member_function_traits_helper<R (T::*)(void)> {
+template <typename R, typename T>
+struct member_function_traits_helper<R (T::*)(void)> {
   BOOST_STATIC_CONSTANT(int, arity = 0);
   typedef T class_type;
   typedef R result_type;
 };
 
-template <typename R, typename T, typename T1> struct member_function_traits_helper<R (T::*)(T1)> {
+template <typename R, typename T, typename T1>
+struct member_function_traits_helper<R (T::*)(T1)> {
   BOOST_STATIC_CONSTANT(int, arity = 1);
   typedef R result_type;
   typedef T class_type;

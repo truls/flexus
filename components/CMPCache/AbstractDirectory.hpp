@@ -43,7 +43,8 @@
 
 namespace nCMPCache {
 
-template <typename _State> class AbstractLookupResult : public boost::counted_base {
+template <typename _State>
+class AbstractLookupResult : public boost::counted_base {
 public:
   virtual ~AbstractLookupResult() {
   }
@@ -58,7 +59,8 @@ public:
   virtual void setState(const _State &state) = 0;
 };
 
-template <typename _State, typename _EState = _State> class AbstractDirectory {
+template <typename _State, typename _EState = _State>
+class AbstractDirectory {
 public:
   virtual ~AbstractDirectory() {
   }

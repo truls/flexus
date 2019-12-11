@@ -130,8 +130,7 @@ struct SysRegInfo {
    * will be done by writing to the offset into CPUARMState specified
    * by fieldoffset.
    */
-  virtual void writefn([[maybe_unused]] uArchARM *aCore,
-                       [[maybe_unused]] uint64_t aVal) {
+  virtual void writefn([[maybe_unused]] uArchARM *aCore, [[maybe_unused]] uint64_t aVal) {
     DBG_Assert(false);
   }
   /* Function for doing a "raw" read; used when we need to copy

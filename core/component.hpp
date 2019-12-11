@@ -94,14 +94,14 @@ private:                                                                        
   bool available(interface::PortName const &) {                                                    \
     return true;                                                                                   \
   }                                                                                                \
-  struct BOOST_PP_CAT(eat_semicolon__,__COUNTER__) /**/
+  struct BOOST_PP_CAT(eat_semicolon__, __COUNTER__) /**/
 
 #define FLEXUS_PORT_ARRAY_ALWAYS_AVAILABLE(PortName)                                               \
   bool available(interface::PortName const &pn, Flexus::Core::index_t aWidth) {                    \
     DBG_Assert(aWidth < width(cfg, pn));                                                           \
     return true;                                                                                   \
   }                                                                                                \
-  struct BOOST_PP_CAT(eat_semicolon__,__COUNTER__) /**/
+  struct BOOST_PP_CAT(eat_semicolon__, __COUNTER__) /**/
 
 #define FLEXUS_CHANNEL(PORT)                                                                       \
   get_channel(interface::PORT(), jump_table_.BOOST_PP_CAT(wire_available_, PORT),                  \
@@ -197,7 +197,8 @@ public:
                           &BOOST_PP_CAT(InstanceName, _instance)>                                  \
       InstanceName; /**/
 
-template <class ComponentInstance, ComponentInstance *anInstance> struct ComponentHandle {
+template <class ComponentInstance, ComponentInstance *anInstance>
+struct ComponentHandle {
   typedef typename ComponentInstance::iface iface;
 
   static Flexus::Core::index_t width() {
@@ -211,12 +212,14 @@ template <class ComponentInstance, ComponentInstance *anInstance> struct Compone
   }
 };
 
-template <class ComponentHandle, class Drive> struct DriveHandle : public ComponentHandle {
+template <class ComponentHandle, class Drive>
+struct DriveHandle : public ComponentHandle {
   typedef ComponentHandle component_handle;
   typedef Drive drive;
 };
 
-template <class ComponentInterface> struct ComponentInstance {
+template <class ComponentInterface>
+struct ComponentInstance {
   typedef ComponentInterface iface;
   iface **theComponent;
   index_t theWidth;

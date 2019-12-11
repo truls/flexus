@@ -26,7 +26,8 @@ namespace aux_ {
 class StatValue_CountAccumulator : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theCount;
   }
@@ -84,8 +85,8 @@ inline boost::intrusive_ptr<StatValueBase> StatValueBase::countAccumulator() {
 class StatValue_AvgAccumulator : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &theTotal;
     ar &theCount;
@@ -195,7 +196,8 @@ inline boost::intrusive_ptr<StatValueBase> StatValue_Average::avgAccumulator() {
 class StatValue_StdDevAccumulator : public StatValueBase {
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] uint32_t version) {
     ar &boost::serialization::base_object<StatValueBase>(*this);
     ar &k;
     ar &Sum;

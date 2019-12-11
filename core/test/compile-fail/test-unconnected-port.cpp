@@ -32,7 +32,8 @@ public:
     typedef mpl::vector<Availability<PushOut>> Inputs;
     typedef mpl::vector<Value<PushOut>> Outputs;
 
-    template <class Handle, class Wiring> static void doCycle(self &theComponent) {
+    template <class Handle, class Wiring>
+    static void doCycle(self &theComponent) {
       BOOST_CHECK((Wiring::available(Handle(), PushOut())));
       Wiring::channel(Handle(), PushOut()) << 1;
     }
@@ -62,7 +63,8 @@ public:
 
     typedef mpl::vector<> Outputs;
 
-    template <class Handle, class Wiring> static void doCycle(self &theComponent) {
+    template <class Handle, class Wiring>
+    static void doCycle(self &theComponent) {
       BOOST_CHECK(theComponent.theList.front() == 1);
       theComponent.theList.pop_front();
     }

@@ -140,8 +140,7 @@ struct FPCR : public SysRegInfo {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*aa64_fpcr_read*/
-  virtual void writefn([[maybe_unused]] uArchARM *aCore,
-                       [[maybe_unused]] uint64_t aVal) override {
+  virtual void writefn([[maybe_unused]] uArchARM *aCore, [[maybe_unused]] uint64_t aVal) override {
     DBG_Assert(false);
   } // FIXME /*aa64_fpcr_write*/
 } FPCR_;
@@ -162,8 +161,7 @@ struct FPSR : public SysRegInfo {
     DBG_Assert(false);
     return 0;
   } /*aa64_fpsr_read*/
-  virtual void writefn([[maybe_unused]] uArchARM *aCore,
-                       [[maybe_unused]] uint64_t aVal) override {
+  virtual void writefn([[maybe_unused]] uArchARM *aCore, [[maybe_unused]] uint64_t aVal) override {
     DBG_Assert(false);
   } /*aa64_fpsr_write*/
 } FPSR_;
@@ -264,8 +262,8 @@ struct SP_EL0 : public SysRegInfo {
   virtual uint64_t readfn(uArchARM *aCore) override {
     return aCore->getSP_el(0);
   }
-  //virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
-    // TODO /*sp_el0_access*/
+  // virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
+  // TODO /*sp_el0_access*/
   //}
 
   virtual void writefn(uArchARM *aCore, uint64_t aVal) override {

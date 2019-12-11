@@ -421,9 +421,8 @@ void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::M_St
 
 template <>
 void CoherenceProtocol::doCoherenceAction<CP::SendNone, CP::NoAllocate, CP::SameState,
-                                          CP::UpdateLRU, CP::NoResponse>(LookupResult_p lookup,
-                                                                         [[maybe_unused]]
-                                                                         MemoryMessage &message) {
+                                          CP::UpdateLRU, CP::NoResponse>(
+    LookupResult_p lookup, [[maybe_unused]] MemoryMessage &message) {
 
   lookup->updateLRU();
 }
@@ -568,9 +567,8 @@ void CoherenceProtocol::doCoherenceAction<CP::SendFetch, CP::Allocate, CP::Depen
 
 template <>
 void CoherenceProtocol::doCoherenceAction<CP::SendNAW, CP::NoAllocate, CP::SameState,
-                                          CP::NoUpdateLRU, CP::FillDepend>([[maybe_unused]]
-                                                                           LookupResult_p lookup,
-                                                                           MemoryMessage &message) {
+                                          CP::NoUpdateLRU, CP::FillDepend>(
+    [[maybe_unused]] LookupResult_p lookup, MemoryMessage &message) {
   forwardMessage(message);
 }
 
@@ -583,8 +581,7 @@ class CoherenceProtocol::SnoopAction<MMType, Resp, CP::NoSnoop, CP::SameState, f
 public:
   SnoopAction(CoherenceProtocol *proto) : BaseSnoopAction(proto) {
   }
-  virtual void operator()([[maybe_unused]] LookupResult_p lookup,
-                          MemoryMessage &message) {
+  virtual void operator()([[maybe_unused]] LookupResult_p lookup, MemoryMessage &message) {
     // Should we update the LRU order here?
     message.type() = Resp;
   }

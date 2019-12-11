@@ -50,7 +50,8 @@
 
 namespace nCommonUtil {
 
-template <typename _Type> int32_t log_base2(_Type val) {
+template <typename _Type>
+int32_t log_base2(_Type val) {
   int32_t ret = 0;
   for (val >>= 1; val > 0; val >>= 1, ret++)
     ;

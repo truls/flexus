@@ -137,7 +137,7 @@ public:
     theNumSharers = numSharers;
   }
 
-  SimpleDirectoryState &operator=(const SimpleDirectoryState&) = default;
+  SimpleDirectoryState &operator=(const SimpleDirectoryState &) = default;
 
   SimpleDirectoryState &operator=(uint64_t s) {
     for (int32_t i = 0; i < theNumSharers; i++, s >>= 1) {

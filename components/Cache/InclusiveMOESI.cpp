@@ -140,9 +140,9 @@ InclusiveMOESI::InclusiveMOESI(CacheController *aController, CacheInitInfo *anIn
 }
 
 // Perform lookup, select action and update cache state if necessary
-std::tuple<bool, bool, Action> InclusiveMOESI::doRequest(MemoryTransport transport,
-                                                         bool has_maf_entry,
-                                                         [[maybe_unused]] TransactionTracker_p waking_tracker) {
+std::tuple<bool, bool, Action>
+InclusiveMOESI::doRequest(MemoryTransport transport, bool has_maf_entry,
+                          [[maybe_unused]] TransactionTracker_p waking_tracker) {
   bool is_write = false;
   bool is_upgrade = false;
   bool is_miss = false;
@@ -1625,8 +1625,7 @@ Action InclusiveMOESI::handleSnoopMessage(MemoryTransport transport) {
 // at this cache level.
 // Action InclusiveMOESI::handleIprobe(bool aHit, MemoryMessage_p fetchReq,
 // TransactionTracker_p tracker) {
-Action InclusiveMOESI::handleIprobe([[maybe_unused]] bool aHit,
-                                   MemoryTransport transport) {
+Action InclusiveMOESI::handleIprobe([[maybe_unused]] bool aHit, MemoryTransport transport) {
 
   MemoryMessage_p fetchReq = transport[MemoryMessageTag];
   TransactionTracker_p tracker = transport[TransactionTrackerTag];

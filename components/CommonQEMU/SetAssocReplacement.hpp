@@ -49,7 +49,8 @@
 
 namespace nSetAssoc {
 
-template <class BaseSet> class LowAssociativeMRUSet : public BaseSet {
+template <class BaseSet>
+class LowAssociativeMRUSet : public BaseSet {
 public:
   // convenience typedefs
   typedef typename BaseSet::Tag Tag;
@@ -58,7 +59,8 @@ public:
   typedef typename BaseSet::Block Block;
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     ar &boost::serialization::base_object<BaseSet>(*this);
     for (uint32_t i = 0; i < this->myAssoc; ++i) {
       ar &mruList[i];

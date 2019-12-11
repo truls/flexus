@@ -99,7 +99,8 @@ struct make_drive_list__drive_step<0, DriveListIter, ComponentHandle, Base> {
       typename mpl::deref<typename mpl::advance_c<ComponentListIter, N>::type>::type,              \
       BOOST_PP_CAT(step, N)>::type BOOST_PP_CAT(step, BOOST_PP_INC(N)) /**/
 
-template <int32_t N, class ComponentListIter> struct make_drive_list__component_step {
+template <int32_t N, class ComponentListIter>
+struct make_drive_list__component_step {
   typedef typename make_drive_list__component_step<
       N - 5, typename mpl::advance_c<ComponentListIter, 5>::type>::type base;
 
@@ -111,7 +112,8 @@ template <int32_t N, class ComponentListIter> struct make_drive_list__component_
   typedef step5 type;
 };
 
-template <class ComponentListIter> struct make_drive_list__component_step<5, ComponentListIter> {
+template <class ComponentListIter>
+struct make_drive_list__component_step<5, ComponentListIter> {
   typedef mpl::vector<> base;
   COMPONENT_STEP0;
   COMPONENT_STEP(1);
@@ -121,7 +123,8 @@ template <class ComponentListIter> struct make_drive_list__component_step<5, Com
   typedef step5 type;
 };
 
-template <class ComponentListIter> struct make_drive_list__component_step<4, ComponentListIter> {
+template <class ComponentListIter>
+struct make_drive_list__component_step<4, ComponentListIter> {
   typedef mpl::vector<> base;
   COMPONENT_STEP0;
   COMPONENT_STEP(1);
@@ -130,7 +133,8 @@ template <class ComponentListIter> struct make_drive_list__component_step<4, Com
   typedef step4 type;
 };
 
-template <class ComponentListIter> struct make_drive_list__component_step<3, ComponentListIter> {
+template <class ComponentListIter>
+struct make_drive_list__component_step<3, ComponentListIter> {
   typedef mpl::vector<> base;
   COMPONENT_STEP0;
   COMPONENT_STEP(1);
@@ -138,20 +142,23 @@ template <class ComponentListIter> struct make_drive_list__component_step<3, Com
   typedef step3 type;
 };
 
-template <class ComponentListIter> struct make_drive_list__component_step<2, ComponentListIter> {
+template <class ComponentListIter>
+struct make_drive_list__component_step<2, ComponentListIter> {
   typedef mpl::vector<> base;
   COMPONENT_STEP0;
   COMPONENT_STEP(1);
   typedef step2 type;
 };
 
-template <class ComponentListIter> struct make_drive_list__component_step<1, ComponentListIter> {
+template <class ComponentListIter>
+struct make_drive_list__component_step<1, ComponentListIter> {
   typedef mpl::vector<> base;
   COMPONENT_STEP0;
   typedef step1 type;
 };
 
-template <class ComponentListIter> struct make_drive_list__component_step<0, ComponentListIter> {
+template <class ComponentListIter>
+struct make_drive_list__component_step<0, ComponentListIter> {
   typedef mpl::vector<> type;
 };
 

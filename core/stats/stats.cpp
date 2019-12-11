@@ -40,8 +40,8 @@ StatValueHandle_Base &StatValueHandle_Base::operator=(const StatValueHandle_Base
   theUpdater = aHandle.theUpdater;
   return *this;
 }
-StatValueHandle_Base &StatValueHandle_Base::operator+=
-  ([[maybe_unused]] const StatValueHandle_Base &aHandle) {
+StatValueHandle_Base &StatValueHandle_Base::operator+=([
+    [maybe_unused]] const StatValueHandle_Base &aHandle) {
   return *this;
 }
 
@@ -320,7 +320,8 @@ void doEXPR(std::ostream &anOstream, std::string const &options,
             std::map<std::string, Measurement *> &measurements,
             std::string const &default_measurement);
 
-template <class BiDirIter> class LineFormatter {
+template <class BiDirIter>
+class LineFormatter {
 public:
   typedef std::map<std::string, Measurement *> measurement_map;
 
@@ -424,7 +425,8 @@ public:
   }
 };
 
-template <class BiDirIter> struct Directive : public boost::counted_base {
+template <class BiDirIter>
+struct Directive : public boost::counted_base {
   virtual bool ready() = 0;
   virtual void addLine(BiDirIter aStart, BiDirIter anEnd) = 0;
   virtual void addDirective(boost::intrusive_ptr<Directive> aDirective) = 0;
@@ -436,12 +438,12 @@ template <class BiDirIter> struct Directive : public boost::counted_base {
   }
 };
 
-template <class BiDirIter> struct EndDirective : public Directive<BiDirIter> {
+template <class BiDirIter>
+struct EndDirective : public Directive<BiDirIter> {
   bool ready() {
     return true;
   }
-  void addLine([[maybe_unused]] BiDirIter aStart,
-               [[maybe_unused]] BiDirIter anEnd) {
+  void addLine([[maybe_unused]] BiDirIter aStart, [[maybe_unused]] BiDirIter anEnd) {
   }
   void addDirective([[maybe_unused]] boost::intrusive_ptr<Directive<BiDirIter>> aDirective) {
   }
@@ -453,7 +455,8 @@ template <class BiDirIter> struct EndDirective : public Directive<BiDirIter> {
   }
 };
 
-template <class BiDirIter> class RootDirective {
+template <class BiDirIter>
+class RootDirective {
   boost::intrusive_ptr<Directive<BiDirIter>> theSubDirective;
   std::pair<BiDirIter, BiDirIter> theLine;
   LineFormatter<BiDirIter> &theFormatter;
@@ -494,7 +497,8 @@ public:
   }
 };
 
-template <class BiDirIter> class ForEachMeasurementDirective : public Directive<BiDirIter> {
+template <class BiDirIter>
+class ForEachMeasurementDirective : public Directive<BiDirIter> {
   struct LineEntry {
     boost::intrusive_ptr<Directive<BiDirIter>> theDirective;
     boost::optional<std::pair<BiDirIter, BiDirIter>> theLine;
@@ -604,7 +608,8 @@ public:
   }
 };
 
-template <class BiDirIter> class LineProcessor {
+template <class BiDirIter>
+class LineProcessor {
   std::map<std::string, Measurement *> &theMeasurements;
   std::ostream &theOut;
   boost::regex theCommentRegex;
@@ -649,7 +654,8 @@ public:
   }
 };
 
-template <class BiDirIter> class StatFormatter {
+template <class BiDirIter>
+class StatFormatter {
   boost::regex theLineRegex;
   LineProcessor<BiDirIter> theLineProcessor;
 
@@ -999,8 +1005,7 @@ public:
   }
 
   void reduce(eReduction aReduction, std::string const &aMeasurementSpec,
-              std::string const &aDestMeasurement,
-              [[maybe_unused]] std::ostream &anOstream) {
+              std::string const &aDestMeasurement, [[maybe_unused]] std::ostream &anOstream) {
     boost::regex spec(aMeasurementSpec);
     std::map<std::string, Measurement *> matches;
     for (auto &pair : theMeasurements)
@@ -1131,7 +1136,8 @@ public:
     theEventQueue.push(evt);
   }
 
-  template <class Archive> void register_types(Archive &ar) const {
+  template <class Archive>
+  void register_types(Archive &ar) const {
     // Only add to the bottom of this list of types
     ar.template register_type<SimpleMeasurement>();
     ar.template register_type<PeriodicMeasurement>();

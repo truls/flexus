@@ -137,7 +137,8 @@ struct CompileValue {
 // Dynamic Parameter Implementation
 //******************************
 // Template for defininig dynamic parameters
-template <class ParamStruct, class ParamTag> struct DynamicParameter : public ParameterBase {
+template <class ParamStruct, class ParamTag>
+struct DynamicParameter : public ParameterBase {
   ParamStruct &theConfig;
   bool theOverridden;
 
@@ -173,10 +174,12 @@ template <class ParamStruct, class ParamTag> struct DynamicParameter : public Pa
     return theOverridden;
   }
 
-  template <typename T> T &toString(T &v) {
+  template <typename T>
+  T &toString(T &v) {
     return v;
   }
-  template <bool> const char *toString(bool &v) {
+  template <bool>
+  const char *toString(bool &v) {
     return (v ? "true" : "false");
   }
 

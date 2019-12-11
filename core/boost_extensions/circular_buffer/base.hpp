@@ -31,7 +31,8 @@ namespace boost {
     For more information how to use the circular buffer see the
     <a href="../circular_buffer.html">documentation</a>.
 */
-template <class T, class Alloc> class circular_buffer : cb_details::cb_iterator_registry {
+template <class T, class Alloc>
+class circular_buffer : cb_details::cb_iterator_registry {
 
   BOOST_CLASS_REQUIRE(T, boost, CopyConstructibleConcept);
 
@@ -519,7 +520,8 @@ private:
   };
 
   // Functor for assigning range of items.
-  template <class InputIterator> struct assign_range {
+  template <class InputIterator>
+  struct assign_range {
     InputIterator m_first;
     InputIterator m_last;
     allocator_type &m_alloc;
@@ -586,7 +588,8 @@ public:
      Whatever T::T(const T&) throws. \note For iterator invalidation see the <a
      href="../circular_buffer.html#invalidation">documentation</a>.
   */
-  template <class InputIterator> void assign(InputIterator first, InputIterator last) {
+  template <class InputIterator>
+  void assign(InputIterator first, InputIterator last) {
     assign(first, last, cb_details::cb_iterator_category_traits<InputIterator>::tag());
   }
 
@@ -711,7 +714,8 @@ public:
 
 private:
   // Iterator dereference wrapper.
-  template <class InputIterator> struct iterator_wrapper {
+  template <class InputIterator>
+  struct iterator_wrapper {
     mutable InputIterator m_it;
     explicit iterator_wrapper(InputIterator it) : m_it(it) {
     }
@@ -764,18 +768,19 @@ public:
         decrement(dest);
       }
       replace(pos.m_it, item);
-      BOOST_CB_UNWIND(if (dest == m_last) {
-        if (full()) {
-          increment(m_first);
-          --m_size;
-        }
-      } else {
-        if (!full()) {
-          increment(m_last);
-          ++m_size;
-        }
-        tidy(dest);
-      })
+      BOOST_CB_UNWIND(
+          if (dest == m_last) {
+            if (full()) {
+              increment(m_first);
+              --m_size;
+            }
+          } else {
+            if (!full()) {
+              increment(m_last);
+              ++m_size;
+            }
+            tidy(dest);
+          })
     }
     increment(m_last);
     if (full())
@@ -894,18 +899,19 @@ public:
         increment(dest);
       }
       replace((--pos).m_it, item);
-      BOOST_CB_UNWIND(if (dest == first) {
-        if (full()) {
-          decrement(m_last);
-          --m_size;
-        }
-      } else {
-        if (!full()) {
-          m_first = first;
-          ++m_size;
-        }
-        tidy(dest);
-      })
+      BOOST_CB_UNWIND(
+          if (dest == first) {
+            if (full()) {
+              decrement(m_last);
+              --m_size;
+            }
+          } else {
+            if (!full()) {
+              m_first = first;
+              ++m_size;
+            }
+            tidy(dest);
+          })
       decrement(m_first);
     }
     if (full())
@@ -1068,25 +1074,29 @@ private:
   }
 
   //! Increment the pointer.
-  template <class Pointer0> void increment(Pointer0 &p) const {
+  template <class Pointer0>
+  void increment(Pointer0 &p) const {
     if (++p == m_end)
       p = m_buff;
   }
 
   //! Decrement the pointer.
-  template <class Pointer0> void decrement(Pointer0 &p) const {
+  template <class Pointer0>
+  void decrement(Pointer0 &p) const {
     if (p == m_buff)
       p = m_end;
     --p;
   }
 
   //! Add <code>n</code> to the pointer.
-  template <class Pointer0> Pointer0 add(Pointer0 p, difference_type n) const {
+  template <class Pointer0>
+  Pointer0 add(Pointer0 p, difference_type n) const {
     return p + (n < (m_end - p) ? n : n - capacity());
   }
 
   //! Subtract <code>n</code> from the pointer.
-  template <class Pointer0> Pointer0 sub(Pointer0 p, difference_type n) const {
+  template <class Pointer0>
+  Pointer0 sub(Pointer0 p, difference_type n) const {
     return p - (n > (p - m_buff) ? n - capacity() : n);
   }
 
@@ -1227,7 +1237,8 @@ private:
   }
 
   //! Helper assign method.
-  template <class Functor> void do_assign(size_type n, const Functor &fnc) {
+  template <class Functor>
+  void do_assign(size_type n, const Functor &fnc) {
     if (n > capacity()) {
       pointer buff = allocate(n);
       BOOST_CB_TRY
@@ -1272,7 +1283,8 @@ private:
   }
 
   //! Helper insert method.
-  template <class Wrapper> void insert_n_item(iterator pos, size_type n, const Wrapper &wrapper) {
+  template <class Wrapper>
+  void insert_n_item(iterator pos, size_type n, const Wrapper &wrapper) {
     size_type construct = capacity() - size();
     if (construct > n)
       construct = n;
@@ -1325,7 +1337,8 @@ private:
   }
 
   //! Helper rinsert method.
-  template <class Wrapper> void rinsert_n_item(iterator pos, size_type n, const Wrapper &wrapper) {
+  template <class Wrapper>
+  void rinsert_n_item(iterator pos, size_type n, const Wrapper &wrapper) {
     if (n == 0)
       return;
     size_type copy = capacity() - (pos - begin());

@@ -60,7 +60,8 @@ public:
   }
 };
 
-template <class ValueType, class Operation> class OpFilter : public SimpleFilter {
+template <class ValueType, class Operation>
+class OpFilter : public SimpleFilter {
   typename ValueType::type theValue;
 
 public:
@@ -107,7 +108,8 @@ struct OpEqual {
     static std::string str("==");
     return str;
   }
-  template <class T> bool operator()(T const &lhs, T const &rhs) {
+  template <class T>
+  bool operator()(T const &lhs, T const &rhs) {
     return lhs == rhs;
   }
 };
@@ -117,7 +119,8 @@ struct OpNotEqual {
     static std::string str("!=");
     return str;
   }
-  template <class T> bool operator()(T const &lhs, T const &rhs) {
+  template <class T>
+  bool operator()(T const &lhs, T const &rhs) {
     return lhs != rhs;
   }
 };
@@ -127,7 +130,8 @@ struct OpLessThan {
     static std::string str("<");
     return str;
   }
-  template <class T> bool operator()(T const &lhs, T const &rhs) {
+  template <class T>
+  bool operator()(T const &lhs, T const &rhs) {
     return lhs < rhs;
   }
 };
@@ -137,7 +141,8 @@ struct OpLessEqual {
     static std::string str("<=");
     return str;
   }
-  template <class T> bool operator()(T const &lhs, T const &rhs) {
+  template <class T>
+  bool operator()(T const &lhs, T const &rhs) {
     return lhs <= rhs;
   }
 };
@@ -147,7 +152,8 @@ struct OpGreaterThan {
     static std::string str(">");
     return str;
   }
-  template <class T> bool operator()(T const &lhs, T const &rhs) {
+  template <class T>
+  bool operator()(T const &lhs, T const &rhs) {
     return lhs > rhs;
   }
 };
@@ -157,7 +163,8 @@ struct OpGreaterEqual {
     static std::string str(">=");
     return str;
   }
-  template <class T> bool operator()(T const &lhs, T const &rhs) {
+  template <class T>
+  bool operator()(T const &lhs, T const &rhs) {
     return lhs >= rhs;
   }
 };

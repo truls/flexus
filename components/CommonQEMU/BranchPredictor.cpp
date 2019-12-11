@@ -100,8 +100,8 @@ struct BTBEntry {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     ar &thePC;
     ar &theBranchType;
     ar &theTarget;
@@ -115,15 +115,15 @@ typedef multi_index_container<
                                                                  &BTBEntry::thePC>>>>
     btb_set_t;
 
-template <class Archive> void save(Archive &ar, const btb_set_t &t,
-                                   [[maybe_unused]] uint32_t version) {
+template <class Archive>
+void save(Archive &ar, const btb_set_t &t, [[maybe_unused]] uint32_t version) {
   std::list<BTBEntry> btb;
   std::copy(t.begin(), t.end(), std::back_inserter(btb));
   // the hackish const is necessary to satisfy boost 1.33.1
   ar << (const std::list<BTBEntry>)btb;
 }
-template <class Archive> void load(Archive &ar, btb_set_t &t,
-                                   [[maybe_unused]] uint32_t version) {
+template <class Archive>
+void load(Archive &ar, btb_set_t &t, [[maybe_unused]] uint32_t version) {
   std::list<BTBEntry> btb;
   ar >> btb;
   std::copy(btb.begin(), btb.end(), std::back_inserter(t));
@@ -195,8 +195,8 @@ struct gShare {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     uint32_t shift_reg = theShiftReg;
     ar &thePatternTable;
     ar &theShiftRegSize;
@@ -274,8 +274,8 @@ struct Bimodal {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     ar &theTable;
     ar &theSize;
     ar &theIndexMask;
@@ -324,8 +324,8 @@ struct BTB {
 
 private:
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar,
-                                          [[maybe_unused]] const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, [[maybe_unused]] const uint32_t version) {
     ar &theBTB;
     ar &theBTBSets;
     ar &theBTBAssoc;

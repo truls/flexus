@@ -146,7 +146,8 @@ struct DebugGrammar : public boost::spirit::classic::grammar<DebugGrammar> {
   DebugGrammar(Context &aContext) : theContext(aContext) {
   }
 
-  template <typename ScannerT> struct definition {
+  template <typename ScannerT>
+  struct definition {
     // Declare all rules, and their associated closures, if any
     rule<ScannerT> debug_cfg;
     rule<ScannerT> statement;

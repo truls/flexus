@@ -60,7 +60,8 @@ class InvalidCacheAccessException : public std::exception {};
 
 // The output of a cache lookup
 // derived from counted_base so we work with intrusive_ptr
-template <typename _State> class AbstractLookupResult : public boost::counted_base {
+template <typename _State>
+class AbstractLookupResult : public boost::counted_base {
 public:
   virtual ~AbstractLookupResult() {
   }
@@ -81,7 +82,8 @@ public:
 
 }; // class AbstractLookupResult
 
-template <typename _State> class AbstractArray {
+template <typename _State>
+class AbstractArray {
 public:
   virtual ~AbstractArray() {
   }
@@ -135,8 +137,7 @@ public:
   }
   virtual std::pair<_State, MemoryAddress> getPreemptiveEviction() = 0;
 
-  virtual bool sameSet([[maybe_unused]] MemoryAddress a,
-                       [[maybe_unused]] MemoryAddress b) const {
+  virtual bool sameSet([[maybe_unused]] MemoryAddress a, [[maybe_unused]] MemoryAddress b) const {
     return false;
   }
   virtual std::list<MemoryAddress> getSetTags([[maybe_unused]] MemoryAddress addr) {

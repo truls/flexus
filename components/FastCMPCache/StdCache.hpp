@@ -353,16 +353,13 @@ public:
     return false;
   }
 
-  int32_t getOwner([[maybe_unused]] LookupResult_p result,
-                   [[maybe_unused]] uint64_t tagset) {
+  int32_t getOwner([[maybe_unused]] LookupResult_p result, [[maybe_unused]] uint64_t tagset) {
     DBG_Assert(false, (<< "getOwner() function not supported by this Cache structure."));
     return -1;
   }
 
-  void updateOwner([[maybe_unused]] LookupResult_p result,
-                   [[maybe_unused]] int32_t owner,
-                   [[maybe_unused]] uint64_t tagset,
-                   [[maybe_unused]] bool shared = true) {
+  void updateOwner([[maybe_unused]] LookupResult_p result, [[maybe_unused]] int32_t owner,
+                   [[maybe_unused]] uint64_t tagset, [[maybe_unused]] bool shared = true) {
     DBG_Assert(false, (<< "updateOwner() function not supported by this Cache structure."));
   }
 

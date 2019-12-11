@@ -69,7 +69,8 @@ typedef uint32_t BlockOffset;
 enum ReplacementPolicy { REPLACEMENT_LRU, REPLACEMENT_PLRU };
 
 // This is a cache block.  The accessor functions are braindead simple.
-template <typename _State, const _State &_DefaultState> class Block {
+template <typename _State, const _State &_DefaultState>
+class Block {
 public:
   Block(void) : theTag(0), theState(_DefaultState) {
   }
@@ -99,8 +100,10 @@ private:
 
 }; // class Block
 
-template <typename _State, const _State &_DefaultState> class Set;
-template <typename _State, const _State &_DefaultState> class StdArray;
+template <typename _State, const _State &_DefaultState>
+class Set;
+template <typename _State, const _State &_DefaultState>
+class StdArray;
 
 // The output of a cache lookup
 template <typename _State, const _State &_DefaultState>
@@ -160,7 +163,8 @@ protected:
 
 // The cache set, implements a set of cache blocks and applies a replacement
 // policy (from a derived class)
-template <typename _State, const _State &_DefaultState> class Set {
+template <typename _State, const _State &_DefaultState>
+class Set {
 public:
   Set(const int32_t aAssociativity) {
     theAssociativity = aAssociativity;
@@ -195,8 +199,7 @@ public:
     return LookupResult_p(new LookupResult(this, nullptr, anAddress, false));
   }
 
-  virtual bool canAllocate(LookupResult_p lookup,
-                           [[maybe_unused]] MemoryAddress anAddress) {
+  virtual bool canAllocate(LookupResult_p lookup, [[maybe_unused]] MemoryAddress anAddress) {
     // First look for an invalid tag match
     if (lookup->theBlock != nullptr) {
       return true;
@@ -484,15 +487,12 @@ public:
   }
 
   virtual bool loadState([[maybe_unused]] boost::archive::binary_iarchive &ia,
-                         [[maybe_unused]] int32_t theIndex,
-                         [[maybe_unused]] int32_t theSet) {
+                         [[maybe_unused]] int32_t theIndex, [[maybe_unused]] int32_t theSet) {
     return true;
   }
 
-  virtual bool loadTextState([[maybe_unused]] std::istream &is,
-                             [[maybe_unused]] int32_t theIndex,
-                             [[maybe_unused]] int32_t theSet,
-                             [[maybe_unused]] int32_t theTgShift,
+  virtual bool loadTextState([[maybe_unused]] std::istream &is, [[maybe_unused]] int32_t theIndex,
+                             [[maybe_unused]] int32_t theSet, [[maybe_unused]] int32_t theTgShift,
                              [[maybe_unused]] int32_t theSetShift) {
     return true;
   }

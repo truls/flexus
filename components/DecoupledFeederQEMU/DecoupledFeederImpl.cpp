@@ -228,9 +228,7 @@ public:
 
 }; // end class DecoupledFeeder
 extern "C" {
-void houseKeeping(void *obj,
-                  [[maybe_unused]] void *ign,
-                  [[maybe_unused]] void *ign2) {
+void houseKeeping(void *obj, [[maybe_unused]] void *ign, [[maybe_unused]] void *ign2) {
   static_cast<DecoupledFeederComponent *>(obj)->doHousekeeping();
 }
 }

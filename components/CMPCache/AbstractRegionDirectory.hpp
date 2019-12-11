@@ -45,7 +45,8 @@
 
 namespace nCMPCache {
 
-template <typename _State> class AbstractRegionLookupResult : public AbstractLookupResult<_State> {
+template <typename _State>
+class AbstractRegionLookupResult : public AbstractLookupResult<_State> {
 public:
   virtual ~AbstractRegionLookupResult() {
   }
@@ -64,7 +65,8 @@ public:
   virtual bool emptyRegion() = 0;
 };
 
-template <typename _State> class AbstractRegionEvictBuffer : public DirEvictBuffer<_State> {
+template <typename _State>
+class AbstractRegionEvictBuffer : public DirEvictBuffer<_State> {
 public:
   AbstractRegionEvictBuffer(int32_t size) : DirEvictBuffer<_State>(size) {
   }

@@ -25,7 +25,8 @@ class qmp_flexus_i;
 typedef std::map<qmp_flexus_cmd_t, qmp_flexus_i &> qmpFactories;
 qmpFactories qmpCommands;
 
-template <typename Out> static void split(const std::string &s, char delim, Out result) {
+template <typename Out>
+static void split(const std::string &s, char delim, Out result) {
   std::stringstream ss(s);
   std::string item;
   while (std::getline(ss, item, delim)) {

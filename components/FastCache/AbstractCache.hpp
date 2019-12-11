@@ -106,10 +106,8 @@ public:
     return -1;
   }
 
-  virtual void updateOwner([[maybe_unused]] LookupResult_p result,
-                           [[maybe_unused]] int32_t owner,
-                           [[maybe_unused]] uint64_t tagset,
-                           [[maybe_unused]] bool shared = true) {
+  virtual void updateOwner([[maybe_unused]] LookupResult_p result, [[maybe_unused]] int32_t owner,
+                           [[maybe_unused]] uint64_t tagset, [[maybe_unused]] bool shared = true) {
     DBG_Assert(false, (<< "updateOwner() function not supported by this Cache structure."));
   }
 

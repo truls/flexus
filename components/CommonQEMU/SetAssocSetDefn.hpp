@@ -47,7 +47,8 @@
 
 namespace nSetAssoc {
 
-template <class Types, class TBlock> class BaseSetDefinition {
+template <class Types, class TBlock>
+class BaseSetDefinition {
   // Types must provide
   // a Tag typedef
   // a BlockNumber typedef
@@ -58,7 +59,8 @@ template <class Types, class TBlock> class BaseSetDefinition {
   //
 
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     ar &myAssoc;
     ar &myIndex;
     for (uint32_t i = 0; i < myAssoc; ++i) {

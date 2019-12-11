@@ -231,8 +231,7 @@ class TransactionTrackerImpl : public BreakpointTracker {
   uint64_t theCycleMinimum;
 
 public:
-  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
-                         uint64_t aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu, uint64_t aBreakpoint) {
 
 #if FLEXUS_TARGET_IS(x86)
     int64_t pc = Qemu::API::QEMU_get_program_counter(aCpu);
@@ -429,8 +428,7 @@ class TerminateOnMagicBreakTracker : public BreakpointTracker {
   int32_t theMagicBreakpoint;
 
 public:
-  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
-                         long long aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu, long long aBreakpoint) {
 
 #if FLEXUS_TARGET_IS(x86)
     int64_t pc = Qemu::API::QEMU_get_program_counter(aCpu);
@@ -469,8 +467,7 @@ public:
 
 class RegressionTrackerImpl : public RegressionTracker {
 public:
-  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu,
-                         long long aBreakpoint) {
+  void OnMagicBreakpoint([[maybe_unused]] Qemu::API::conf_object_t *aCpu, long long aBreakpoint) {
     DBG_(Dev, (<< "Regression Testing Breakpoint: " << aBreakpoint));
     if (aBreakpoint == theStopBreakpoint) {
       DBG_(Dev, (<< "Stop breakpoint.  Terminating Simulation."));
@@ -931,14 +928,12 @@ class PacketTrackerImpl : public BreakpointTracker {
   Stat::StatCounter thePackets_ServerToClient;
   Stat::StatCounter theServerTxData;
 
-  void OnPacketV2([[maybe_unused]] Qemu::API::conf_object_t *aNetwork,
-                                                                                      long long aTimestamp) {
+  void OnPacketV2([[maybe_unused]] Qemu::API::conf_object_t *aNetwork, long long aTimestamp) {
     OnPacket(0, 0, aTimestamp);
   }
 
 public:
-  void OnPacket([[maybe_unused]] int32_t aNetworkID,
-                [[maybe_unused]] int32_t aFrameType,
+  void OnPacket([[maybe_unused]] int32_t aNetworkID, [[maybe_unused]] int32_t aFrameType,
                 [[maybe_unused]] long long aTimestamp) {
     if (theNetwork == 0) {
       return;
@@ -1012,17 +1007,15 @@ public:
   }
 
 public:
-  PacketTrackerImpl([[maybe_unused]] int32_t aSrcPortNumber,
-                    [[maybe_unused]] char aServerMACCode,
+  PacketTrackerImpl([[maybe_unused]] int32_t aSrcPortNumber, [[maybe_unused]] char aServerMACCode,
                     [[maybe_unused]] char aClientMACCode)
       : theNetwork(0),
 #if 0
         theClientMAC(aClientMACCode), theServerMAC(aServerMACCode),
         thePort(aSrcPortNumber),
 #endif
-        thePackets("sys-Packets"),
-        thePackets_ClientToServer("sys-Packets:C2S"), thePackets_ServerToClient("sys-Packets:S2C"),
-        theServerTxData("sys-ServerTxData") {
+        thePackets("sys-Packets"), thePackets_ClientToServer("sys-Packets:C2S"),
+        thePackets_ServerToClient("sys-Packets:S2C"), theServerTxData("sys-ServerTxData") {
     // TODO: Implement or remove
     theNetwork = Qemu::API::QEMU_get_ethernet();
     if (theNetwork != 0) {
@@ -1036,8 +1029,7 @@ public:
 
 class ConsoleStringTrackerImpl : public ConsoleStringTracker {
 public:
-  void OnXtermString([[maybe_unused]] Qemu::API::conf_object_t *ignored,
-                     char *aString) {
+  void OnXtermString([[maybe_unused]] Qemu::API::conf_object_t *ignored, char *aString) {
     DBG_(Dev, (<< "Console termination string " << aString << " has appeared."));
     Flexus::Core::theFlexus->terminateSimulation();
   }

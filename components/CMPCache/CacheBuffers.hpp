@@ -76,7 +76,8 @@ using boost::intrusive_ptr;
 using namespace Flexus::SharedTypes;
 using Flexus::SharedTypes::MemoryMessage;
 
-template <typename _State> struct EvictEntry {
+template <typename _State>
+struct EvictEntry {
   MemoryAddress theBlockAddress;
   mutable MemoryMessage::MemoryMessageType theType;
   mutable bool theEvictable;
@@ -120,7 +121,8 @@ public:
     return theState;
   }
   friend class boost::serialization::access;
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive>
+  void serialize(Archive &ar, const uint32_t version) {
     // Version 0 of the EvictEntry does not contain theEvictable.
     // It is always considered to be true in older checkpoints.
     // Version 1 contains this boolean flag.
@@ -249,7 +251,8 @@ public:
 }; // end class AbstractEvictBuffer
 
 // the evict buffer contains uninitiated evictions
-template <typename _State> class CacheEvictBuffer : public AbstractEvictBuffer {
+template <typename _State>
+class CacheEvictBuffer : public AbstractEvictBuffer {
   struct by_address {};
   struct by_order {};
   typedef multi_index_container<

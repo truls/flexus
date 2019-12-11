@@ -26,9 +26,11 @@ namespace Wiring {
 using Flexus::Core::aux_::pull;
 using Flexus::Core::aux_::push;
 
-template <class ToInstance, class ToPort, class Type, bool isArray> struct resolve_channel;
+template <class ToInstance, class ToPort, class Type, bool isArray>
+struct resolve_channel;
 
-template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToPort, pull, false> {
+template <class ToInstance, class ToPort>
+struct resolve_channel<ToInstance, ToPort, pull, false> {
   static bool invoke_available(Flexus::Core::index_t anIndex) {
     return ToInstance::getReference(anIndex).available(ToPort());
   }
@@ -37,7 +39,8 @@ template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToP
   }
 };
 
-template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToPort, push, false> {
+template <class ToInstance, class ToPort>
+struct resolve_channel<ToInstance, ToPort, push, false> {
   static bool invoke_available(Flexus::Core::index_t anIndex) {
     return ToInstance::getReference(anIndex).available(ToPort());
   }
@@ -46,7 +49,8 @@ template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToP
   }
 };
 
-template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToPort, push, true> {
+template <class ToInstance, class ToPort>
+struct resolve_channel<ToInstance, ToPort, push, true> {
   static bool invoke_available(Flexus::Core::index_t anIndex) {
     int32_t width = ToInstance::iface::width(ToInstance::getInstance().theConfiguration, ToPort());
     return ToInstance::getReference(anIndex / width).available(ToPort(), anIndex % width);
@@ -57,7 +61,8 @@ template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToP
   }
 };
 
-template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToPort, pull, true> {
+template <class ToInstance, class ToPort>
+struct resolve_channel<ToInstance, ToPort, pull, true> {
   static bool invoke_available(Flexus::Core::index_t anIndex) {
     int32_t width = ToInstance::iface::width(ToInstance::getInstance().theConfiguration, ToPort());
     return ToInstance::getReference(anIndex / width).available(ToPort(), anIndex % width);
@@ -68,7 +73,8 @@ template <class ToInstance, class ToPort> struct resolve_channel<ToInstance, ToP
   }
 };
 
-template <class SrcPort> struct channel;
+template <class SrcPort>
+struct channel;
 
 } // namespace Wiring
 } // namespace nFLEXUS

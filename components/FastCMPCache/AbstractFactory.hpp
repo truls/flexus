@@ -51,7 +51,8 @@ public:
   }
 };
 
-template <class _AbstractType> class AbstractFactory {
+template <class _AbstractType>
+class AbstractFactory {
 public:
   // typedef _AbstractType *(cons_func_t)(std::list< std:pair<std::string,
   // std::string> >&);
@@ -118,7 +119,8 @@ public:
   }
 };
 
-template <typename _AbstractType, typename _ConcreteType> class ConcreteFactory {
+template <typename _AbstractType, typename _ConcreteType>
+class ConcreteFactory {
 public:
   ConcreteFactory() {
     AbstractFactory<_AbstractType>::registerConstructor(_ConcreteType::name,

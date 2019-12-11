@@ -176,8 +176,8 @@ public:
         theFailedTranslations(statName() + "-FailedTranslations"),
         theMisses(statName() + "-Misses"), theHits(statName() + "-Hits"),
         theMissCycles(statName() + "-MissCycles"), theAllocations(statName() + "-Allocations"),
-    theMaxOutstandingEvicts(statName() + "-MaxEvicts"), theLastVTagSet(0), theLastPhysical(0),
-    theI(cfg.Size, cfg.Associativity, cfg.ICacheLineSize, statName()) {
+        theMaxOutstandingEvicts(statName() + "-MaxEvicts"), theLastVTagSet(0), theLastPhysical(0),
+        theI(cfg.Size, cfg.Associativity, cfg.ICacheLineSize, statName()) {
   }
 
   void initialize() {
@@ -823,8 +823,7 @@ private:
   bool available(interface::ResyncIn const &, [[maybe_unused]] index_t anIndex) {
     return true;
   }
-  void push(interface::ResyncIn const &,
-            [[maybe_unused]] index_t anIndex,
+  void push(interface::ResyncIn const &, [[maybe_unused]] index_t anIndex,
             [[maybe_unused]] bool &aResync) {
     TranslationsFromTLB.clear();
     theBundle->clear();

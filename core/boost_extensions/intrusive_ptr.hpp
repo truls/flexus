@@ -15,11 +15,13 @@ struct counted_base {
   }
 };
 
-template <class T> void intrusive_ptr_add_ref(T *p) {
+template <class T>
+void intrusive_ptr_add_ref(T *p) {
   static_cast<boost::counted_base const *>(p)->theRefCount++;
 }
 
-template <class T> void intrusive_ptr_release(T *p) {
+template <class T>
+void intrusive_ptr_release(T *p) {
   if (--static_cast<boost::counted_base const *>(p)->theRefCount == 0) {
     delete p;
   }
@@ -30,15 +32,13 @@ template <class T> void intrusive_ptr_release(T *p) {
 namespace boost {
 namespace serialization {
 template <class Archive, class T>
-void save(Archive &ar, ::boost::intrusive_ptr<T> const &ptr,
-          [[maybe_unused]] uint32_t version) {
+void save(Archive &ar, ::boost::intrusive_ptr<T> const &ptr, [[maybe_unused]] uint32_t version) {
   T *t = ptr.get();
   ar &t;
 }
 
 template <class Archive, class T>
-void load(Archive &ar, ::boost::intrusive_ptr<T> &ptr,
-          [[maybe_unused]] uint32_t version) {
+void load(Archive &ar, ::boost::intrusive_ptr<T> &ptr, [[maybe_unused]] uint32_t version) {
   T *t;
   ar &t;
   ptr = boost::intrusive_ptr<T>(t);
@@ -55,7 +55,10 @@ namespace boost {
 namespace lambda {
 namespace detail {
 
-template <class A> struct contentsof_type<boost::intrusive_ptr<A>> { typedef A &type; };
+template <class A>
+struct contentsof_type<boost::intrusive_ptr<A>> {
+  typedef A &type;
+};
 
 } // namespace detail
 } // namespace lambda

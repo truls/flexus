@@ -168,8 +168,8 @@ bool CacheController::isFrontSideOutFull(void) const {
   return false;
 }
 
-bool
-CacheController::isQueueSetEmpty(const std::vector<MessageQueue<MemoryTransport>> &queues) const {
+bool CacheController::isQueueSetEmpty(
+    const std::vector<MessageQueue<MemoryTransport>> &queues) const {
   for (int32_t i = 0; i < theCores; i++) {
     if (!queues[i].empty())
       return false;
@@ -186,8 +186,7 @@ bool CacheController::isPipelineSetEmpty(const std::vector<Pipeline> &pipelines)
   return true;
 }
 
-bool
-CacheController::isQueueSetFull(const MessageQueue<MemoryTransport> *const &queues) const {
+bool CacheController::isQueueSetFull(const MessageQueue<MemoryTransport> *const &queues) const {
 
   for (int32_t i = 0; i < theCores; i++) {
     if (!queues[i].full())
