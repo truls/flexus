@@ -100,7 +100,7 @@ void ProtocolMessage::setType(Protocol::ProtocolMessageType aType) {
 namespace Protocol {
 
 tVC networkMessageTypeToVC(ProtocolMessageType msg_type) {
-  static const tVC VCs[38] = {
+  static const tVC VCs[] = {
 
       // Requests From Cache to Directory
       VC0, // ReadReq
@@ -161,15 +161,16 @@ tVC networkMessageTypeToVC(ProtocolMessageType msg_type) {
 
       // Error packet
       VC0, // ERROR IN PROTOCOL!!!
-
   };
-  DBG_Assert((msg_type) < static_cast<int>(sizeof(VCs)));
+  static_assert(__ProtocolMessageTypeCount == sizeof(VCs) / sizeof(*VCs));
+
+  DBG_Assert(msg_type < (__ProtocolMessageTypeCount - 1));
 
   return VCs[msg_type];
 }
 
 std::ostream &operator<<(std::ostream &anOstream, ProtocolMessageType msg_type) {
-  static const char *const name[38] = {
+  static const char *const name[] = {
 
       // Requests From Cache to Directory
       "ReadReq",      // VC 0.
@@ -236,13 +237,16 @@ std::ostream &operator<<(std::ostream &anOstream, ProtocolMessageType msg_type) 
       // Error packet
       "ERROR!!!!!!!!!!!!" // ERROR IN PROTOCOL!!!
   };
-  DBG_Assert(msg_type < static_cast<int>(sizeof(name)));
+  static_assert(__ProtocolMessageTypeCount == sizeof(name) / sizeof(*name));
+
+  DBG_Assert(msg_type < (__ProtocolMessageTypeCount - 1));
+
   anOstream << name[msg_type];
   return anOstream;
 }
 
 bool isRequest(ProtocolMessageType msg_type) {
-  static const bool isReqs[38] = {
+  static const bool isReqs[] = {
 
       // Requests From Cache to Directory
       true, // ReadReq
@@ -305,13 +309,15 @@ bool isRequest(ProtocolMessageType msg_type) {
       true, // ERROR IN PROTOCOL!!!
 
   };
-  DBG_Assert(static_cast<size_t>(msg_type) < sizeof(isReqs));
+  static_assert(__ProtocolMessageTypeCount == sizeof(isReqs) / sizeof(*isReqs));
+
+  DBG_Assert(msg_type < (__ProtocolMessageTypeCount - 1));
 
   return isReqs[msg_type];
 }
 
 bool isPotentialReply(ProtocolMessageType msg_type) {
-  static const bool isRepl[38] = {
+  static const bool isRepl[] = {
 
       // Requests From Cache to Directory
       false, // ReadReq
@@ -374,13 +380,15 @@ bool isPotentialReply(ProtocolMessageType msg_type) {
       true, // ERROR IN PROTOCOL!!!
 
   };
-  DBG_Assert(static_cast<size_t>(msg_type) < sizeof(isRepl));
+  static_assert(__ProtocolMessageTypeCount == sizeof(isRepl) / sizeof(*isRepl));
+
+  DBG_Assert(msg_type < (__ProtocolMessageTypeCount - 1));
 
   return isRepl[msg_type];
 }
 
 bool isRemote(ProtocolMessageType msg_type) {
-  static const bool isRemote[38] = {
+  static const bool isRemote[] = {
 
       // Requests From Cache to Directory
       true, // ReadReq
@@ -443,13 +451,15 @@ bool isRemote(ProtocolMessageType msg_type) {
       true, // ERROR IN PROTOCOL!!!
 
   };
-  DBG_Assert(static_cast<size_t>(msg_type) < sizeof(isRemote));
+  static_assert(__ProtocolMessageTypeCount == sizeof(isRemote) / sizeof(*isRemote));
+
+  DBG_Assert(msg_type < (__ProtocolMessageTypeCount - 1));
 
   return isRemote[msg_type];
 }
 
 bool carriesData(ProtocolMessageType msg_type) {
-  static const bool carriesData[38] = {
+  static const bool carriesData[] = {
       // Requests From Cache to Directory
       false, // ReadReq
       false, // WriteReq
@@ -515,7 +525,9 @@ bool carriesData(ProtocolMessageType msg_type) {
       // Error packet.
       false, // ERROR IN PROTOCOL!!!
   };
-  DBG_Assert(static_cast<size_t>(msg_type) < sizeof(carriesData));
+  static_assert(__ProtocolMessageTypeCount == sizeof(carriesData) / sizeof(*carriesData));
+
+  DBG_Assert(msg_type < (__ProtocolMessageTypeCount - 1));
 
   return carriesData[msg_type];
 }

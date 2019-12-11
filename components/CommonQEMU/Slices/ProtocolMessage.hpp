@@ -161,7 +161,10 @@ enum ProtocolMessageType {
                       // existing thread).
 
   // Error packet
-  ProtocolError // ERROR IN PROTOCOL!!!
+  ProtocolError, // ERROR IN PROTOCOL!!!
+
+  // How many fields in the enum
+  __ProtocolMessageTypeCount
 };
 bool isRequest(ProtocolMessageType msg_type);
 bool isPotentialReply(ProtocolMessageType msg_type);

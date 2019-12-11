@@ -49,8 +49,9 @@ namespace SharedTypes {
 
 // for debug output
 std::ostream &operator<<(std::ostream &anOstream, tDirState const x) {
-  const char *const name[3] = {"DIR_STATE_INVALID", "DIR_STATE_SHARED", "DIR_STATE_MODIFIED"};
-  DBG_Assert(x < static_cast<int>(sizeof(name)));
+  const char *const name[] = {"DIR_STATE_INVALID", "DIR_STATE_SHARED", "DIR_STATE_MODIFIED"};
+  static_assert(__DIR_STATE_COUNT == sizeof(name) / sizeof(*name));
+  DBG_Assert(x < (__DIR_STATE_COUNT - 1));
   anOstream << name[x];
   return anOstream;
 }
@@ -78,6 +79,8 @@ std::ostream &operator<<(std::ostream &aStream, DirectoryEntry const &anEntry) {
   case DIR_STATE_MODIFIED:
     aStream << anEntry.getState() << " Owner=" << anEntry.theNodes;
     break;
+  case __DIR_STATE_COUNT:
+    DBG_Assert(0);
   }
   aStream << ((anEntry.wasModified()) ? "  " : " !");
   aStream << "WasModified";

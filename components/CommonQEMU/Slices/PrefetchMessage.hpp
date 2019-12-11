@@ -98,7 +98,10 @@ struct PrefetchMessage : public boost::counted_base {
     WatchRemoved,
     // This indicates that a watched line was dropped from the watch list
     // because of a replacement
-    WatchReplaced
+    WatchReplaced,
+
+    // Length of struct
+    __PrefetchMessageTypeCount
   };
 
   PrefetchMessageType type() const {

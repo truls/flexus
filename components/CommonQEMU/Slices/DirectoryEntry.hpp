@@ -60,7 +60,12 @@
 namespace Flexus {
 namespace SharedTypes {
 
-enum tDirState { DIR_STATE_INVALID = 0, DIR_STATE_SHARED = 1, DIR_STATE_MODIFIED = 2 };
+enum tDirState {
+  DIR_STATE_INVALID = 0,
+  DIR_STATE_SHARED = 1,
+  DIR_STATE_MODIFIED = 2,
+  __DIR_STATE_COUNT = 3
+};
 
 std::ostream &operator<<(std::ostream &anOstream, tDirState const x);
 
@@ -85,7 +90,7 @@ private:
   uint64_t theNodes;
 
   friend class boost::serialization::access;
-  template <class Archive> void save(Archive &ar, const uint32_t version) const {
+  template <class Archive> void save(Archive &ar/*, const uint32_t version*/) const {
     ar &theState;
     ar &theWasModified;
     ar &thePastReaders;

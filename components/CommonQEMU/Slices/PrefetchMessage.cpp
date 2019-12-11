@@ -58,9 +58,13 @@ std::ostream &operator<<(std::ostream &s, PrefetchMessage const &aMsg) {
                                   "Line Hit - Partial", "Line Replaced",      "Line Removed",
                                   "Watch Present",      "Watch Redundant",    "Watch Requested",
                                   "Watch Removed",      "Watch Replaced"};
-  DBG_Assert(aMsg.type() < static_cast<int>(sizeof(prefetch_types)));
+  static_assert(PrefetchMessage::__PrefetchMessageTypeCount ==
+                sizeof(prefetch_types) / sizeof(*prefetch_types));
 
-  s << "PrefetchMessage[" << prefetch_types[aMsg.type()] << "]: ";
+  auto idx = aMsg.type();
+  DBG_Assert(idx < (PrefetchMessage::__PrefetchMessageTypeCount - 1));
+
+  s << "PrefetchMessage[" << prefetch_types[idx] << "]: ";
   if (aMsg.streamID() > 0) {
     s << " Stream[" << aMsg.streamID() << "] ";
   }
