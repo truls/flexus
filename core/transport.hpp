@@ -31,7 +31,8 @@ template <class Transport, class OtherTransport> struct transport_copier {
   }
 
   template <class Slice, bool IsMatch> struct copy {
-    void operator()(Transport &theDest, OtherTransport &theSrc) {
+    void operator()([[maybe_unused]] Transport &theDest,
+                    [[maybe_unused]] OtherTransport &theSrc) {
     }
   };
 

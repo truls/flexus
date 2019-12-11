@@ -308,7 +308,7 @@ public:
         new LookupResult(address, bucket_list, theDirectory[set_index], theNumSharers));
   }
 
-  virtual bool sameSet(MemoryAddress a, MemoryAddress b) {
+  virtual bool sameSet(MemoryAddress a, MemoryAddress b) const {
     return (get_set(a) == get_set(b));
   }
 

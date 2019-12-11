@@ -106,7 +106,7 @@ public:
     char *buf = new char[716];
     API::QEMU_dump_state(*this, &buf);
     std::string s(buf);
-    delete buf;
+    delete[] buf;
     return s;
   }
 
@@ -277,9 +277,6 @@ public:
   explicit Processor(API::conf_object_t *aProcessor) : base(PROCESSOR_IMPL(aProcessor)) {
   }
 
-  operator API::conf_object_t *() {
-    return *this;
-  }
   static Processor getProcessor(int aProcessorNumber) {
     return Processor(API::QEMU_get_cpu_by_index(
         /*ProcessorMapper::mapFlexusIndex2ProcNum(*/ aProcessorNumber));

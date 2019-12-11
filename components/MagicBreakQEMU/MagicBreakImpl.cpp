@@ -340,8 +340,9 @@ public:
                                                            cfg.CkptCycleName);
     }
     theTrackers.push_back(BreakpointTracker::newSimPrintHandler());
-    theTrackers.push_back(BreakpointTracker::newPacketTracker(
-        8083 /*SpecWEB port*/, 0x24 /*Server MAC byte*/, 0x25 /*Client MAC byte*/));
+    // TODO: not supported with QEmu
+    //theTrackers.push_back(BreakpointTracker::newPacketTracker(
+    //    8083 /*SpecWEB port*/, 0x24 /*Server MAC byte*/, 0x25 /*Client MAC byte*/));
   }
 
   void finalize() {

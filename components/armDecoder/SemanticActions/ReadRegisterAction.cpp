@@ -124,6 +124,7 @@ struct ReadRegisterAction : public BaseSemanticAction {
         case EL3:
         default:
           DBG_Assert(false);
+          assert(0); // Silence val is used uninitialized warning
           //                    theInstruction->setWillRaise(kException_ILLEGALSTATE);
           //                    core()->takeTrap(boost::intrusive_ptr<Instruction>(theInstruction),
           //                    theInstruction->willRaise());

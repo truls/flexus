@@ -90,7 +90,8 @@ protected:
   }
 };
 
-struct StatUpdaterBase : public boost::counted_base {
+class StatUpdaterBase : public boost::counted_base {
+public:
   virtual ~StatUpdaterBase() {
   }
   virtual void reset() = 0;

@@ -682,7 +682,6 @@ class StatManagerImpl : public StatManager {
   int64_t theTick;
   boost::intrusive_ptr<Measurement> theAllMeasurement;
   std::list<std::function<void()>> theFinalizers;
-  bool theLoaded;
 
   struct event {
     int64_t theDeadline;
@@ -695,7 +694,7 @@ class StatManagerImpl : public StatManager {
   std::priority_queue<event> theEventQueue;
 
 public:
-  StatManagerImpl() : theInitialized(false), theTick(0), theLoaded(false) {
+  StatManagerImpl() : theInitialized(false), theTick(0) {
   }
   ~StatManagerImpl() {
     // Note: This destructor is never called, the StatManagerImpl is

@@ -228,7 +228,6 @@ class TransactionTrackerImpl : public BreakpointTracker {
   int32_t theTransactionCount;
   int32_t theLastIntervalCount;
   int32_t theLastCkptCount;
-  bool theToggle;
   uint64_t theCycleMinimum;
 
 public:
@@ -413,7 +412,7 @@ public:
                                                       : (aFirstTransactionIs / theStatInterval)),
         theCurrentStatIntervalName("disabled"), theTransactionCount(aFirstTransactionIs),
         theLastIntervalCount(aFirstTransactionIs), theLastCkptCount(aFirstTransactionIs),
-        theToggle(false), theCycleMinimum(aCycleMinimum) {
+        theCycleMinimum(aCycleMinimum) {
     if (theStatInterval > 0) {
       theCurrentStatIntervalName = std::string("Trans Interval ") +
                                    boost::padded_string_cast<3, '0'>(theCurrentStatInterval++);
@@ -507,12 +506,13 @@ class CycleTrackerImpl : public CycleTracker {
   uint64_t theStopCycle;
   uint64_t theCkptInterval;
   uint64_t theLastCkpt;
-  uint32_t theCkptNameStart;
 
 public:
-  CycleTrackerImpl(uint64_t aStopCycle, uint64_t aCkptInterval, uint32_t aCkptNameStart)
-      : theStopCycle(aStopCycle), theCkptInterval(aCkptInterval), theLastCkpt(0),
-        theCkptNameStart(aCkptNameStart) {
+  CycleTrackerImpl(uint64_t aStopCycle, uint64_t aCkptInterval,
+                   [[maybe_unused]] uint32_t aCkptNameStart)
+      : theStopCycle(aStopCycle), theCkptInterval(aCkptInterval), theLastCkpt(0) {
+    // TODO: Remove or implement the CkptCycleName option of MagicBreak
+    // and the aCkptNameStart parameter
     //((FlexusImpl *)(Flexus::Core::theFlexus))->setStopCycle(aStopCycle);
   }
 
@@ -920,9 +920,11 @@ public:
 class PacketTrackerImpl : public BreakpointTracker {
 
   Qemu::API::conf_object_t *theNetwork;
+#if 0
   char theClientMAC;
   char theServerMAC;
   int32_t thePort;
+#endif
 
   Stat::StatCounter thePackets;
   Stat::StatCounter thePackets_ClientToServer;
@@ -1010,11 +1012,18 @@ public:
   }
 
 public:
-  PacketTrackerImpl(int32_t aSrcPortNumber, char aServerMACCode, char aClientMACCode)
-      : theNetwork(0), theClientMAC(aClientMACCode), theServerMAC(aServerMACCode),
-        thePort(aSrcPortNumber), thePackets("sys-Packets"),
+  PacketTrackerImpl([[maybe_unused]] int32_t aSrcPortNumber,
+                    [[maybe_unused]] char aServerMACCode,
+                    [[maybe_unused]] char aClientMACCode)
+      : theNetwork(0),
+#if 0
+        theClientMAC(aClientMACCode), theServerMAC(aServerMACCode),
+        thePort(aSrcPortNumber),
+#endif
+        thePackets("sys-Packets"),
         thePackets_ClientToServer("sys-Packets:C2S"), thePackets_ServerToClient("sys-Packets:S2C"),
         theServerTxData("sys-ServerTxData") {
+    // TODO: Implement or remove
     theNetwork = Qemu::API::QEMU_get_ethernet();
     if (theNetwork != 0) {
       // Qemu::API::QEMU_insert_callback(Qemu::API::QEMU_ethernet_frame,

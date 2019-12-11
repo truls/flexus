@@ -391,7 +391,8 @@ public:
 private:
   // Private data
 
-  bool theTraceTrackerFlag;
+  //TODO:
+  [[maybe_unused]] bool theTraceTrackerFlag;
 
   std::string theName;
 
@@ -405,8 +406,9 @@ private:
 
   int32_t theERBSize;
 
-  bool theCleanEvicts;
-  bool theMetaInclusive;
+  // TODO:
+  [[maybe_unused]] bool theCleanEvicts;
+  [[maybe_unused]] bool theMetaInclusive;
   bool theImpreciseRS;
   bool theBlockScout;
   bool theSkewBlockSetIndex;

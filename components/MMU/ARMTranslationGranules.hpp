@@ -21,6 +21,7 @@ protected:
 public:
   TranslationGranule();
   TranslationGranule(unsigned ksize, unsigned PASize, unsigned IASize);
+  virtual ~TranslationGranule() = default;
   unsigned getKBSize() const;
   unsigned getlogKBSize() const;
   unsigned getGranuleShift() const;

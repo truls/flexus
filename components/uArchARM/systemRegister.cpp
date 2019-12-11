@@ -82,7 +82,7 @@ struct DAIF : public SysRegInfo {
   eRegInfo type = kARM_NO_RAW;
   uint64_t resetvalue = -1;
 
-  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
+  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) override {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*aa64_daif_access*/
@@ -109,7 +109,7 @@ struct TPIDR_EL0 : public SysRegInfo {
   eRegInfo type = kARM_NO_RAW;
   uint64_t resetvalue = -1;
 
-  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
+  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) override {
     DBG_Assert(false);
     return kACCESS_TRAP;
   } // FIXME /*aa64_daif_access*/
@@ -264,10 +264,9 @@ struct SP_EL0 : public SysRegInfo {
   virtual uint64_t readfn(uArchARM *aCore) override {
     return aCore->getSP_el(0);
   }
-  virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
-    DBG_Assert(false);
-    return kACCESS_TRAP;
-  } // FIXME /*sp_el0_access*/
+  //virtual eAccessResult accessfn([[maybe_unused]] uArchARM *aCore) {
+    // TODO /*sp_el0_access*/
+  //}
 
   virtual void writefn(uArchARM *aCore, uint64_t aVal) override {
     aCore->setSP_el(0, aVal);

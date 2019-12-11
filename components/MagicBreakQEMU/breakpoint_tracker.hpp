@@ -52,7 +52,7 @@ class RegressionTracker;
 class CycleTracker;
 class ConsoleStringTracker;
 
-struct BreakpointTracker : public boost::counted_base {
+class BreakpointTracker : public boost::counted_base {
 public:
   static boost::intrusive_ptr<IterationTracker> newIterationTracker();
   static boost::intrusive_ptr<RegressionTracker> newRegressionTracker();
@@ -70,7 +70,8 @@ public:
   virtual ~BreakpointTracker(){};
 };
 
-struct IterationTracker : public BreakpointTracker {
+class IterationTracker : public BreakpointTracker {
+public:
   virtual void printIterationCounts(std::ostream &aStream) = 0;
   virtual void setIterationCount(uint32_t aCPU, int32_t aCount) = 0;
   virtual void enable() = 0;
@@ -81,21 +82,25 @@ struct IterationTracker : public BreakpointTracker {
   virtual ~IterationTracker(){};
 };
 
-struct RegressionTracker : public BreakpointTracker {
+class RegressionTracker : public BreakpointTracker {
+public:
   virtual void enable() = 0;
   virtual ~RegressionTracker(){};
 };
 
-struct ConsoleStringTracker : public BreakpointTracker {
+class ConsoleStringTracker : public BreakpointTracker {
+public:
   virtual void addString(std::string const &) = 0;
   virtual ~ConsoleStringTracker(){};
 };
 
-struct SimPrintHandler : public BreakpointTracker {
+class SimPrintHandler : public BreakpointTracker {
+public:
   virtual ~SimPrintHandler(){};
 };
 
-struct CycleTracker : public BreakpointTracker {
+class CycleTracker : public BreakpointTracker {
+public:
   virtual void tick() = 0;
   virtual ~CycleTracker(){};
 };

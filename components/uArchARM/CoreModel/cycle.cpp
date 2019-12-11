@@ -822,7 +822,7 @@ void CoreImpl::retireMem(boost::intrusive_ptr<Instruction> anInsn) {
         if (iter_aligned != 0 && pred_aligned == iter_aligned && pred->theOperation == kStore) {
           // Can coalesce this with preceding SB enry
           ++theCoalescedStores;
-          iter->theBypassSB;
+          // iter->theBypassSB; FIMXE: What was this meant to be?
         }
       }
 

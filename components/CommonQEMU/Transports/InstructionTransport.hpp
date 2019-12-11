@@ -53,7 +53,7 @@ namespace SharedTypes {
 #ifndef FLEXUS_TAG_ArchitecturalInstructionTag
 #define FLEXUS_TAG_ArchitecturalInstructionTag
 struct ArchitecturalInstructionTag_t {};
-struct ArchitecturalInstruction;
+class ArchitecturalInstruction;
 namespace {
 [[maybe_unused]] ArchitecturalInstructionTag_t ArchitecturalInstructionTag;
 }
@@ -62,7 +62,7 @@ namespace {
 #ifndef FLEXUS_TAG_TransactionTrackerTag
 #define FLEXUS_TAG_TransactionTrackerTag
 struct TransactionTrackerTag_t {};
-struct TransactionTracker;
+class TransactionTracker;
 namespace {
 [[maybe_unused]] TransactionTrackerTag_t TransactionTrackerTag;
 }

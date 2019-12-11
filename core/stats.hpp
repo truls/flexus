@@ -330,7 +330,7 @@ public:
   }
 
   template <class Component>
-  StatPredictionCounter(std::string const &aName, Component *aComponent, int64_t anInitialValue = 0)
+  StatPredictionCounter(std::string const &aName, Component *aComponent)
       : Stat(aComponent->statName() + "-" + aName), theUpdater(0) {
     registerStat();
   }

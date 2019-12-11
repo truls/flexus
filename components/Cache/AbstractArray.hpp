@@ -136,7 +136,7 @@ public:
   virtual std::pair<_State, MemoryAddress> getPreemptiveEviction() = 0;
 
   virtual bool sameSet([[maybe_unused]] MemoryAddress a,
-                       [[maybe_unused]] MemoryAddress b) {
+                       [[maybe_unused]] MemoryAddress b) const {
     return false;
   }
   virtual std::list<MemoryAddress> getSetTags([[maybe_unused]] MemoryAddress addr) {

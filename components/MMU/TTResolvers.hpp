@@ -58,6 +58,7 @@ public:
   virtual address_t resolve(address_t inputAddress);
   virtual address_t getBlockOutputBits(address_t rawTTEFromPhysMemory);
   void updateRawBaseRegister(address_t newTTBR);
+  virtual ~TTResolver() = default;
 
 protected:
   // for going through the TT

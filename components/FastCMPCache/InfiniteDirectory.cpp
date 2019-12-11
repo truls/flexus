@@ -144,9 +144,10 @@ private:
 
 typedef boost::intrusive_ptr<InfiniteDirectoryEntry> InfiniteDirectoryEntry_p;
 
-struct HasZeroSharers {
-  bool
-  operator()(const std::pair<const PhysicalMemoryAddress, InfiniteDirectoryEntry_p> &entry) const {
+class HasZeroSharers {
+public:
+  bool operator()(const std::pair<const PhysicalMemoryAddress,
+                  InfiniteDirectoryEntry_p> &entry) const {
     return (entry.second->state == ZeroSharers);
   }
 };

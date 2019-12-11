@@ -824,7 +824,7 @@ public:
     return ((anAddress >> theGroupShift) & theGroupMask);
   }
 
-  virtual bool sameSet(MemoryAddress a, MemoryAddress b) {
+  virtual bool sameSet(MemoryAddress a, MemoryAddress b) const {
     return (makeSet(a) == makeSet(b));
   }
 

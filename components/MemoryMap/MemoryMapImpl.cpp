@@ -107,7 +107,8 @@ class MemoryMapFactory;
 MemoryMapFactory *theMemoryMapFactory = 0;
 
 // The MemoryMapFactory knows how to create MemoryMap objects
-struct MemoryMapFactory {
+class MemoryMapFactory {
+public:
   virtual ~MemoryMapFactory() {
   }
   MemoryMapFactory() {

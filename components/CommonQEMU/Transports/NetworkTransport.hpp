@@ -75,7 +75,7 @@ ProtocolMessageTag_t ProtocolMessageTag;
 #ifndef FLEXUS_TAG_TransactionTrackerTag
 #define FLEXUS_TAG_TransactionTrackerTag
 struct TransactionTrackerTag_t {};
-struct TransactionTracker;
+class TransactionTracker;
 namespace {
 TransactionTrackerTag_t TransactionTrackerTag;
 }

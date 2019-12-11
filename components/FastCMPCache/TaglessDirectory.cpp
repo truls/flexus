@@ -82,9 +82,10 @@ private:
   int32_t theFreeBits;
   int32_t theNumPatterns;
 
-  Flexus::Stat::StatCounter *theDestructiveCollisions;
-  Flexus::Stat::StatCounter *theConstructiveCollisions;
-  Flexus::Stat::StatCounter *theNonCollisions;
+  // TODO:
+  [[maybe_unused]] Flexus::Stat::StatCounter *theDestructiveCollisions;
+  [[maybe_unused]] Flexus::Stat::StatCounter *theConstructiveCollisions;
+  [[maybe_unused]] Flexus::Stat::StatCounter *theNonCollisions;
 
 #define DEFINE_COLLISION_COUNTERS(type)                                                            \
   Flexus::Stat::StatCounter *the##type##Collisions_All;                                            \

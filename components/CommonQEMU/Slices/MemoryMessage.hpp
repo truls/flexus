@@ -636,7 +636,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     default:
       break;
     }
-    throw FlexusException("isRequest not recognized: " + theType);
+    throw FlexusException("isRequest not recognized: " + std::to_string(theType));
   }
 
   bool isWrite() const {
@@ -704,7 +704,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     default:
       break;
     }
-    throw FlexusException("isWrite unrecognizedMessage: " + theType);
+    throw FlexusException("isWrite unrecognizedMessage: " + std::to_string(theType));
   }
 
   bool isSnoopType() const {
@@ -864,7 +864,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     default:
       break;
     }
-    throw FlexusException("usesSnoopChannel unrecognized message: " + theType);
+    throw FlexusException("usesSnoopChannel unrecognized message: " + std::to_string(theType));
   }
 
   bool directionToBack() const {
@@ -932,7 +932,7 @@ struct MemoryMessage : public boost::counted_base { /*, public FastAlloc*/
     default:
       break;
     }
-    throw FlexusException("directionToBack unrecognized message: " + theType);
+    throw FlexusException("directionToBack unrecognized message: " + std::to_string(theType));
   }
 
   int32_t messageSize() {

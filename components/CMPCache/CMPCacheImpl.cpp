@@ -96,7 +96,7 @@ public:
                          cfg.TagLatency, cfg.TagIssueLatency, cfg.DataLatency, cfg.DataIssueLatency,
                          cfg.QueueSize);
 
-    //	theController.reset(new CMPCacheController(theInfo));
+    // theController.reset(new CMPCacheController(theInfo));
     theController.reset(AbstractFactory<AbstractCacheController, CMPCacheInfo>::createInstance(
         cfg.ControllerType, theInfo));
   }

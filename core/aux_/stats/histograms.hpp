@@ -413,7 +413,7 @@ public:
   void reset(value_type /*ignored*/) {
     theSet.clear();
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream) const {
     anOstream << theSet.size();
   }
   int64_t asLongLong() const {
@@ -430,7 +430,7 @@ public:
     ar &theSet;
   }
 
-  virtual boost::intrusive_ptr<StatValueBase> serialForm() {
+  virtual boost::intrusive_ptr<const StatValueBase> serialForm() const {
     return this;
   }
 
@@ -508,7 +508,7 @@ public:
   void update(update_type anUpdate) {
     theSet.insert(anUpdate);
   }
-  void print(std::ostream &anOstream, std::string const &options = std::string("")) const {
+  void print(std::ostream &anOstream) const {
     for (int32_t i = 0; i < static_cast<int>(theValues.size()); ++i) {
       anOstream << theValues[i] << ", ";
     }
@@ -852,7 +852,7 @@ public:
 public:
   StatValueArray_InstanceCounter() {
   }
-  void reduceSum([[maybe_unused]] const StatValueBase *aBase) {
+  void reduceSum([[maybe_unused]] StatValueBase const& aBase) {
     std::cerr << "Reductions not supported (StatValueArray_InstanceCounter)" << std::endl;
   }
   void update(update_type anUpdate) {

@@ -112,7 +112,7 @@ public:
     }
   }
 
-  template <class Archive> void serialize(Archive &ar, const uint32_t version) {
+  template <class Archive> void serialize(Archive &ar/*, const uint32_t version*/) {
     ar &val;
   }
 
@@ -167,7 +167,8 @@ public:
 
 private:
   explicit BasicCacheState() : val(Invalid.val) {
-    /* Never called */ *(int *)0 = 0;
+    /* Never called */
+    DBG_Assert(false);
   }
   BasicCacheState(const string &name) : val(names().size()) {
     names().push_back(name);

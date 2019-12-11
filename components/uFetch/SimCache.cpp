@@ -12,7 +12,7 @@ namespace nuFetch {
 SimCache::SimCache(int32_t aCacheSize, int32_t aCacheAssoc, int32_t aBlockSize, const std::string &aName) :
     theCacheSize(aCacheSize),
     theCacheAssoc(aCacheAssoc),
-    theCacheBlockShift(LOG2(theBlockSize)),
+    theCacheBlockShift(LOG2(aBlockSize)),
     theBlockSize(aBlockSize),
     theName(aName)
   {

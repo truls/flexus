@@ -68,7 +68,7 @@ using nuArchARM::eSize;
 using nuArchARM::SemanticAction;
 using nuArchARM::uArchARM;
 
-struct BaseSemanticAction;
+class BaseSemanticAction;
 struct SemanticInstruction;
 struct Condition;
 
