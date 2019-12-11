@@ -57,46 +57,48 @@ struct PrefetchMessage : public boost::counted_base {
 
   // enumerated message type
   enum PrefetchMessageType {
-    // Requests made by Prefetch controller
-    PrefetchReq,
+    // ** Requests made by Prefetch controller
+
     // Tells the prefetch buffer to perform a prefetch.
-    DiscardReq,
+    PrefetchReq,
     // Tells the prefetch buffer to discard a line, it if is present.
-    WatchReq,
+    DiscardReq,
     // Tells the prefetch buffer to monitor a cache line, and report if
     // any requests arrive for it.
+    WatchReq,
 
-    // Responses/Notifications from Prefetch Buffer
-    PrefetchComplete,
+    // ** Responses/Notifications from Prefetch Buffer
+
     // Indicates that a prefetch operation has been completed.
-    PrefetchRedundant,
+    PrefetchComplete,
     // Indicates that a prefetch operation was rejected by the memory
-    // heirarchy.
+    // hierarchy.
+    PrefetchRedundant,
 
+    // This indicates that a hit has occurred on a prefetched line
     LineHit,
     // This indicates that a hit has occurred on a prefetched line
     LineHit_Partial,
-    // This indicates that a hit has occurred on a prefetched line
-    LineReplaced,
     // This indicates that a line was removed by replacement
-    LineRemoved,
+    LineReplaced,
     // This indicates that a line was removed for some reason other
     // than replacement.
+    LineRemoved,
 
+    // This indicates that a watched line was found when the cache hierarchy
+    // was probed
     WatchPresent,
-    // This indicates that a watched line was found when the cache heirarchy
-    // was probed
-    WatchRedundant,
     // This indicates that a watched line was found in the prefetch buffer
-    WatchRequested,
-    // This indicates that a watched line was found when the cache heirarchy
+    WatchRedundant,
+    // This indicates that a watched line was found when the cache hierarchy
     // was probed
-    WatchRemoved,
+    WatchRequested,
     // This indicates that a watched line is no longer tracked because of a
     // snoop or a write to the line
-    WatchReplaced
+    WatchRemoved,
     // This indicates that a watched line was dropped from the watch list
     // because of a replacement
+    WatchReplaced
   };
 
   PrefetchMessageType type() const {
