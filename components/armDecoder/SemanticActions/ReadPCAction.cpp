@@ -68,7 +68,7 @@ namespace narmDecoder {
 
 using namespace nuArchARM;
 
-static const bits kAM = 0x8;
+  // static const bits kAM = 0x8;
 
 struct ReadPCAction : public PredicatedSemanticAction {
   eOperandCode theResult;
