@@ -507,7 +507,7 @@ bool NetContainer::handleTopology(istream &infile, NetContainer *nc) {
   if (!(fromSwitch && toSwitch)) {
 
     if (fromSwitch) {
-      assert(!toSwitch);
+      nc_assert(!toSwitch);
       cerr << "Attaching node ";
       if (attachNodeChannels(nc, node[1]))
         return true;
@@ -520,7 +520,7 @@ bool NetContainer::handleTopology(istream &infile, NetContainer *nc) {
         return true;
 
     } else {
-      assert(toSwitch);
+      nc_assert(toSwitch);
       cerr << "Attaching node ";
       if (attachNodeChannels(nc, node[0]))
         return true;
@@ -775,7 +775,7 @@ bool NetContainer::insertMessage(MessageState *msg) {
 }
 
 bool NetContainer::deliverMessage(MessageState *msg) {
-  assert(msg->myList != nullptr);
+  nc_assert(msg->myList != nullptr);
 
   // Deliver the message to the flexus node
   if (deliverMessagePtr(msg)) {
@@ -799,7 +799,7 @@ bool NetContainer::deliverMessage(MessageState *msg) {
   activeMessages--;
 
   if (activeMessages == 0) {
-    assert(mslHead == nullptr && mslTail == nullptr);
+    nc_assert(mslHead == nullptr && mslTail == nullptr);
   }
 
   // Clean up the message

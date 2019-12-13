@@ -66,7 +66,7 @@ public:
   virtual bool removeMessage(const int32_t vc, MessageState *&msg);
 
   inline bool peekMessage(const int32_t vc, MessageState *&msg) {
-    assert(vc >= 0 && vc < MAX_VC);
+    nc_assert(vc >= 0 && vc < MAX_VC);
     if (mslHead[vc]) {
       msg = mslHead[vc]->msg;
       return false;
@@ -91,12 +91,12 @@ public:
   // Note that for messages in a delay buffer, the count
   // may be non-zero, but the message is not yet available.
   inline bool hasMessage(const int32_t vc) {
-    assert(vc >= 0 && vc < MAX_VC);
+    nc_assert(vc >= 0 && vc < MAX_VC);
     return (mslHead[vc] != nullptr);
   }
 
   inline bool hasBufferSpace(const int32_t vc) {
-    assert(vc >= 0 && vc < MAX_VC);
+    nc_assert(vc >= 0 && vc < MAX_VC);
     return (buffersUsed[vc] < bufferCount[vc]);
   }
 

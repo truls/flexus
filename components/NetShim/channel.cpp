@@ -60,7 +60,7 @@ ChannelPort::ChannelPort(const int32_t bufferCount_) {
 
   channel = nullptr;
 
-  assert(bufferCount_ > 0);
+  nc_assert(bufferCount_ > 0);
 
   for (i = 0; i < MAX_VC; i++) {
     mslHead[i] = mslTail[i] = nullptr;
@@ -73,7 +73,7 @@ bool ChannelPort::insertMessageHelper(MessageState *msg) {
 
   msl = allocMessageStateList(msg);
 
-  assert(msg->networkVC >= 0 && msg->networkVC < MAX_VC);
+  nc_assert(msg->networkVC >= 0 && msg->networkVC < MAX_VC);
   if (mslHead[msg->networkVC] == nullptr) {
     mslHead[msg->networkVC] = mslTail[msg->networkVC] = msl;
 
@@ -91,11 +91,11 @@ bool ChannelPort::insertMessageHelper(MessageState *msg) {
 bool ChannelPort::removeMessage(const int32_t vc, MessageState *&msg) {
   MessageStateList *msl;
 
-  assert(vc >= 0 && vc < MAX_VC);
+  nc_assert(vc >= 0 && vc < MAX_VC);
 
   msl = mslHead[vc];
 
-  assert(msl != nullptr);
+  nc_assert(msl != nullptr);
 
   msg = msl->msg;
 
@@ -147,7 +147,7 @@ ChannelInputPort::ChannelInputPort(const int32_t bufferCount_, const int32_t cha
 bool ChannelInputPort::insertMessage(MessageState *msg) {
   MessageStateList *msl;
 
-  assert(buffersUsed[msg->networkVC] < bufferCount[msg->networkVC]);
+  nc_assert(buffersUsed[msg->networkVC] < bufferCount[msg->networkVC]);
 
   buffersUsed[msg->networkVC]++;
 
@@ -218,7 +218,7 @@ ChannelOutputPort::ChannelOutputPort(const int32_t bufferCount_) : ChannelPort(b
 }
 
 bool ChannelOutputPort::insertMessage(MessageState *msg) {
-  assert(hasBufferSpace(msg->networkVC));
+  nc_assert(hasBufferSpace(msg->networkVC));
   msg->bufferTime -= currTime;
 
   if (buffersUsed[msg->networkVC] == 0)
@@ -263,7 +263,7 @@ bool Channel::drive(void) {
   switch (state) {
 
   case CS_IDLE: {
-    assert(busy <= 0);
+    nc_assert(busy <= 0);
 
     if (messagesWaiting > 0) {
       state = CS_WAIT_FOR_ACCEPT;
@@ -277,8 +277,8 @@ bool Channel::drive(void) {
     // Check the output port for available buffers
     // We give priority to the lowest numbered network
     // virtual channels
-    assert(busy <= 0);
-    assert(messagesWaiting > 0);
+    nc_assert(busy <= 0);
+    nc_assert(messagesWaiting > 0);
 
     for (i = 0; i < MAX_VC; i++) {
       MessageState *msg;
@@ -330,7 +330,7 @@ bool Channel::drive(void) {
   } break;
 
   default:
-    assert(0);
+    nc_assert(0);
     break;
   }
 

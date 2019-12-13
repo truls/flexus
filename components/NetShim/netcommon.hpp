@@ -46,11 +46,11 @@
 #ifdef NS_STANDALONE
 
 #include <assert.h>
+#define nc_assert assert
 
 #else
 
-#undef assert
-#define assert DBG_Assert
+#define nc_assert DBG_Assert
 
 #include <core/debug/debug.hpp>
 
