@@ -97,7 +97,8 @@ bool NetContainer::buildNetwork(const char *filename) {
 
   if (!infile.good()) {
     std::cerr << "NetShim: error opening configuration/topology file: \"" << filename
-              << "\".  Bailing out!" << endl;
+             << "\".  Bailing out!" << endl
+             << "Error " << errno << ": " << strerror(errno) << endl;
     return true;
   }
 
